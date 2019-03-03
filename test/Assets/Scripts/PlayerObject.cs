@@ -29,6 +29,9 @@ public class PlayerObject : NetworkBehaviour
     [Command]
     void CmdSpawnMyUnit() {
         GameObject ob = Instantiate(PlayerUnitPrefab);
-        NetworkServer.Spawn(ob);
+        //ob.GetComponent<NetworkIdentity>().AssignClientAuthority(connectionToClient);
+        //Tells the clients aboit the spawn object
+        NetworkServer.SpawnWithClientAuthority(ob, connectionToClient);
+
     }
 }
