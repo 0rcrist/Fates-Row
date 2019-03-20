@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 7367592309116138620}
   - component: {fileID: 8715879818973557082}
   m_Layer: 0
-  m_Name: Graphics
+  m_Name: Graphic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -149,12 +149,13 @@ GameObject:
   m_Component:
   - component: {fileID: 6456098959163767899}
   - component: {fileID: 4728666535537810723}
-  - component: {fileID: 29411794020101594}
   - component: {fileID: 8368177228884738965}
   - component: {fileID: 3537101608139568420}
   - component: {fileID: 6120847735440399820}
   - component: {fileID: 1129198398608341820}
   - component: {fileID: 1610462027632160925}
+  - component: {fileID: 6541942483047741415}
+  - component: {fileID: 321361678517935456}
   m_Layer: 0
   m_Name: PlayerUnit
   m_TagString: Untagged
@@ -169,7 +170,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9050967286065467561}
-  m_LocalRotation: {x: -0.00009057446, y: -0.031860158, z: -0.002841421, w: 0.9994883}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.207233, y: -0.167088, z: 0.021177486}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -178,7 +179,7 @@ Transform:
   - {fileID: 7367592309116138620}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -0.021000002, y: -3.6510003, z: -0.32500002}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4728666535537810723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,28 +213,6 @@ MonoBehaviour:
     i15: 0
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
---- !u!114 &29411794020101594
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9050967286065467561}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TransformSyncMode: 1
-  m_SendInterval: 0.06666667
-  m_SyncRotationAxis: 7
-  m_RotationSyncCompression: 0
-  m_SyncSpin: 0
-  m_MovementTheshold: 0
-  m_VelocityThreshold: 0
-  m_SnapThreshold: 5
-  m_InterpolateRotation: 1
-  m_InterpolateMovement: 1
 --- !u!114 &8368177228884738965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -286,6 +265,7 @@ MonoBehaviour:
   m_GroundCheck: {fileID: 182291898917127291}
   m_CeilingCheck: {fileID: 8311787520129769546}
   m_CrouchDisableCollider: {fileID: 0}
+  Graphic: {fileID: 7367592309116138620}
   OnLandEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -314,9 +294,9 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 0.33, y: 0.32}
-    newSize: {x: 5, y: 5}
+    newSize: {x: 0.33, y: 0.32}
     adaptiveTilingThreshold: 0.5
-    drawMode: 1
+    drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
@@ -343,3 +323,45 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &6541942483047741415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9050967286065467561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 2
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 3
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 10
+  m_InterpolateMovement: 1
+--- !u!114 &321361678517935456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9050967286065467561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1267208747, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Target: {fileID: 7367592309116138620}
+  m_ChildIndex: 0
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_MovementThreshold: 0.001
+  m_InterpolateRotation: 0.5
+  m_InterpolateMovement: 0.5
