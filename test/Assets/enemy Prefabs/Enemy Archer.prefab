@@ -345,6 +345,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20e48caab65608b4aa3c5c1094ffbafc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isMage: 0
+  thefireball: {fileID: 7212961054137152886, guid: 0f15424541d21a344bff46f321414f44,
+    type: 3}
   theArrow: {fileID: 8549141831328388072, guid: 9851bbe7699bd824fb7ceaef488df124,
     type: 3}
   gasArrow: 0

@@ -5,7 +5,11 @@ using UnityEngine;
 
 public class Archer : MonoBehaviour
 {
-
+    [SerializeField] bool isMage = false;
+    [SerializeField] FireBall thefireball;
+    [SerializeField] bool straightBall = false;
+    [SerializeField] bool curvyBall = false;
+    [SerializeField] bool acceleratingBall = false;
     bool canSeePlayer = false;
     [Header("*To change arrow speed go to arrow prefab*")]
     [SerializeField] Arrow theArrow;
@@ -70,7 +74,14 @@ public class Archer : MonoBehaviour
         if(!shootingisrunning)
         {
             shootingisrunning = true;
-            StartCoroutine(Shooting());
+            if(isMage)
+            {
+                StartCoroutine(ShootingMage());
+            }
+            else
+            {
+                StartCoroutine(Shooting());
+            }
         }
     }
 
@@ -102,7 +113,26 @@ public class Archer : MonoBehaviour
         shootingisrunning = false;
 
     }
-   
+    IEnumerator ShootingMage()
+    {
+        yield return new WaitForSeconds(chargeUpTime);
+        FireBall fireball = Instantiate(thefireball, transform.position, Quaternion.identity) as FireBall;
+        if(straightBall)
+        {
+            fireball.setStraight();
+        }
+        if(curvyBall)
+        {
+            fireball.setCurvy();
+        }
+        if(acceleratingBall)
+        {
+            fireball.setAccelerating();
+        }
+        yield return new WaitForSeconds(shootSpeed);
+        shootingisrunning = false;
+
+    }
     public void SeesPlayer(bool x)
     {
         canSeePlayer = x;
