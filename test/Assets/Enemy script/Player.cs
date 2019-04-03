@@ -70,6 +70,7 @@ public class Player : MonoBehaviour
     private void Run()
     {
         float playerXInput = Input.GetAxis("Horizontal");
+        Debug.Log("horizontal");
         if(playerXInput == 0)
         {
             myAnimator.SetBool("Running", false);
