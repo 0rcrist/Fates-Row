@@ -14581,17 +14581,17 @@ PrefabInstance:
     - target: {fileID: 2763662440498187522, guid: d1b8575a7c75e874d9b8f7ef3c11750c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11.358947
+      value: -3.8
       objectReference: {fileID: 0}
     - target: {fileID: 2763662440498187522, guid: d1b8575a7c75e874d9b8f7ef3c11750c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.4
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 2763662440498187522, guid: d1b8575a7c75e874d9b8f7ef3c11750c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2763662440493727911, guid: d1b8575a7c75e874d9b8f7ef3c11750c,
         type: 3}
@@ -14621,7 +14621,7 @@ PrefabInstance:
     - target: {fileID: 2763662440498187521, guid: d1b8575a7c75e874d9b8f7ef3c11750c,
         type: 3}
       propertyPath: orthographic size
-      value: 6.8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2763662439186404603, guid: d1b8575a7c75e874d9b8f7ef3c11750c,
         type: 3}
@@ -14858,12 +14858,12 @@ PrefabInstance:
     - target: {fileID: 238784554683716034, guid: 67c07f814f010044db99caf1d8f61c06,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.6577854
+      value: 8.3
       objectReference: {fileID: 0}
     - target: {fileID: 238784554683716034, guid: 67c07f814f010044db99caf1d8f61c06,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.76
+      value: 1.3
       objectReference: {fileID: 0}
     - target: {fileID: 238784554683716034, guid: 67c07f814f010044db99caf1d8f61c06,
         type: 3}
@@ -14924,6 +14924,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.x
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1485412761, guid: 67c07f814f010044db99caf1d8f61c06, type: 3}
+      propertyPath: fireBallMoveSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1485412761, guid: 67c07f814f010044db99caf1d8f61c06, type: 3}
+      propertyPath: acceleratingBall
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1485412761, guid: 67c07f814f010044db99caf1d8f61c06, type: 3}
+      propertyPath: fireBallShootSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1485412761, guid: 67c07f814f010044db99caf1d8f61c06, type: 3}
+      propertyPath: curvyBall
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1485412761, guid: 67c07f814f010044db99caf1d8f61c06, type: 3}
+      propertyPath: straightBall
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67c07f814f010044db99caf1d8f61c06, type: 3}

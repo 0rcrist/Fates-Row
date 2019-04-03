@@ -59,6 +59,10 @@ public class Arrow : MonoBehaviour
         //no matter where u r it will get to you in x seconds, and that will determine x and y velocity
         if (Mathf.Abs(playerX - arrowX) > Mathf.Abs(playerY - arrowY))
         {
+            //calculates time needed to get to distance. movespeed is 10 so 10 units a second if distance is 20 it would take 2 seconds so t is 2
+            //equation x = x0 + v0t + 0 (no acceleration on x)
+            //equation y = y0 + v0t  .5at^2 (a is gravity)
+
             float xtime = Mathf.Abs(playerX - arrowX) / moveSpeed;
             velX = (playerX - arrowX) / xtime;
             velY = (playerY - arrowY + (4.9f * Mathf.Pow(xtime, 2))) / xtime;
