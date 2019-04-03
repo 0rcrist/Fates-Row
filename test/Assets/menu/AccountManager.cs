@@ -1,0 +1,114 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using DatabaseControl;
+using UnityEngine.SceneManagement;
+
+public class AccountManager : MonoBehaviour
+{
+
+    public static AccountManager instance;
+
+    void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+        DontDestroyOnLoad(this);
+    }
+
+    public static string LoggedInUserName { get; protected set; }
+    private static string LoggedInUserPassword = "";
+
+    public static string LoggedInData { get; protected set; }
+
+    public static bool isLoggedIn;
+
+    public string loggedInSceneName = "SampleScene";
+    public string loggedOutSceneName = "Login";
+
+    public void LogOut()
+    {
+        LoggedInUserName = "";
+        LoggedInUserPassword = "";
+        isLoggedIn = false;
+        SceneManager.LoadScene(loggedOutSceneName);
+        Debug.Log("Logged Out");
+    }
+    public void LogIn(string userName, string password)
+    {
+        LoggedInUserName = userName;
+        LoggedInUserPassword = password;
+        isLoggedIn = true;
+        SceneManager.LoadScene(loggedInSceneName);
+        Debug.Log("Logged in as " + LoggedInUserName);
+    }
+
+    public void SendData(string data)
+    {
+        if (isLoggedIn)
+        {
+            StartCoroutine(SendNeededData(data));
+        }
+
+    }
+    public void LoggedIn_LoadDataButtonPressed()
+    {
+
+        if (isLoggedIn)
+        {
+            StartCoroutine(GetData());
+        }
+    }
+
+    IEnumerator GetData()
+    {
+        string data = "Error";
+
+        IEnumerator e = DCF.GetUserData(LoggedInUserName, LoggedInUserPassword); // << Send request to get the player's data string. Provides the username and password
+        while (e.MoveNext())
+        {
+            yield return e.Current;
+        }
+        string response = e.Current as string; // << The returned string from the request
+
+
+
+        if (response == "Error")
+        {
+            //There was another error. Automatically logs player out. This error message should never appear, but is here just in case.
+            Debug.Log("Fuck sake");
+        }
+        else
+        {
+            string DataRecieved = response;
+            data = DataRecieved;
+        }
+
+        LoggedInData = data;
+    }
+    IEnumerator SendNeededData(string dataNeeded)
+    {
+        IEnumerator e = DCF.SetUserData(LoggedInUserName, LoggedInUserPassword, dataNeeded); // << Send request to set the player's data string. Provides the username, password and new data string
+        while (e.MoveNext())
+        {
+            yield return e.Current;
+        }
+        string response = e.Current as string; // << The returned string from the request
+
+        if (response == "Success")
+        {
+            //The data string was set correctly. Goes back to LoggedIn UI
+            //            loggedInParent.gameObject.SetActive(true);
+        }
+        else
+        {
+            //There was another error. Automatically logs player out. This error message should never appear, but is here just in case.
+
+        }
+    }
+}
+
