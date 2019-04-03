@@ -10,6 +10,7 @@ public class PlayerSetup : NetworkBehaviour
     Behaviour[] componentsToDisable;
     [SerializeField]
     public GameObject PlayerUi;
+    private GameObject Can;
 
     // Start is called before the first frame update
     void Start()
@@ -22,12 +23,18 @@ public class PlayerSetup : NetworkBehaviour
             }
         }
         else {
-            GameObject Can = Instantiate(PlayerUi);
+            Can = Instantiate(PlayerUi);
             GetComponent<PlayerUnit>().joy = Can.GetComponentInChildren<FixedJoystick>();
             Can.GetComponentInChildren<Button>().onClick.AddListener(GetComponent<PlayerUnit>().isJumping);
         }
 }
 
-   
-    
+    private void OnDestroy()
+    {
+        if (isLocalPlayer) {
+            Destroy(Can);
+        }
+
+    }
+
 }
