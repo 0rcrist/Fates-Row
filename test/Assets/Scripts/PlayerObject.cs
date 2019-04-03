@@ -5,6 +5,7 @@ using UnityEngine.Networking;
 
 public class PlayerObject : NetworkBehaviour
 {
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,16 +23,18 @@ public class PlayerObject : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     //Commands are functions that run on the server
     [Command]
-    void CmdSpawnMyUnit() {
-        GameObject ob = Instantiate(PlayerUnitPrefab);
+    void CmdSpawnMyUnit()
+    {
+        GameObject ob = Instantiate(PlayerUnitPrefab);//change for specific class
         //ob.GetComponent<NetworkIdentity>().AssignClientAuthority(connectionToClient);
         //Tells the clients aboit the spawn object
         NetworkServer.SpawnWithClientAuthority(ob, connectionToClient);
 
     }
+
 }
