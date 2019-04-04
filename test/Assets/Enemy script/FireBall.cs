@@ -7,7 +7,14 @@ public class FireBall : MonoBehaviour
 {
     [SerializeField] bool curvycosine = false;
     [SerializeField] bool curvydefault = false;
+    Rigidbody2D myRigidBody;
 
+    //types of ball paths
+    bool straight = false;
+    bool curvy = false;
+    bool accelerating = false;
+
+    //general stuff
     float moveSpeed = 10f;
     int DeathCounter = 0;
     float velX;
@@ -16,15 +23,20 @@ public class FireBall : MonoBehaviour
     float playerY;
     float BallX;
     float BallY;
-    bool straight = false;
-    bool curvy = false;
+
+    //curvy cosine
+    float desiredRadius = 1f;
+    float actualMagnitude;
+    float delaytime = 1f;
+    bool invokeOnce = true;
+
+    //circle stuff
     float radius;
     bool thetalower = true;
     float theta = 0;
     float originaltheta = 0;
-    bool accelerating = false;
-    //straight fireball, curvy fireball, accelerating fireball,
-    Rigidbody2D myRigidBody;
+  
+
     // Start is called before the first frame update
     void Start()
     {
@@ -55,7 +67,34 @@ public class FireBall : MonoBehaviour
             }
             myRigidBody.velocity = new Vector2(velX, velY);
         }
-        if (curvy)
+        if(curvycosine)
+        {
+            if (Mathf.Abs(playerX - BallX) > Mathf.Abs(playerY - BallY))
+            {
+                float xtime = Mathf.Abs(playerX - BallX) / moveSpeed;
+                velX = (playerX - BallX) / xtime;
+                velY = (playerY - BallY) / xtime;
+            }
+            else
+            {
+                float ytime = Mathf.Abs(playerY - BallY) / moveSpeed;
+                velY = (playerY - BallY) / ytime;
+                velX = (playerX - BallX) / ytime;
+            }
+            radius = Mathf.Sqrt(Mathf.Pow(velX, 2) + Mathf.Pow(velY, 2));
+
+            theta = Mathf.Acos(velX / (Mathf.Sqrt(Mathf.Pow(velX, 2) + Mathf.Pow(velY, 2))));
+            theta = (theta * 180) / Mathf.PI;
+            if (velY < 0)
+            {
+                theta = (180 - theta) + 180;
+            }
+            originaltheta = theta;
+            myRigidBody.velocity = new Vector2(velX, velY);
+            actualMagnitude = Mathf.Sqrt(Mathf.Pow(velX, 2) + Mathf.Pow(velY, 2));
+            delaytime = desiredRadius / actualMagnitude;
+        }
+        if (curvydefault)
         {
             if (Mathf.Abs(playerX - BallX) > Mathf.Abs(playerY - BallY))
             {
@@ -88,7 +127,6 @@ public class FireBall : MonoBehaviour
             }
             originaltheta = theta;
             myRigidBody.velocity = new Vector2(velX, velY);
-            //dont do anything right away
         }
         if (accelerating)
         {
@@ -103,10 +141,22 @@ public class FireBall : MonoBehaviour
         {
             //nothing to do continuously
         }
-        if (curvy)
+        else if(curvycosine)
+        {
+            if(invokeOnce)
+            {
+                //delay time is our desired magnitude (radius) divided by actual magnitude (radius) d/a, if bigger actual than smaller time interval because its going faster vice versa
+                //if our desired is 2 and we get 4 then our speed is doubled so we have to cut delaytime in half
+                //we base this around frametime so if its our desired it goes once per frame if its double it goes twice per frame if its half it goes once per two frames
+                InvokeRepeating("CurvyCosine", .01f, Time.deltaTime * delaytime);
+                invokeOnce = false;
+            }
+        }
+        else if(curvydefault)
         {
             Curve();
         }
+
         if (accelerating)
         {
 
@@ -118,63 +168,60 @@ public class FireBall : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    private void Curve()
+    
+    private void CurvyCosine()
     {
-        //another derivative is -x/sqrt(1-x^2)
-        //x^2 + y^2 = r^2         derivative is dy/dx = -x/y
-
         velX = radius * Mathf.Cos((Mathf.PI * theta) / 180);
         velY = radius * Mathf.Sin((Mathf.PI * theta) / 180);
         myRigidBody.velocity = new Vector2(velX, velY);
-        Debug.Log(theta);
-        if (curvycosine)
-        {
-            if (thetalower)
-            {
-                theta--;
-                if (theta < originaltheta - 45)
-                {
-                    thetalower = false;
-                    // theta = 0;
-                }
-            }
-            else
-            {
-                theta++;
-                if (theta > originaltheta + 60)
-                {
-                    thetalower = true;
-                    // theta = 0;
-                }
-            }
-        }
-        else if (curvydefault)
-        {
-            if (thetalower)
-            {
-                theta--;
-                if (theta < originaltheta - 45)
-                {
-                    thetalower = false;
-                    theta = originaltheta;
-                }
-            }
-            else
-            {
-                theta++;
-                if (theta > originaltheta + 60)
-                {
-                    thetalower = true;
-                    theta = originaltheta;
-                }
-            }
-        }
 
+        if (thetalower)
+        {
+            theta--;
+            if (theta < originaltheta - 45)
+            {
+                thetalower = false;
+            }
+        }
+        else
+        {
+            theta++;
+            if (theta > originaltheta + 60)
+            {
+                thetalower = true;
+            }
+        }
+    }
+    private void Curve()
+    {
+        velX = radius * Mathf.Cos((Mathf.PI * theta) / 180);
+        velY = radius * Mathf.Sin((Mathf.PI * theta) / 180);
+        myRigidBody.velocity = new Vector2(velX, velY);
+     
+        if (thetalower)
+        {
+            theta--;
+            if (theta < originaltheta - 45)
+            {
+                thetalower = false;
+                theta = originaltheta;
+            }
+        }
+        else
+        {
+            theta++;
+            if (theta > originaltheta + 60)
+            {
+                thetalower = true;
+                theta = originaltheta;
+            }
+        }
     }
 
-
-
+    public void setDesiredRadius(float x)
+    {
+        desiredRadius = x;
+    }
     public void setMoveSpeed(float ms)
     {
         moveSpeed = ms;

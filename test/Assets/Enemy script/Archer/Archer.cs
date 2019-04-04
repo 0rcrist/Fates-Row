@@ -10,9 +10,12 @@ public class Archer : MonoBehaviour
     [SerializeField] float fireBallMoveSpeed = 10f;
     [SerializeField] float fireBallShootSpeed = 1f;
     [SerializeField] float FireBallChargeUpTime = 1f;
-    [SerializeField] bool straightBall = false;
-    [SerializeField] bool curvyBall = false;
-    [SerializeField] bool acceleratingBall = false;
+    [Header("IF curvycosine")]
+    [SerializeField] float desiredRadius = 5f;
+
+   // [SerializeField] bool straightBall = false;
+   // [SerializeField] bool curvyBall = false;
+   // [SerializeField] bool acceleratingBall = false;
     bool canSeePlayer = false;
     [Header("*To change arrow speed go to arrow prefab*")]
     [SerializeField] Arrow theArrow;
@@ -121,18 +124,8 @@ public class Archer : MonoBehaviour
         yield return new WaitForSeconds(FireBallChargeUpTime);
         FireBall fireball = Instantiate(thefireball, transform.position, Quaternion.identity) as FireBall;
         fireball.setMoveSpeed(fireBallMoveSpeed);
-        if (straightBall)
-        {
-            fireball.setStraight();
-        }
-        if (curvyBall)
-        {
-            fireball.setCurvy();
-        }
-        if (acceleratingBall)
-        {
-            fireball.setAccelerating();
-        }
+        fireball.setDesiredRadius(desiredRadius);
+       
         yield return new WaitForSeconds(fireBallShootSpeed);
         shootingisrunning = false;
 

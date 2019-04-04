@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8549141831328388073}
   - component: {fileID: 2550860359241732559}
   m_Layer: 14
-  m_Name: FireBall
+  m_Name: curvycosine Fireball 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
