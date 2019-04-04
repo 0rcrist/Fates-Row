@@ -70,7 +70,6 @@ public class Player : MonoBehaviour
     private void Run()
     {
         float playerXInput = Input.GetAxis("Horizontal");
-        Debug.Log("horizontal");
         if(playerXInput == 0)
         {
             myAnimator.SetBool("Running", false);
@@ -88,11 +87,11 @@ public class Player : MonoBehaviour
     {
        if(xDir > 0)
         {
-            transform.localScale = new Vector2(1f, 1f);
+            transform.localScale = new Vector2(8, 8f);
         }
         else
         {
-            transform.localScale = new Vector2(-1f, 1f);
+            transform.localScale = new Vector2(-8f, 8f);
         }
     }
 }
