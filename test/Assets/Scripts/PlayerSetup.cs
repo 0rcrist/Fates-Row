@@ -11,10 +11,12 @@ public class PlayerSetup : NetworkBehaviour
     [SerializeField]
     public GameObject PlayerUi;
     private GameObject Can;
+    private Camera Cam;
 
     // Start is called before the first frame update
     void Start()
     {
+        DontDestroyOnLoad(this.gameObject);
         if (!isLocalPlayer)
         {
             for (int i = 0; i < componentsToDisable.Length; i++)
@@ -24,8 +26,10 @@ public class PlayerSetup : NetworkBehaviour
         }
         else {
             Can = Instantiate(PlayerUi);
+            DontDestroyOnLoad(Can);
             GetComponent<PlayerUnit>().joy = Can.GetComponentInChildren<FixedJoystick>();
             Can.GetComponentInChildren<Button>().onClick.AddListener(GetComponent<PlayerUnit>().isJumping);
+            NewScene();
         }
 }
 
@@ -33,8 +37,15 @@ public class PlayerSetup : NetworkBehaviour
     {
         if (isLocalPlayer) {
             Destroy(Can);
+            if(Cam != null)
+                 Cam.enabled = true;
         }
 
+    }
+
+    public void NewScene() {
+        Cam = GameObject.Find("MainCamera").GetComponent<Camera>();
+        Cam.enabled = false;
     }
 
 }
