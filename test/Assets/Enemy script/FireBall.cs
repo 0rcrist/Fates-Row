@@ -7,10 +7,13 @@ public class FireBall : MonoBehaviour
 {
     [SerializeField] bool curvycosine = false;
     [SerializeField] bool curvydefault = false;
+    [SerializeField] bool straight = false;
+    [SerializeField] bool givenvelocity = false;
+    [SerializeField] bool givenvelocitynogravity = false;
+    [SerializeField] bool immobilecosine = false;
     Rigidbody2D myRigidBody;
 
     //types of ball paths
-    bool straight = false;
     bool curvy = false;
     bool accelerating = false;
 
@@ -35,7 +38,9 @@ public class FireBall : MonoBehaviour
     bool thetalower = true;
     float theta = 0;
     float originaltheta = 0;
-  
+    //no gravity ball
+    float theoffset = 1f;
+    float initialY;
 
     // Start is called before the first frame update
     void Start()
@@ -128,6 +133,30 @@ public class FireBall : MonoBehaviour
             originaltheta = theta;
             myRigidBody.velocity = new Vector2(velX, velY);
         }
+        if(givenvelocity)
+        {
+            //velocity should be given through public function by whatever spawned this
+            initialY = transform.position.y;
+            myRigidBody.velocity = new Vector2(velX, velY);
+        }
+        if(immobilecosine)
+        {
+            if (Mathf.Abs(playerX - BallX) > Mathf.Abs(playerY - BallY))
+            {
+                float xtime = Mathf.Abs(playerX - BallX) / moveSpeed;
+                velX = (playerX - BallX) / xtime;
+                velY = (playerY - BallY) / xtime;
+            }
+            else
+            {
+                float ytime = Mathf.Abs(playerY - BallY) / moveSpeed;
+                velY = (playerY - BallY) / ytime;
+                velX = (playerX - BallX) / ytime;
+            }
+            radius = 5f;
+            theta = 0;
+            myRigidBody.velocity = new Vector2(velX, velY);
+        }
         if (accelerating)
         {
             //dont do anything right away
@@ -156,7 +185,35 @@ public class FireBall : MonoBehaviour
         {
             Curve();
         }
-
+        else if(givenvelocity)
+        {
+            if(givenvelocitynogravity)//specific to the ball for the lava boss
+            {
+                if (Mathf.Sign(theoffset) == 1)
+                {
+                    if (transform.position.y < initialY + theoffset)
+                    {
+                        transform.position = new Vector2(transform.position.x, transform.position.y + .2f);
+                    }
+                }
+                else
+                {
+                    if (transform.position.y > initialY + theoffset)
+                    {
+                        transform.position = new Vector2(transform.position.x, transform.position.y - .2f);
+                    }
+                }
+                DeathCounter++;
+            }
+           
+        }
+        else if(immobilecosine)
+        {
+            radius = 8f;
+            velY = -radius*Mathf.Sin((Mathf.PI * theta) / 180);
+            myRigidBody.velocity = new Vector2(velX, velY);
+            theta += 5;
+        }
         if (accelerating)
         {
 
@@ -218,6 +275,11 @@ public class FireBall : MonoBehaviour
         }
     }
 
+    public void setVelocity(float x, float y)
+    {
+        velX = x;
+        velY = y;
+    }
     public void setDesiredRadius(float x)
     {
         desiredRadius = x;
@@ -237,5 +299,20 @@ public class FireBall : MonoBehaviour
     public void setAccelerating()
     {
         accelerating = true;
+    }
+    public void setthetalower(int x)
+    {
+        if(x == 0)
+        {
+            thetalower = false;
+        }
+        else
+        {
+            thetalower = true;
+        }
+    }
+    public void setoffest(float x)
+    {
+        theoffset = x;
     }
 }

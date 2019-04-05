@@ -80,6 +80,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   roamRange: 7
+  theGroundFire: {fileID: 272971909024695214, guid: 707d65147018d9744b303d46c2d37209,
+    type: 3}
+  groundfireMoveSpeed: 10
+  velocitygivenBall: {fileID: 7212961054137152886, guid: 213254e0204598b43b44181c7559f791,
+    type: 3}
+  nogravityBall: {fileID: 7212961054137152886, guid: 75de884d4ff0c3d4b83b6dd829e1ac0b,
+    type: 3}
+  cosineBall: {fileID: 7212961054137152886, guid: b3c2f4c9b53dc9c4a8ab5bcb222f7c2d,
+    type: 3}
+  immobileBall: {fileID: 7212961054137152886, guid: 4c82d71a84b02eb4d804704fb0e4cded,
+    type: 3}
+  straightball: {fileID: 7212961054137152886, guid: 0f15424541d21a344bff46f321414f44,
+    type: 3}
 --- !u!61 &4826531538653395997
 BoxCollider2D:
   m_ObjectHideFlags: 0
