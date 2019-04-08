@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3504282146153642352}
   - component: {fileID: 3504282146153642353}
   - component: {fileID: 3504282146153642350}
+  - component: {fileID: 1027333525278383495}
   m_Layer: 0
   m_Name: CampFireFinished_0
   m_TagString: Untagged
@@ -115,3 +116,16 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &1027333525278383495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3504282146153642351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9090acf8bcd21248ac4187a2bf45507, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: 
