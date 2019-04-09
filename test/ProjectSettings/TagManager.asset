@@ -41,11 +41,11 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Land
-    uniqueID: 255351011
-    locked: 0
   - name: Background
     uniqueID: 1278758755
+    locked: 0
+  - name: Land
+    uniqueID: 255351011
     locked: 0
   - name: BackgroundTile
     uniqueID: 2691922681
