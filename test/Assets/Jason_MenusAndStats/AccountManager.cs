@@ -1,4 +1,11 @@
-﻿using System.Collections;
+﻿//Jason Johansson
+/*
+ * Modified version from Brackeys
+ * on Youtube. Some fuctions from DCF's
+ * provided script to access server.
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DatabaseControl;
@@ -11,13 +18,14 @@ public class AccountManager : MonoBehaviour
 
     void Awake()
     {
-        if (instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        instance = this;
         DontDestroyOnLoad(this);
+
+        //if (instance != null)
+        //{
+       //    Destroy(gameObject);
+       //    return;
+      // }
+        instance = this;
     }
 
     public static string LoggedInUserName { get; protected set; }
@@ -46,7 +54,16 @@ public class AccountManager : MonoBehaviour
         SceneManager.LoadScene(loggedInSceneName);
         Debug.Log("Logged in as " + LoggedInUserName);
     }
-
+    public void AlreadyLoggedIn()
+    {
+        if (isLoggedIn)
+        {
+            Debug.Log("Already Logged In");
+            SceneManager.LoadScene("SampleScene");
+        }
+        else
+            Debug.Log("Not already logged in");
+    }
     public void SendData(string data)
     {
         if (isLoggedIn)
