@@ -98,7 +98,7 @@ MonoBehaviour:
   curvydefault: 0
   straight: 0
   givenvelocity: 1
-  givenvelocitygravity: 1
+  givenvelocitynogravity: 1
   immobilecosine: 0
 --- !u!61 &8549141831328388073
 BoxCollider2D:

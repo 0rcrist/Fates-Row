@@ -21,11 +21,15 @@ public class LavaBeast : MonoBehaviour
     bool lavagroundphase = true;
     bool burstattackphase = false;
     bool laserbeamphase = false;
+    bool flowattackphase = false;
     bool cosinephase = false;
     int switchphasecounter = 1;
 
     //cosine attack
     bool cosineattackagain = true;
+
+    //flow attack
+    bool flowattackagain = true;
 
     //laserbeam attack
     bool laserattackagain = true;
@@ -39,6 +43,7 @@ public class LavaBeast : MonoBehaviour
     bool flameground1 = false;
     bool flameground2 = true;
     bool attackAgain = true;
+    int fireballcountdelay = 0;
     float groundfiredelay = 1f;//.05 is good for compact line
 
     //burst attack
@@ -98,6 +103,14 @@ public class LavaBeast : MonoBehaviour
                 StartCoroutine(Cosineattack());
             }
         }
+        if(flowattackphase)
+        {
+            if(flowattackagain)
+            {
+                flowattackagain = false;
+                StartCoroutine(FlowAttack());
+            }
+        }
         if(laserbeamphase)
         {
             if (laserattackagain == true)
@@ -127,11 +140,11 @@ public class LavaBeast : MonoBehaviour
             if (phasecounter == 2)
             {
                 burstattackphase = false;
-                cosinephase = true;
+                flowattackphase = true;
             }
             if (phasecounter == 3)
             {
-                cosinephase = false;
+                flowattackphase = false;
                 laserbeamphase = true;
             }
             if (phasecounter == 4)
@@ -152,6 +165,58 @@ public class LavaBeast : MonoBehaviour
     {
         StartCoroutine(BurstSpawn());
     }
+    IEnumerator FlowAttack()
+    {
+        myAnimator.SetTrigger("jump");
+        yield return new WaitForSeconds(.8f);
+        //cool looking
+        /* FireBall ball = Instantiate(velocitygivenBall, transform.position, Quaternion.identity) as FireBall;
+            float x = -3 - i;
+            float y = 5 + 2*i;
+            ball.setVelocity(x, y);
+            yield return new WaitForSeconds(.1f);*/
+        bool left = true;
+        if (transform.localScale.x < 0)
+        {
+            left = true;
+        }
+        else
+        {
+            left = false;
+        }
+        for (int i = 0; i < 10; i++)
+        {
+            FireBall ball = Instantiate(velocitygivenBall, transform.position, Quaternion.identity) as FireBall;
+            float x;
+            if (left)
+            {
+                x = -20 + 2 * i;
+            }
+            else
+            {
+                x = 20 - 2 * i;
+            }
+            float y = 20 - 2*i;
+            ball.setVelocity(x, y);
+            if(left)
+            {
+                if (x > 0 || y < 0)
+                {
+                    break;
+                }
+            }
+            else
+            {
+                if (x < 0 || y < 0)
+                {
+                    break;
+                }
+            }
+            yield return new WaitForSeconds(.1f);
+        }
+        yield return new WaitForSeconds(1f);
+        flowattackagain = true;
+    }
     IEnumerator LaserBeamAttack()
     {
         laseroffset = Mathf.Abs(-laserradius * Mathf.Cos(((Mathf.PI * laserbeamangle) / 180) - Mathf.PI / 2)) + 2;//-cos(x-pi/2) + 2
@@ -162,7 +227,7 @@ public class LavaBeast : MonoBehaviour
         ball.setVelocity(-17f,0);
         ball.setoffest(-laseroffset);
         yield return new WaitForSeconds(.01f);//.01f
-        if(laserbeamangle > 180)
+        if (laserbeamangle > 180)
         {
             laserradius = Random.Range(1f, 6f);
             anglechange = Random.Range(4, 8);
@@ -217,10 +282,15 @@ public class LavaBeast : MonoBehaviour
     IEnumerator FireGround()
     {
         myAnimator.SetTrigger("skill_1");
-        FireBall ball = Instantiate(velocitygivenBall, transform.position, Quaternion.identity) as FireBall;
-        float x = Random.Range(-10f,-5f);//-10f,10f
-        float y = Random.Range(10f, 15f);//10f,15f
-        ball.setVelocity(x, y);
+        if(fireballcountdelay  % 5 == 0)
+        {
+            FireBall ball = Instantiate(velocitygivenBall, transform.position, Quaternion.identity) as FireBall;
+            float x = Random.Range(-15f, -8f);//-10f,10f
+            float y = Random.Range(15f, 20f);//10f,15f
+            ball.setVelocity(x, y);
+        }
+        fireballcountdelay++;
+
         flameground flame = Instantiate(theGroundFire, new Vector2(transform.position.x,transform.position.y + .3f), Quaternion.identity) as flameground;
         if(transform.localScale.x < 0)
         {

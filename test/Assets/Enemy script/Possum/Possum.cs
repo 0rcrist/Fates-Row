@@ -16,10 +16,12 @@ public class Possum : MonoBehaviour
     bool SeePlayer = false;
 
     Rigidbody2D myRigidbody;
-    Player thePlayer;
+    //PlayerUnit thePlayer;
     PolygonCollider2D feetCollider;
     CircleCollider2D frontCollider;
     CapsuleCollider2D wallswitchCollider;
+    GameObject[] Players;
+    bool getplayersonce = true;
 
 
     int framestilljumpagain = 0;//to fix double jump bug
@@ -29,11 +31,15 @@ public class Possum : MonoBehaviour
         isdirright = isdirright * -1;
     }
 
+    private void Awake()
+    {
+      
+    }
     // Start is called before the first frame update
     void Start()
-    {
+    {        
         myRigidbody = GetComponent<Rigidbody2D>();
-        thePlayer = FindObjectOfType<Player>();
+        //thePlayer = FindObjectOfType<PlayerUnit>();
         feetCollider = GetComponent<PolygonCollider2D>();
         frontCollider = GetComponent<CircleCollider2D>();
         wallswitchCollider = GetComponent<CapsuleCollider2D>();
@@ -42,28 +48,57 @@ public class Possum : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Flip();
-        DoesHeSeePlayer();
-        if(SeePlayer == true)
+        if (getplayersonce)
         {
-            Chase();
+            getplayers();
         }
         else
         {
-            Move();
-        }
-
-        if (framestilljumpagain > 0)
-        { framestilljumpagain++;
-            if (framestilljumpagain == 3)
-            { framestilljumpagain = 0;
+            Flip();
+            DoesHeSeePlayer();
+            if (SeePlayer == true)
+            {
+                Chase();
             }
-        } 
+            else
+            {
+                Move();
+            }
+
+            if (framestilljumpagain > 0)
+            {
+                framestilljumpagain++;
+                if (framestilljumpagain == 3)
+                {
+                    framestilljumpagain = 0;
+                }
+            }
+        }
     }
 
+    private void getplayers()
+    {
+        //int counter = 0;
+        Players = GameObject.FindGameObjectsWithTag("Player");
+        if(Players.Length == 0)
+        {
+            Debug.Log("empty");
+        }
+        else
+        {
+            getplayersonce = false;
+        }
+      /*  foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            Players[counter] = player;
+            counter++;
+            getplayersonce = false;
+            Debug.Log("player");
+        }*/
+    }
     private void DoesHeSeePlayer()
     {
-        float EnemyPlayerXDifference = transform.position.x - thePlayer.transform.position.x;
+        float EnemyPlayerXDifference = transform.position.x - Players[0].transform.position.x;
         if(Mathf.Abs(EnemyPlayerXDifference) < enemySeePlayerRange)
         {
             SeePlayer = true;
@@ -125,7 +160,7 @@ public class Possum : MonoBehaviour
 
     private bool IsPlayerInFront()
     {
-        float EnemyPlayerXDifference = transform.position.x - thePlayer.transform.position.x;
+        float EnemyPlayerXDifference = transform.position.x - Players[0].transform.position.x;
         if (EnemyPlayerXDifference < 0)//player is in front
         {
             return true;
