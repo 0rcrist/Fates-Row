@@ -1,0 +1,18 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class campfire : MonoBehaviour
+{
+	public string level;
+
+	// Use this for initialization
+	void OnTriggerEnter2D (Collider2D Colider)
+	{
+        Debug.Log("plz");
+        if (Colider.gameObject.tag == "Player")
+        {
+            Debug.Log("collision detected");
+            Application.LoadLevel(level);
+        }
+	}
+}
