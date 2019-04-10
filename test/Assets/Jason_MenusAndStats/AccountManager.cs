@@ -97,7 +97,7 @@ public class AccountManager : MonoBehaviour
         if (response == "Error")
         {
             //There was another error. Automatically logs player out. This error message should never appear, but is here just in case.
-            Debug.Log("Fuck sake");
+            Debug.Log("Login error");
         }
         else
         {
