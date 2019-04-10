@@ -11,6 +11,7 @@ public class Spawner : MonoBehaviour
         {
             player.transform.position = GameObject.Find("Spawner").transform.position;
         }
+        GameObject.Find("MainCamera").GetComponent<Camera>().enabled = false ;
     }
 
    
