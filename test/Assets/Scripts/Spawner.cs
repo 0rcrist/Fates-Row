@@ -10,8 +10,9 @@ public class Spawner : MonoBehaviour
         foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
         {
             player.transform.position = GameObject.Find("Spawner").transform.position;
+            player.GetComponent<PlayerSetup>().NewScene();
         }
-        GameObject.Find("MainCamera").GetComponent<Camera>().enabled = false ;
+        
     }
 
    
