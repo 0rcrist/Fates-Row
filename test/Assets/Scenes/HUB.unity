@@ -273,7 +273,7 @@ GameObject:
   m_Component:
   - component: {fileID: 281120649}
   - component: {fileID: 281120648}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -425,7 +425,7 @@ GameObject:
   m_Component:
   - component: {fileID: 936904742}
   - component: {fileID: 936904741}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: tree (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -494,6 +494,75 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1476977218
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4901871218490486419, guid: 7889210b08edf7345929d3c136105d2d,
+        type: 3}
+      propertyPath: m_Name
+      value: Enemy Possum
+      objectReference: {fileID: 0}
+    - target: {fileID: 4901871218490486412, guid: 7889210b08edf7345929d3c136105d2d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.4070859
+      objectReference: {fileID: 0}
+    - target: {fileID: 4901871218490486412, guid: 7889210b08edf7345929d3c136105d2d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.6765816
+      objectReference: {fileID: 0}
+    - target: {fileID: 4901871218490486412, guid: 7889210b08edf7345929d3c136105d2d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4901871218490486412, guid: 7889210b08edf7345929d3c136105d2d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4901871218490486412, guid: 7889210b08edf7345929d3c136105d2d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4901871218490486412, guid: 7889210b08edf7345929d3c136105d2d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4901871218490486412, guid: 7889210b08edf7345929d3c136105d2d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4901871218490486412, guid: 7889210b08edf7345929d3c136105d2d,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4901871218490486412, guid: 7889210b08edf7345929d3c136105d2d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4901871218490486412, guid: 7889210b08edf7345929d3c136105d2d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4901871218490486412, guid: 7889210b08edf7345929d3c136105d2d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7889210b08edf7345929d3c136105d2d, type: 3}
 --- !u!1 &1620064462
 GameObject:
   m_ObjectHideFlags: 0
@@ -603,7 +672,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1660014542}
   - component: {fileID: 1660014541}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: back (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -682,7 +751,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1785239998}
   - component: {fileID: 1785239997}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: tree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -762,7 +831,8 @@ GameObject:
   - component: {fileID: 1900720423}
   - component: {fileID: 1900720425}
   - component: {fileID: 1900720424}
-  m_Layer: 0
+  - component: {fileID: 1900720426}
+  m_Layer: 11
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -817,8 +887,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1278758755
-  m_SortingLayer: 2
+  m_SortingLayerID: 208891293
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -7085,6 +7155,20 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!19719996 &1900720426
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1900720422}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
 --- !u!1 &1924901810
 GameObject:
   m_ObjectHideFlags: 0
@@ -7095,7 +7179,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1924901812}
   - component: {fileID: 1924901811}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: house
   m_TagString: Untagged
   m_Icon: {fileID: 0}

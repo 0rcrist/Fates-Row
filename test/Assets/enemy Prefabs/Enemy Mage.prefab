@@ -346,11 +346,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isMage: 1
-  thefireball: {fileID: 7212961054137152886, guid: 0f15424541d21a344bff46f321414f44,
+  thefireball: {fileID: 7212961054137152886, guid: 7ce088a241713b04fa15514e8b2c9ff2,
     type: 3}
-  straightBall: 1
-  curvyBall: 0
-  acceleratingBall: 0
+  fireBallMoveSpeed: 10
+  fireBallShootSpeed: 5
+  FireBallChargeUpTime: 1
+  desiredRadius: 5
   theArrow: {fileID: 8549141831328388072, guid: 9851bbe7699bd824fb7ceaef488df124,
     type: 3}
   gasArrow: 0

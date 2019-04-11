@@ -7,9 +7,15 @@ public class Archer : MonoBehaviour
 {
     [SerializeField] bool isMage = false;
     [SerializeField] FireBall thefireball;
-    [SerializeField] bool straightBall = false;
-    [SerializeField] bool curvyBall = false;
-    [SerializeField] bool acceleratingBall = false;
+    [SerializeField] float fireBallMoveSpeed = 10f;
+    [SerializeField] float fireBallShootSpeed = 1f;
+    [SerializeField] float FireBallChargeUpTime = 1f;
+    [Header("IF curvycosine")]
+    [SerializeField] float desiredRadius = 5f;
+
+   // [SerializeField] bool straightBall = false;
+   // [SerializeField] bool curvyBall = false;
+   // [SerializeField] bool acceleratingBall = false;
     bool canSeePlayer = false;
     [Header("*To change arrow speed go to arrow prefab*")]
     [SerializeField] Arrow theArrow;
@@ -32,7 +38,7 @@ public class Archer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(canSeePlayer)
+        if (canSeePlayer)
         {
             myRigidBody.velocity = new Vector2(0f, 0f);
             GetComponent<Animator>().SetBool("Walk", false);
@@ -44,7 +50,7 @@ public class Archer : MonoBehaviour
             Roam();
         }
 
-        
+
     }
 
     private void Roam()
@@ -71,10 +77,10 @@ public class Archer : MonoBehaviour
     private void Attack()
     {
         Flip();
-        if(!shootingisrunning)
+        if (!shootingisrunning)
         {
             shootingisrunning = true;
-            if(isMage)
+            if (isMage)
             {
                 StartCoroutine(ShootingMage());
             }
@@ -87,7 +93,7 @@ public class Archer : MonoBehaviour
 
     private void Flip()
     {
-        if(FindObjectOfType<Player>().transform.position.x - transform.position.x > 0)//to your right
+        if (FindObjectOfType<Player>().transform.position.x - transform.position.x > 0)//to your right
         {
             GetComponent<SpriteRenderer>().flipX = true;
             return;
@@ -98,11 +104,11 @@ public class Archer : MonoBehaviour
 
     IEnumerator Shooting()
     {
-        GetComponent<Animator>().SetBool("Shoot",true);
+        GetComponent<Animator>().SetBool("Shoot", true);
         yield return new WaitForSeconds(chargeUpTime);
         GetComponent<Animator>().SetBool("Shoot", false);
         Arrow arrow = Instantiate(theArrow, transform.position, Quaternion.identity) as Arrow;
-        if(gasArrow == true)
+        if (gasArrow == true)
         {
             //change color
             arrow.GetComponent<SpriteRenderer>().color = new Color(0, 255, 0);
@@ -115,21 +121,12 @@ public class Archer : MonoBehaviour
     }
     IEnumerator ShootingMage()
     {
-        yield return new WaitForSeconds(chargeUpTime);
+        yield return new WaitForSeconds(FireBallChargeUpTime);
         FireBall fireball = Instantiate(thefireball, transform.position, Quaternion.identity) as FireBall;
-        if(straightBall)
-        {
-            fireball.setStraight();
-        }
-        if(curvyBall)
-        {
-            fireball.setCurvy();
-        }
-        if(acceleratingBall)
-        {
-            fireball.setAccelerating();
-        }
-        yield return new WaitForSeconds(shootSpeed);
+        fireball.setMoveSpeed(fireBallMoveSpeed);
+        fireball.setDesiredRadius(desiredRadius);
+       
+        yield return new WaitForSeconds(fireBallShootSpeed);
         shootingisrunning = false;
 
     }
