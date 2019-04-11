@@ -16,8 +16,11 @@ EditorBuildSettings:
     guid: 2e7893b8972bb3e48ae821bbc121bf62
   - enabled: 1
     path: Assets/Scenes/HUB.unity
-    guid: ec0d7e4cdd96f1549b44e3f49e9bf289
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
+    guid: 9eb5754d60231ac4bbec4edf2489ee79
+  - enabled: 1
+    path: Assets/Scenes/World 1/level 1-1.unity
+    guid: 786119feb183c6b41bd64db5bdf2f1a4
+  - enabled: 1
+    path: Assets/Scenes/World 1/level 1-2.unity
+    guid: 4f0fd1d87fc825e4283ce29995a75154
   m_configObjects: {}
