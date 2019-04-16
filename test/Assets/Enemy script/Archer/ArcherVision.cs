@@ -7,10 +7,11 @@ public class ArcherVision : MonoBehaviour
 {
     //cache
     EdgeCollider2D myCollider;
-    Player thePlayer;
+    //Player thePlayer;
     Archer theArcher;
     PolygonCollider2D myPolyCollider;
-
+    GameObject[] Players;
+    bool getplayersonce = true;
     bool trigger;
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -25,7 +26,7 @@ public class ArcherVision : MonoBehaviour
     void Start()
     {
         theArcher = transform.parent.GetComponent<Archer>();
-        thePlayer = FindObjectOfType<Player>();
+        //thePlayer = FindObjectOfType<Player>();
         myCollider = GetComponent<EdgeCollider2D>();
         myPolyCollider = GetComponent<PolygonCollider2D>();
     }
@@ -33,12 +34,30 @@ public class ArcherVision : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        UpdatePosition();
-        UpdateArcher();
+        if (getplayersonce)
+        {
+            getplayers();
+        }
+        else
+        {
+            UpdatePosition();
+            UpdateArcher();
+        }
     }
-
-    private void UpdateArcher()
+    private void getplayers()
+    {
+        //int counter = 0;
+        Players = GameObject.FindGameObjectsWithTag("Player");
+        if (Players.Length == 0)
+        {
+            Debug.Log("empty");
+        }
+        else
+        {
+            getplayersonce = false;
+        }
+    }
+        private void UpdateArcher()
     {
        if(trigger == true)
         {
@@ -55,14 +74,14 @@ public class ArcherVision : MonoBehaviour
         Vector2[] pointsHolder;
         pointsHolder = myPolyCollider.points;
         pointsHolder[0] = new Vector2(theArcher.transform.position.x - theArcher.transform.position.x, theArcher.transform.position.y- theArcher.transform.position.y + .4f);
-        pointsHolder[1] = new Vector2(thePlayer.transform.position.x - theArcher.transform.position.x, thePlayer.transform.position.y - theArcher.transform.position.y - .5f);
-        pointsHolder[2] = new Vector2(thePlayer.transform.position.x - theArcher.transform.position.x, thePlayer.transform.position.y - theArcher.transform.position.y - .4f);
+        pointsHolder[1] = new Vector2(Players[0].transform.position.x - theArcher.transform.position.x, Players[0].transform.position.y - theArcher.transform.position.y - .5f);
+        pointsHolder[2] = new Vector2(Players[0].transform.position.x - theArcher.transform.position.x, Players[0].transform.position.y - theArcher.transform.position.y - .4f);
         myPolyCollider.points = pointsHolder;
 
         /*Vector2[] pointsHolder;
         pointsHolder = myCollider.points;
         pointsHolder[0] = new Vector2(theArcher.transform.position.x - theArcher.transform.position.x, theArcher.transform.position.y- theArcher.transform.position.y + .4f);
-        pointsHolder[1] = new Vector2(thePlayer.transform.position.x - theArcher.transform.position.x, thePlayer.transform.position.y - theArcher.transform.position.y - .5f); 
+        pointsHolder[1] = new Vector2(Players[0].transform.position.x - theArcher.transform.position.x, Players[0].transform.position.y - theArcher.transform.position.y - .5f); 
         myCollider.points = pointsHolder;*/
     }
 

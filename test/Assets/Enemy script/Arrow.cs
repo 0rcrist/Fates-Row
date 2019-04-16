@@ -51,8 +51,8 @@ public class Arrow : MonoBehaviour
     {
         myRigidBody = GetComponent<Rigidbody2D>();
 
-        playerX = FindObjectOfType<Player>().transform.position.x;
-        playerY = FindObjectOfType<Player>().transform.position.y;
+        playerX = GameObject.FindGameObjectWithTag("Player").transform.position.x;
+        playerY = GameObject.FindGameObjectWithTag("Player").transform.position.y;
         arrowX = transform.position.x;
         arrowY = transform.position.y;
 

@@ -93,7 +93,7 @@ public class Archer : MonoBehaviour
 
     private void Flip()
     {
-        if (FindObjectOfType<Player>().transform.position.x - transform.position.x > 0)//to your right
+        if (GameObject.FindGameObjectWithTag("Player").transform.position.x - transform.position.x > 0)//to your right
         {
             GetComponent<SpriteRenderer>().flipX = true;
             return;
