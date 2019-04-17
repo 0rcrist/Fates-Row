@@ -306,7 +306,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 3.4661608
+  m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 3
@@ -349,6 +349,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eb5db728f36d7f45b84063ebd3eceef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeBtwAttacks: 0
+  attackPos: {fileID: 0}
+  attackRange: 0
+  whatIsEnemy:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &28
 GameObject:
   m_ObjectHideFlags: 0
