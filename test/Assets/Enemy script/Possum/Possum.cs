@@ -111,7 +111,7 @@ public class Possum : MonoBehaviour
         {
             return;
         }
-        if(!feetCollider.IsTouchingLayers(LayerMask.GetMask("ForegroundTile")))
+        if(!feetCollider.IsTouchingLayers(LayerMask.GetMask("Default")))
         {
             return;
         }

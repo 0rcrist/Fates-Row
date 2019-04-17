@@ -19,7 +19,7 @@ public class JumpCollider : MonoBehaviour
 
     private void SeeifEnemyNeedsToJump()
     {
-        if (boxcollider.IsTouchingLayers(LayerMask.GetMask("ForegroundTile")))
+        if (boxcollider.IsTouchingLayers(LayerMask.GetMask("Default")))
         {
             transform.parent.GetComponent<Possum>().JumpPossom();
         }
