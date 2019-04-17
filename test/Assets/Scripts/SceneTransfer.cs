@@ -10,7 +10,7 @@ public class SceneTransfer : MonoBehaviour
     }
     public void transfer()
     {
-        SceneManager.LoadScene(2);
-
+        int i = 2;
+        SceneManager.LoadScene(i);
     }   
 }
