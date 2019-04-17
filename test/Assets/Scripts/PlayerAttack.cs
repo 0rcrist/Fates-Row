@@ -13,6 +13,8 @@ public class PlayerAttack : MonoBehaviour
 
     public LayerMask whatIsEnemy;
 
+    public int damage;
+
     // Update is called once per frame
     void Update()
     {
@@ -22,7 +24,10 @@ public class PlayerAttack : MonoBehaviour
         if (timeBtwAttacks <= 0)
         {
             timeBtwAttacks = startAttacks;
-            Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemy); 
+            Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemy);
+            foreach (Collider2D enemy in enemiesToDamage) {
+               //enemy.GetComponent<>
+            }
         }
         else
         {
