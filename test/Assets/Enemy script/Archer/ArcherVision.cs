@@ -7,7 +7,7 @@ public class ArcherVision : MonoBehaviour
 {
     //cache
     EdgeCollider2D myCollider;
-    Player thePlayer;
+    GameObject thePlayer;
     Archer theArcher;
     PolygonCollider2D myPolyCollider;
 
@@ -25,7 +25,7 @@ public class ArcherVision : MonoBehaviour
     void Start()
     {
         theArcher = transform.parent.GetComponent<Archer>();
-        thePlayer = FindObjectOfType<Player>();
+        thePlayer = GameObject.FindGameObjectWithTag("Player");
         myCollider = GetComponent<EdgeCollider2D>();
         myPolyCollider = GetComponent<PolygonCollider2D>();
     }
