@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Possum : MonoBehaviour
 {
+    [SerializeField] int Health = 5;
     [SerializeField] int moveSpeed = 3;
     [SerializeField] float acceleratorSpeed = 0.1f;
     [SerializeField] float jumpHeight = 8f;
@@ -213,5 +214,13 @@ public class Possum : MonoBehaviour
     {
 
         return transform.localScale.x;
+    }
+    private void EnemyDamaged()
+    {
+        Health = Health - 1;
+        if(Health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }

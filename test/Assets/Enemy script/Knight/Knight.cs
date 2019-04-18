@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Knight : MonoBehaviour
 {
+    [SerializeField] int Health = 5;
     [SerializeField] float moveSpeed = 2f;
     [SerializeField] float jumpHeight = 8f;
     [SerializeField] float enemySeePlayerRange = 5f;
@@ -191,5 +192,13 @@ public class Knight : MonoBehaviour
         Vector2 jumpVector = new Vector2(0f, jumpHeight);
         myRigidBody.velocity += jumpVector;
         framestilljumpagain++;
+    }
+    private void EnemyDamaged()
+    {
+        Health = Health - 1;
+        if (Health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }

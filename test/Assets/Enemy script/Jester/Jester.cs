@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Jester : MonoBehaviour
 {
+    [SerializeField] int Health = 5;
     [Header("Bottle Tuning *bottle speed is on bottle prefab*")]
     [Tooltip("offset from center of parabola, higher number higher throw")]
     [SerializeField, Range(-20, 20)] float xoffsetRangeMax;
@@ -149,6 +150,14 @@ public class Jester : MonoBehaviour
         if (Mathf.Abs(EnemyPlayerXDifference) < enemySeePlayerRange)
         {
             seePlayer = true;
+        }
+    }
+    private void EnemyDamaged()
+    {
+        Health = Health - 1;
+        if (Health <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Bird : MonoBehaviour
 {
+    [SerializeField] int Health = 5;
     [SerializeField] float enemySeePlayerRange = 15f;
     [SerializeField] float roamSpeed = 2f;
     [SerializeField] float roamRadius = 20f;
@@ -335,6 +336,14 @@ public class Bird : MonoBehaviour
         else
         {
             return false;
+        }
+    }
+    private void EnemyDamaged()
+    {
+        Health = Health - 1;
+        if (Health <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 }

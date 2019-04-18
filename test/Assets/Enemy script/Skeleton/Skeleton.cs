@@ -6,7 +6,7 @@ public class Skeleton : MonoBehaviour
 {
 
     //can roam a certain area back and forth and he can also jump when needed
-
+    [SerializeField] int Health = 5;
     [SerializeField] float moveSpeed = 2f;
     [SerializeField] float jumpHeight = 8f;
     [SerializeField] float roamRange = 10f;
@@ -20,14 +20,14 @@ public class Skeleton : MonoBehaviour
     Animator myAnimator;
     Rigidbody2D myRigidBody;
     PolygonCollider2D myFeetCollider;
-    Player thePlayer;
+    //Player thePlayer;
 
     // Start is called before the first frame update
     void Start()
     {
         initialposition = transform.position.x;
         myRigidBody = GetComponent<Rigidbody2D>();
-        thePlayer = FindObjectOfType<Player>();
+       // thePlayer = FindObjectOfType<Player>();
         myAnimator = GetComponent<Animator>();
         myFeetCollider = GetComponent<PolygonCollider2D>();
     }
@@ -77,30 +77,35 @@ public class Skeleton : MonoBehaviour
     }
     public void JumpSkeleton()
     {
-
-        if (!myFeetCollider.IsTouchingLayers(LayerMask.GetMask("ForegroundTile")))
+        Debug.Log("????");
+        if (!myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Default")))
         {
+            Debug.Log("feet");
             return;
         }
         if (framestilljumpagain != 0)
         {
+            Debug.Log("frames");
             return;
         }
         if (!IsPlayerInFront() && myRigidBody.velocity.x > 0)//rat is in front and velocity positive
         {
+            Debug.Log("direction");
             return;
         }
         if (IsPlayerInFront() && myRigidBody.velocity.x < 0)//rat is in back and velocity negatives
         {
+            Debug.Log("direction2");
             return;
         }
+        Debug.Log("jumped");
         Vector2 jumpVector = new Vector2(0f, jumpHeight);
         myRigidBody.velocity += jumpVector;
         framestilljumpagain++;
     }
     private bool IsPlayerInFront()
     {
-        float EnemyPlayerXDifference = transform.position.x - thePlayer.transform.position.x;
+        float EnemyPlayerXDifference = transform.position.x - GameObject.FindGameObjectWithTag("Player").transform.position.x;
         if (EnemyPlayerXDifference < 0)//player is in front
         {
             return true;
@@ -110,5 +115,12 @@ public class Skeleton : MonoBehaviour
             return false;
         }
     }
-
+    private void EnemyDamaged()
+    {
+        Health = Health - 1;
+        if (Health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
 }

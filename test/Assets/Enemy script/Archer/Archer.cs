@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Archer : MonoBehaviour
 {
+    [SerializeField] int Health = 5;
     [SerializeField] bool isMage = false;
     [SerializeField] FireBall thefireball;
     [SerializeField] float fireBallMoveSpeed = 10f;
@@ -133,5 +134,13 @@ public class Archer : MonoBehaviour
     public void SeesPlayer(bool x)
     {
         canSeePlayer = x;
+    }
+    private void EnemyDamaged()
+    {
+        Health = Health - 1;
+        if (Health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }

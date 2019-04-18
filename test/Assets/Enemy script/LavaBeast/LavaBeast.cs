@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LavaBeast : MonoBehaviour
 {
+    [SerializeField] int Health = 50;
     [SerializeField] float moveSpeed = 2f;
     [SerializeField] float roamRange = 10f;
     [SerializeField] flameground theGroundFire;
@@ -373,6 +374,14 @@ public class LavaBeast : MonoBehaviour
         {
             transform.localScale = new Vector2(-.02f, transform.localScale.y);
             myRigidBody.velocity = new Vector2(-moveSpeed, myRigidBody.velocity.y);
+        }
+    }
+    private void EnemyDamaged()
+    {
+        Health = Health - 1;
+        if (Health <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 }

@@ -17,7 +17,7 @@ public class SkeletonJumpCollider : MonoBehaviour
 
     private void SeeifEnemyNeedsToJump()
     {
-        if (boxcollider.IsTouchingLayers(LayerMask.GetMask("ForegroundTile")))
+        if (boxcollider.IsTouchingLayers(LayerMask.GetMask("Default")))
         {
             transform.parent.GetComponent<Skeleton>().JumpSkeleton();
         }

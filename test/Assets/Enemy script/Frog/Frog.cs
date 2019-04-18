@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Frog : MonoBehaviour
 {
+    [SerializeField] int Health = 5;
     [Header("Frog Tuning")]
     [SerializeField] float moveSpeed = 0f;
     [Tooltip("hop height when he is not chasing player")]
@@ -445,6 +446,14 @@ public class Frog : MonoBehaviour
         else
         {
             return false;
+        }
+    }
+    private void EnemyDamaged()
+    {
+        Health = Health - 1;
+        if (Health <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 }
