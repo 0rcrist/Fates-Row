@@ -32,7 +32,7 @@ public class Frog : MonoBehaviour
     //cache
     Rigidbody2D myRigidbody;
     Animator myAnimator;
-    Player thePlayer;
+   // Player thePlayer;
     PolygonCollider2D feetCollider;
 
     bool SeePlayer = false;
@@ -45,30 +45,52 @@ public class Frog : MonoBehaviour
     float randomHopDelayNumber = 10f;
     float chaseSpeed = 1f;
 
+    GameObject[] Players;
+    bool getplayersonce = true;
+
     // Start is called before the first frame update
     void Start()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
         feetCollider = GetComponent<PolygonCollider2D>();
-        thePlayer = FindObjectOfType<Player>();
+        //thePlayer = FindObjectOfType<Player>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        DoesHeSeePlayer();
-        TouchingGroundStopX();//this has to go before hop or else one second glitch when he hops will jsut touch ground instantly after
-        if(SeePlayer)
+        if (getplayersonce)
         {
-            Chase();
+            getplayers();
         }
         else
         {
-            Hop();
+            DoesHeSeePlayer();
+            TouchingGroundStopX();//this has to go before hop or else one second glitch when he hops will jsut touch ground instantly after
+            if (SeePlayer)
+            {
+                Chase();
+            }
+            else
+            {
+                Hop();
+            }
         }
     }
+    private void getplayers()
+    {
+        //int counter = 0;
+        Players = GameObject.FindGameObjectsWithTag("Player");
+        if (Players.Length == 0)
+        {
 
+        }
+        else
+        {
+            getplayersonce = false;
+        }
+    }
     private void Chase()
     {
         if(!isInAir)
@@ -163,13 +185,13 @@ public class Frog : MonoBehaviour
                 SetHopVelocity();
             }    
         }
-        pastPlayerPosition = thePlayer.transform.position.x;
+        pastPlayerPosition = Players[0].transform.position.x;
         isJumpingToPlayer = 1;
         randomHopDelayNumber = 10 * Random.Range(RangeMin, RangeMax);//1f,10f defaults
     }
     private void SetChaseSpeedRandom()
     {
-        float PlayerFrogXDiff = transform.position.x - thePlayer.transform.position.x;
+        float PlayerFrogXDiff = transform.position.x - Players[0].transform.position.x;
         float randomOffSet = Random.Range(0f, RandomNearRange);
         if (PlayerFrogXDiff == Mathf.Epsilon)
         {
@@ -206,20 +228,20 @@ public class Frog : MonoBehaviour
     }
     private void SetHopVelocityRandom()
     {
-        float PlayerFrogXDiff = transform.position.x - thePlayer.transform.position.x;
+        float PlayerFrogXDiff = transform.position.x - Players[0].transform.position.x;
         if (Mathf.Abs(PlayerFrogXDiff) < 2)//if really close just set speed
         {
             myRigidbody.velocity += new Vector2(0f, 6 * Mathf.Sqrt(4f));
         }
         else
         {
-            myRigidbody.velocity += new Vector2(0f, 6 * Mathf.Sqrt(Mathf.Abs(transform.position.x - thePlayer.transform.position.x)));
+            myRigidbody.velocity += new Vector2(0f, 6 * Mathf.Sqrt(Mathf.Abs(transform.position.x - Players[0].transform.position.x)));
         }
     }
     private void SetChaseSpeedPredictor()
     {
-        float playerVelocity = thePlayer.GetComponent<Rigidbody2D>().velocity.x;
-        float PlayerFrogXDiff = transform.position.x - thePlayer.transform.position.x;
+        float playerVelocity = Players[0].GetComponent<Rigidbody2D>().velocity.x;
+        float PlayerFrogXDiff = transform.position.x - Players[0].transform.position.x;
         if (PlayerFrogXDiff == Mathf.Epsilon)
         {
             chaseSpeed = 1f;
@@ -284,32 +306,32 @@ public class Frog : MonoBehaviour
     }
     private void SetHopVelocityPredictor()
     {
-        float playerVelocity = thePlayer.GetComponent<Rigidbody2D>().velocity.x;
-        float PlayerFrogXDiff = (transform.position.x - thePlayer.transform.position.x);
+        float playerVelocity = Players[0].GetComponent<Rigidbody2D>().velocity.x;
+        float PlayerFrogXDiff = (transform.position.x - Players[0].transform.position.x);
         if (Mathf.Abs(PlayerFrogXDiff) < 2)//if really close just set speed
         {
             myRigidbody.velocity += new Vector2(0f, 6 * Mathf.Sqrt(4f));
         }
         else
         {
-            myRigidbody.velocity += new Vector2(0f, 6 * Mathf.Sqrt(Mathf.Abs(transform.position.x - thePlayer.transform.position.x)));
+            myRigidbody.velocity += new Vector2(0f, 6 * Mathf.Sqrt(Mathf.Abs(transform.position.x - Players[0].transform.position.x)));
         }
     }
     private void SetHopVelocity()
     {
-        float PlayerFrogXDiff = transform.position.x - thePlayer.transform.position.x;
+        float PlayerFrogXDiff = transform.position.x - Players[0].transform.position.x;
         if (Mathf.Abs(PlayerFrogXDiff) < 2)//if really close just set speed
         {
             myRigidbody.velocity += new Vector2(0f, 6 * Mathf.Sqrt(4f));
         }
         else
         {
-            myRigidbody.velocity += new Vector2(0f, 6 * Mathf.Sqrt(Mathf.Abs(transform.position.x - thePlayer.transform.position.x)));
+            myRigidbody.velocity += new Vector2(0f, 6 * Mathf.Sqrt(Mathf.Abs(transform.position.x - Players[0].transform.position.x)));
         }
     }
     private void SetChaseSpeed()
     {
-        float PlayerFrogXDiff = transform.position.x - thePlayer.transform.position.x;
+        float PlayerFrogXDiff = transform.position.x - Players[0].transform.position.x;
         if (PlayerFrogXDiff == Mathf.Epsilon)
         {
             chaseSpeed = 1f;
@@ -337,7 +359,7 @@ public class Frog : MonoBehaviour
     }
     private bool IsTouchingGround()
     {
-        if (feetCollider.IsTouchingLayers(LayerMask.GetMask("ForegroundTile","Player")))
+        if (feetCollider.IsTouchingLayers(LayerMask.GetMask("Default","Player")))
         {
             return true;
         }
@@ -346,7 +368,7 @@ public class Frog : MonoBehaviour
 
     private void DoesHeSeePlayer()
     {
-        float EnemyPlayerXDifference = transform.position.x - thePlayer.transform.position.x;
+        float EnemyPlayerXDifference = transform.position.x - Players[0].transform.position.x;
         if (Mathf.Abs(EnemyPlayerXDifference) < enemySeePlayerRange)
         {
             SeePlayer = true;
@@ -367,7 +389,7 @@ public class Frog : MonoBehaviour
 
     private void TouchingGroundStopX()
     {
-        if (feetCollider.IsTouchingLayers(LayerMask.GetMask("ForegroundTile","Player")))
+        if (feetCollider.IsTouchingLayers(LayerMask.GetMask("Default","Player")))
         {
             isInAir = false;
             if(isJumpingToPlayer == 1)//bug this gets called when he hops one frame ahead
@@ -403,7 +425,7 @@ public class Frog : MonoBehaviour
     }
     private bool IsPlayerInFront()
     {
-        float EnemyPlayerXDifference = transform.position.x - thePlayer.transform.position.x;
+        float EnemyPlayerXDifference = transform.position.x - Players[0].transform.position.x;
         if (EnemyPlayerXDifference < 0)//player is in front
         {
             return true;

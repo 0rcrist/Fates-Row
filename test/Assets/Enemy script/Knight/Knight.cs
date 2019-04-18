@@ -17,15 +17,16 @@ public class Knight : MonoBehaviour
     Animator myAnimator;
     Rigidbody2D myRigidBody;
     PolygonCollider2D myFeetCollider;
-    Player thePlayer;
-   
+    //Player thePlayer;
+    GameObject[] Players;
+    bool getplayersonce = true;
 
     //run up to player stops and swings, repeat
     // Start is called before the first frame update
     void Start()
     {
         myRigidBody = GetComponent<Rigidbody2D>();
-        thePlayer = FindObjectOfType<Player>();
+       // thePlayer = FindObjectOfType<Player>();
         myAnimator = GetComponent<Animator>();
         myFeetCollider = GetComponent<PolygonCollider2D>();
     }
@@ -33,35 +34,54 @@ public class Knight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(canSeePlayer)
+        if (getplayersonce)
         {
-            IsHeAttacking();
-            if(isAttacking)
+            getplayers();
+        }
+        else
+        {
+            if (canSeePlayer)
             {
-                if(!inAttackCoRoutine)
+                IsHeAttacking();
+                if (isAttacking)
                 {
-                    StartCoroutine(Attack());
+                    if (!inAttackCoRoutine)
+                    {
+                        StartCoroutine(Attack());
+                    }
+                }
+                else
+                {
+                    Chase();
                 }
             }
             else
             {
-                Chase();
+                Roam();
             }
+            if (framestilljumpagain > 0)
+            {
+                framestilljumpagain++;
+                if (framestilljumpagain == 5)
+                {
+                    framestilljumpagain = 0;
+                }
+            }
+        }   
+    }
+    private void getplayers()
+    {
+        //int counter = 0;
+        Players = GameObject.FindGameObjectsWithTag("Player");
+        if (Players.Length == 0)
+        {
+
         }
         else
         {
-            Roam();
-        }
-        if (framestilljumpagain > 0)
-        {
-            framestilljumpagain++;
-            if (framestilljumpagain == 5)
-            {
-                framestilljumpagain = 0;
-            }
+            getplayersonce = false;
         }
     }
-
     IEnumerator Attack()
     {
         inAttackCoRoutine = true;
@@ -75,7 +95,7 @@ public class Knight : MonoBehaviour
 
     private void IsHeAttacking()
     {
-        if (Mathf.Abs(transform.position.x - thePlayer.transform.position.x) < 1f && Mathf.Abs(transform.position.y - thePlayer.transform.position.y) < 3f)
+        if (Mathf.Abs(transform.position.x - Players[0].transform.position.x) < 1f && Mathf.Abs(transform.position.y - Players[0].transform.position.y) < 3f)
         {
             isAttacking = true;
         }
@@ -120,7 +140,7 @@ public class Knight : MonoBehaviour
 
     private bool IsPlayerInFront()
     {
-        float EnemyPlayerXDifference = transform.position.x - thePlayer.transform.position.x;
+        float EnemyPlayerXDifference = transform.position.x - Players[0].transform.position.x;
         if (EnemyPlayerXDifference < 0)//player is in front
         {
             return true;
@@ -134,7 +154,7 @@ public class Knight : MonoBehaviour
     {
         if(x == false)
         {
-            if(Mathf.Abs(transform.position.x - thePlayer.transform.position.x) < enemySeePlayerRange)
+            if(Mathf.Abs(transform.position.x - Players[0].transform.position.x) < enemySeePlayerRange)
             {
                 //canSeePlayer = true;
                 return;
@@ -152,7 +172,7 @@ public class Knight : MonoBehaviour
         {
             return;
         }
-        if (!myFeetCollider.IsTouchingLayers(LayerMask.GetMask("ForegroundTile")))
+        if (!myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Default")))
         {
             return;
         }

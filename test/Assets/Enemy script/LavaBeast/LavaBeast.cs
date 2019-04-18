@@ -51,9 +51,11 @@ public class LavaBeast : MonoBehaviour
     float burstfiredelay = 2f;
 
     Animator myAnimator;
-    Player thePlayer;
+    //Player thePlayer;
     Rigidbody2D myRigidBody;
 
+    GameObject[] Players;
+    bool getplayersonce = true;
     //laser beam like from boshy tekken boss
     //lava shoots out around him circular 
     //has bomb lava that he throws and breaks into more
@@ -68,61 +70,79 @@ public class LavaBeast : MonoBehaviour
     {
         initialposition = transform.position.x;
         myRigidBody = GetComponent<Rigidbody2D>();
-        thePlayer = FindObjectOfType<Player>();
+       // thePlayer = FindObjectOfType<Player>();
         myAnimator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        FacePlayer();
-        DealWithPhases();
-        //CheckIfEnemyIsWithinRange();
-        //Roam();
-        if(burstattackphase)
+        if (getplayersonce)
         {
-            if (burstattackAgain)
-            {
-                burstattackAgain = false;
-                BurstAttack();
-            }
+            getplayers();
         }
-        if(lavagroundphase)
+        else
         {
-            if (attackAgain)
+            FacePlayer();
+            DealWithPhases();
+            //CheckIfEnemyIsWithinRange();
+            //Roam();
+            if (burstattackphase)
             {
-                attackAgain = false;
-                LavaGroundAttack();
+                if (burstattackAgain)
+                {
+                    burstattackAgain = false;
+                    BurstAttack();
+                }
             }
-        }
-        if(cosinephase)
-        {
-            if(cosineattackagain)
+            if (lavagroundphase)
             {
-                cosineattackagain = false;
-                StartCoroutine(Cosineattack());
+                if (attackAgain)
+                {
+                    attackAgain = false;
+                    LavaGroundAttack();
+                }
             }
-        }
-        if(flowattackphase)
-        {
-            if(flowattackagain)
+            if (cosinephase)
             {
-                flowattackagain = false;
-                StartCoroutine(FlowAttack());
+                if (cosineattackagain)
+                {
+                    cosineattackagain = false;
+                    StartCoroutine(Cosineattack());
+                }
             }
-        }
-        if(laserbeamphase)
-        {
-            if (laserattackagain == true)
+            if (flowattackphase)
             {
-                laserattackagain = false;
-                StartCoroutine(LaserBeamAttack());
+                if (flowattackagain)
+                {
+                    flowattackagain = false;
+                    StartCoroutine(FlowAttack());
+                }
             }
+            if (laserbeamphase)
+            {
+                if (laserattackagain == true)
+                {
+                    laserattackagain = false;
+                    StartCoroutine(LaserBeamAttack());
+                }
 
+            }
         }
-        
     }
+    private void getplayers()
+    {
+        //int counter = 0;
+        Players = GameObject.FindGameObjectsWithTag("Player");
+        if (Players.Length == 0)
+        {
 
+        }
+        else
+        {
+            getplayersonce = false;
+        }
+    }
     private void DealWithPhases()
     {
         /*bool lavagroundphase = true;
@@ -265,7 +285,7 @@ public class LavaBeast : MonoBehaviour
     }
     private void FacePlayer()
     {
-        if(thePlayer.transform.position.x < transform.position.x)
+        if(Players[0].transform.position.x < transform.position.x)
         {
             transform.localScale = new Vector2(-.02f, transform.localScale.y);
         }
