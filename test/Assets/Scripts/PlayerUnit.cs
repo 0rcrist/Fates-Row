@@ -9,8 +9,11 @@ public class PlayerUnit : NetworkBehaviour
     public float runSpeed = 150f;
     bool jump = false;
     public Joystick joy;
+    public Animator ani;
 
- 
+    
+
+    
 
     // Update is called once per frame
     void Update()
@@ -19,19 +22,25 @@ public class PlayerUnit : NetworkBehaviour
         {
             return;
         }
+        ani.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
         if (joy.Horizontal > 0f)
         {
             horizontalMove = runSpeed;
+            // ani.SetFloat("Speed", horizontalMove);
         }
         else if (joy.Horizontal < 0f)
         {
             horizontalMove = -runSpeed;
         }
-        else {
+        else
+        {
             horizontalMove = 0f;
+
         }
-    }
+         
+        Debug.Log("speed is " + ani.GetFloat("Speed"));
+        }
 
     void FixedUpdate()
     {
