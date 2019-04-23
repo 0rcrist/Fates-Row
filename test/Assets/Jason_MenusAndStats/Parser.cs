@@ -30,15 +30,17 @@ public class Parser : MonoBehaviour
     private static string DataToValue(string data, string symbol)
     {
         string[] tokens = data.Split('/');
-
         foreach (string token in tokens)
         {
-            if (token.StartsWith(KILLS_SYMBOL))
+            Debug.Log(token);
+
+            if (token.StartsWith(symbol))
             {
+                Debug.Log(token.Substring(symbol.Length));
                 return token.Substring(symbol.Length);
             }
         }
-       // Debug.Log(symbol + " not found in " + data);
-        return "";
+        Debug.Log(symbol + " not found in " + data);
+        return "Loading...";
     }
 }

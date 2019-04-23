@@ -22,6 +22,17 @@ public class Stats : MonoBehaviour
         lvl1Time.text = Parser.DataToLVL1(data).ToString();
         lvl2Time.text = Parser.DataToLVL2(data).ToString();
         lvl3Time.text = Parser.DataToLVL3(data).ToString();
-        lvl1Time.text = "Hello";
+        if (lvl1Time.text.Equals("0"))
+        {
+            lvl1Time.text = "";
+        }
+        if (lvl2Time.text.Equals("0"))
+        {
+            lvl2Time.text = "";
+        }
+        if (lvl3Time.text.Equals("0"))
+        {
+            lvl3Time.text = "";
+        }
     }
 }

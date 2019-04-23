@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DatabaseControl;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class AccountManager : MonoBehaviour
 {
@@ -67,6 +68,7 @@ public class AccountManager : MonoBehaviour
     }
     public void SendData(string data)
     {
+       
         if (isLoggedIn)
         {
             StartCoroutine(SendNeededData(data));
