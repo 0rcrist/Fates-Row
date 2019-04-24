@@ -85,6 +85,7 @@ GameObject:
   - component: {fileID: 4901871218490486414}
   - component: {fileID: 4901871218490486409}
   - component: {fileID: 4901871218490486411}
+  - component: {fileID: 3432200620773423791}
   m_Layer: 12
   m_Name: Enemy Possum
   m_TagString: Untagged
@@ -270,6 +271,18 @@ PolygonCollider2D:
       - {x: -0.43534422, y: -0.36403918}
       - {x: 0.29593801, y: -0.36085486}
       - {x: 0.2948631, y: -0.30223775}
+--- !u!114 &3432200620773423791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4901871218490486419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7426d0b3ff861b47a5be3febde41186, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4901871218817857014
 GameObject:
   m_ObjectHideFlags: 0

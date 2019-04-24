@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 5441084703640632107}
   - component: {fileID: 723849010940941507}
   - component: {fileID: 3334865247540893365}
+  - component: {fileID: 5690747319456194990}
   m_Layer: 12
   m_Name: Enemy Skeleton
   m_TagString: Untagged
@@ -260,6 +261,18 @@ MonoBehaviour:
   roamRange: 10
   enemySeePlayerRange: 5
   enemyswitchonwall: 0
+--- !u!114 &5690747319456194990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5796810811694125912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7426d0b3ff861b47a5be3febde41186, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8899243799185576354
 GameObject:
   m_ObjectHideFlags: 0

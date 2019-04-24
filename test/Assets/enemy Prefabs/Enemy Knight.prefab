@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 6187368519370262541}
   - component: {fileID: 5441084703640632107}
   - component: {fileID: 723849010940941507}
+  - component: {fileID: 9101398599699003884}
   m_Layer: 12
   m_Name: Enemy Knight
   m_TagString: Untagged
@@ -289,6 +290,18 @@ PolygonCollider2D:
       - {x: -0.12143803, y: -0.4766311}
       - {x: -0.1366911, y: -0.5968385}
       - {x: 0.19489384, y: -0.60096574}
+--- !u!114 &9101398599699003884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5796810811694125912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7426d0b3ff861b47a5be3febde41186, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8899243799185576354
 GameObject:
   m_ObjectHideFlags: 0

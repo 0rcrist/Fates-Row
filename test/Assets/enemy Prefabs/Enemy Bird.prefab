@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 677273752593048340}
   - component: {fileID: 2831860889196647431}
   - component: {fileID: 5385923094589451106}
+  - component: {fileID: 3096470264621151416}
   m_Layer: 12
   m_Name: Enemy Bird
   m_TagString: Untagged
@@ -175,6 +176,18 @@ MonoBehaviour:
   strikeVelocity: 15
   AccelerationX: 0.5
   AccelerationY: 0.5
+--- !u!114 &3096470264621151416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5385923094589451105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7426d0b3ff861b47a5be3febde41186, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8551354785376880478
 PrefabInstance:
   m_ObjectHideFlags: 0

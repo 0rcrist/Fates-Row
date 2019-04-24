@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6211204986508177961}
   - component: {fileID: 4668285734184524722}
   - component: {fileID: 7393426431821023364}
+  - component: {fileID: 4657564966639675560}
   m_Layer: 12
   m_Name: Enemy Jester
   m_TagString: Untagged
@@ -172,6 +173,18 @@ MonoBehaviour:
   throwSpeed: 0.5
   theBottle: {fileID: 7915323461256211011, guid: 1b6203efd3efce245867b3d6ed58ec06,
     type: 3}
+--- !u!114 &4657564966639675560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2729330897791820379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7426d0b3ff861b47a5be3febde41186, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3848786198532351097
 GameObject:
   m_ObjectHideFlags: 0

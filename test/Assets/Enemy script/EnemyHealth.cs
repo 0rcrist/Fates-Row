@@ -4,21 +4,24 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
+    int Health = 0;
     // Start is called before the first frame update
     void Start()
     {
-        
+        Health = 5;   
     }
-
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    public int LowerHealth(int health)
+    public void LowerHealth(int h)
     {
-        health = health - 1;
-        return health - 1;
+        Health = Health - h;
+        if (Health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }

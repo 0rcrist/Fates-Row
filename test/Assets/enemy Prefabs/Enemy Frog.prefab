@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2413438689204247456}
   - component: {fileID: 2305877945249955098}
   - component: {fileID: 1112261795641778293}
+  - component: {fileID: 4767240569387672594}
   m_Layer: 12
   m_Name: Enemy Frog
   m_TagString: Untagged
@@ -207,6 +208,18 @@ MonoBehaviour:
   randomHopDelay: 0
   RangeMax: 0
   RangeMin: 0
+--- !u!114 &4767240569387672594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7803468182643961820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7426d0b3ff861b47a5be3febde41186, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3547697977149595517
 PrefabInstance:
   m_ObjectHideFlags: 0
