@@ -22,7 +22,7 @@ TagManager:
   - 'Projectile '
   - EnemyCollisionBoxes
   - Fireball
-  - 
+  - EnemyToPlayerCollider
   - 
   - 
   - 

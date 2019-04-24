@@ -6,7 +6,7 @@ public class Bottle : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 1f;
     Rigidbody2D myRigidBody;
-    Player thePlayer;
+    //Player thePlayer;
     //a(x+xoffset - w)^2 + h
     float a;
     float w;
@@ -26,10 +26,10 @@ public class Bottle : MonoBehaviour
     void Start()
     {
         myRigidBody = GetComponent<Rigidbody2D>();
-        thePlayer = FindObjectOfType<Player>();
+        //thePlayer = FindObjectOfType<Player>();
         IsPlayerInFront();
-        playerX = thePlayer.transform.position.x;
-        playerY = thePlayer.transform.position.y;
+        playerX = GameObject.FindGameObjectWithTag("Player").transform.position.x;
+        playerY = GameObject.FindGameObjectWithTag("Player").transform.position.y;
         bottleX = transform.position.x;
         bottleY = transform.position.y;
         h = bottleY;
@@ -82,7 +82,7 @@ public class Bottle : MonoBehaviour
     }
      private bool IsPlayerInFront()
     {
-        float EnemyPlayerXDifference = transform.position.x - thePlayer.transform.position.x;
+        float EnemyPlayerXDifference = transform.position.x - GameObject.FindGameObjectWithTag("Player").transform.position.x;
         if (EnemyPlayerXDifference < 0)//player is in front
         {
             playerInFront = true;

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Archer : MonoBehaviour
 {
+    [SerializeField] int Health = 5;
     [SerializeField] bool isMage = false;
     [SerializeField] FireBall thefireball;
     [SerializeField] float fireBallMoveSpeed = 10f;
@@ -93,7 +94,7 @@ public class Archer : MonoBehaviour
 
     private void Flip()
     {
-        if (FindObjectOfType<Player>().transform.position.x - transform.position.x > 0)//to your right
+        if (GameObject.FindGameObjectWithTag("Player").transform.position.x - transform.position.x > 0)//to your right
         {
             GetComponent<SpriteRenderer>().flipX = true;
             return;
@@ -133,5 +134,13 @@ public class Archer : MonoBehaviour
     public void SeesPlayer(bool x)
     {
         canSeePlayer = x;
+    }
+    public void EnemyDamaged()
+    {
+        Health = Health - 1;
+        if (Health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }

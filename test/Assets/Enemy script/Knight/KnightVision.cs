@@ -6,9 +6,11 @@ public class KnightVision : MonoBehaviour
 {
     //cache
     EdgeCollider2D myCollider;
-    Player thePlayer;
+   // Player thePlayer;
     Knight theKnight;
     PolygonCollider2D myPolyCollider;
+    GameObject[] Players;
+    bool getplayersonce = true;
 
     bool trigger;
     private void OnTriggerEnter2D(Collider2D collision)
@@ -24,7 +26,7 @@ public class KnightVision : MonoBehaviour
     void Start()
     {
         theKnight = transform.parent.GetComponent<Knight>();
-        thePlayer = FindObjectOfType<Player>();
+       // thePlayer = FindObjectOfType<Player>();
         myCollider = GetComponent<EdgeCollider2D>();
         myPolyCollider = GetComponent<PolygonCollider2D>();
     }
@@ -32,11 +34,29 @@ public class KnightVision : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        UpdatePosition();
-        UpdateKnight();
+        if (getplayersonce)
+        {
+            getplayers();
+        }
+        else
+        {
+            UpdatePosition();
+            UpdateKnight();
+        }
     }
+    private void getplayers()
+    {
+        //int counter = 0;
+        Players = GameObject.FindGameObjectsWithTag("Player");
+        if (Players.Length == 0)
+        {
 
+        }
+        else
+        {
+            getplayersonce = false;
+        }
+    }
     private void UpdateKnight()
     {
         if (trigger == true)
@@ -54,8 +74,8 @@ public class KnightVision : MonoBehaviour
         Vector2[] pointsHolder;
         pointsHolder = myPolyCollider.points;
         pointsHolder[0] = new Vector2(theKnight.transform.position.x - theKnight.transform.position.x, theKnight.transform.position.y - theKnight.transform.position.y + .4f);
-        pointsHolder[1] = new Vector2(thePlayer.transform.position.x - theKnight.transform.position.x, thePlayer.transform.position.y - theKnight.transform.position.y - .5f);
-        pointsHolder[2] = new Vector2(thePlayer.transform.position.x - theKnight.transform.position.x, thePlayer.transform.position.y - theKnight.transform.position.y - .4f);
+        pointsHolder[1] = new Vector2(Players[0].transform.position.x - theKnight.transform.position.x, Players[0].transform.position.y - theKnight.transform.position.y - .5f);
+        pointsHolder[2] = new Vector2(Players[0].transform.position.x - theKnight.transform.position.x, Players[0].transform.position.y - theKnight.transform.position.y - .4f);
         myPolyCollider.points = pointsHolder;
     }
 }
