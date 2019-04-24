@@ -338,7 +338,7 @@ public class Bird : MonoBehaviour
             return false;
         }
     }
-    private void EnemyDamaged()
+    public void EnemyDamaged()
     {
         Health = Health - 1;
         if (Health <= 0)

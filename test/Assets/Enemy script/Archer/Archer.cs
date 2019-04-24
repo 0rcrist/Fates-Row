@@ -135,7 +135,7 @@ public class Archer : MonoBehaviour
     {
         canSeePlayer = x;
     }
-    private void EnemyDamaged()
+    public void EnemyDamaged()
     {
         Health = Health - 1;
         if (Health <= 0)

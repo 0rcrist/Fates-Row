@@ -342,6 +342,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyToPlayerCollider
       objectReference: {fileID: 0}
+    - target: {fileID: 3018277265858434779, guid: f4c893e18f6b04e46ada11360c30940f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2173392467053215764, guid: f4c893e18f6b04e46ada11360c30940f,
         type: 3}
       propertyPath: m_LocalPosition.x

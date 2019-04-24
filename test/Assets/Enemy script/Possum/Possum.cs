@@ -215,11 +215,12 @@ public class Possum : MonoBehaviour
 
         return transform.localScale.x;
     }
-    private void EnemyDamaged()
+    public void EnemyDamaged()
     {
         Health = Health - 1;
         if(Health <= 0)
         {
+            FindObjectOfType<killcontainer>().addtocounter();
             Destroy(gameObject);
         }
     }

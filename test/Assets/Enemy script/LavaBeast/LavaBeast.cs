@@ -19,7 +19,7 @@ public class LavaBeast : MonoBehaviour
     float initialposition;
     //deal with phases
     int phasecounter = 1;
-    bool lavagroundphase = true;
+    bool lavagroundphase = true;//true
     bool burstattackphase = false;
     bool laserbeamphase = false;
     bool flowattackphase = false;
@@ -31,6 +31,7 @@ public class LavaBeast : MonoBehaviour
 
     //flow attack
     bool flowattackagain = true;
+    bool flowone = true;
 
     //laserbeam attack
     bool laserattackagain = true;
@@ -205,35 +206,82 @@ public class LavaBeast : MonoBehaviour
         {
             left = false;
         }
-        for (int i = 0; i < 10; i++)
+        if (flowone)
         {
-            FireBall ball = Instantiate(velocitygivenBall, transform.position, Quaternion.identity) as FireBall;
-            float x;
-            if (left)
+            flowone = false;
+            int xoffset = Random.Range(2, 4);
+            int yoffset = Random.Range(2, 4);
+            for (int i = 0; i < 10; i++)
             {
-                x = -20 + 2 * i;
-            }
-            else
-            {
-                x = 20 - 2 * i;
-            }
-            float y = 20 - 2*i;
-            ball.setVelocity(x, y);
-            if(left)
-            {
-                if (x > 0 || y < 0)
+                FireBall ball = Instantiate(velocitygivenBall, transform.position, Quaternion.identity) as FireBall;
+                float x;
+                if (left)
                 {
-                    break;
+                    x = -20 + xoffset * i;//20
                 }
-            }
-            else
-            {
-                if (x < 0 || y < 0)
+                else
                 {
-                    break;
+                    x = 20 - xoffset * i;
                 }
+                float y = 20 - yoffset * i;//20,2
+                ball.setVelocity(x, y);
+                if (left)
+                {
+                    if (x > 0 || y < 0)
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    if (x < 0 || y < 0)
+                    {
+                        break;
+                    }
+                }
+                yield return new WaitForSeconds(.1f);
             }
-            yield return new WaitForSeconds(.1f);
+        }
+        else
+        {
+            flowone = true;
+            int xoffset = Random.Range(1, 3);
+            int yoffset = Random.Range(2, 4);
+            for (int i = 0; i < 10; i++)
+            {
+                FireBall ball = Instantiate(velocitygivenBall, transform.position, Quaternion.identity) as FireBall;
+                //float x = -3 - i;
+                //float y = 5 + 2 * i;
+                float x;
+                if (left)
+                {
+                    x = -20 + xoffset * i;
+                }
+                else
+                {
+                    x = 20 - xoffset * i;
+                }
+                //float y = Mathf.Log10(2*i + 1);
+                // Debug.Log(y);
+                float y = yoffset * i + 10;
+                 //float y = 20 - 2 * i;
+                ball.setVelocity(x, y);
+                if (left)
+                {
+                    if (x > 0 || y < 0)
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    if (x < 0 || y < 0)
+                    {
+                        break;
+                    }
+                }
+                yield return new WaitForSeconds(.1f);
+            }
         }
         yield return new WaitForSeconds(1f);
         flowattackagain = true;
@@ -376,7 +424,7 @@ public class LavaBeast : MonoBehaviour
             myRigidBody.velocity = new Vector2(-moveSpeed, myRigidBody.velocity.y);
         }
     }
-    private void EnemyDamaged()
+    public void EnemyDamaged()
     {
         Health = Health - 1;
         if (Health <= 0)

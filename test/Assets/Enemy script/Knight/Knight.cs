@@ -193,7 +193,7 @@ public class Knight : MonoBehaviour
         myRigidBody.velocity += jumpVector;
         framestilljumpagain++;
     }
-    private void EnemyDamaged()
+    public void EnemyDamaged()
     {
         Health = Health - 1;
         if (Health <= 0)
