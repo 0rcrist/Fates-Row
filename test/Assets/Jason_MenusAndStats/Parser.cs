@@ -7,7 +7,12 @@ public class Parser : MonoBehaviour
     private static string LVL1_SYMBOL = "[LVL1]";
     private static string LVL2_SYMBOL = "[LVL2]";
     private static string LVL3_SYMBOL = "[LVL3]";
+    private static string DEATHS_SYMBOL = "[DEATHS]";
 
+    public static string ValuesToData(int kills, int deaths)
+    {
+        return KILLS_SYMBOL + kills + "/" + DEATHS_SYMBOL + deaths;
+    }
 
     public static int DataToKills(string data)
     {
@@ -24,6 +29,10 @@ public class Parser : MonoBehaviour
     public static int DataToLVL3(string data)
     {
         return int.Parse(DataToValue(data, LVL3_SYMBOL));
+    }
+    public static int DataToDeaths(string data)
+    {
+        return int.Parse(DataToValue(data, DEATHS_SYMBOL));
     }
 
 

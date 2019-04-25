@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Networking;
 
 public class PauseScreen : MonoBehaviour
 {
@@ -45,10 +46,12 @@ public class PauseScreen : MonoBehaviour
 
     public void Disconnect() //needs support
     {
+        FindObjectOfType<NetworkManager>().StopHost();
         Debug.Log("Disconnecting");     
     }
     public void ExitToMainMenu()
     {
+        FindObjectOfType<NetworkManager>().StopHost();
         SceneManager.LoadScene("MainMenu");
     }
 }

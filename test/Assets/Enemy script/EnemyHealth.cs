@@ -24,6 +24,8 @@ public class EnemyHealth : MonoBehaviour
         if (Health <= 0)
         {
             Destroy(gameObject);
+            FindObjectOfType<PlayerUnit>().levelKillCounter++; //Jason
+
         }
     }
     private void DealWithHitBack()

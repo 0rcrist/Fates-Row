@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Stats : MonoBehaviour
 {
     public Text KillCount;
+    public Text DeathCount;
     public Text lvl1Time;
     public Text lvl2Time;
     public Text lvl3Time;
@@ -19,6 +20,7 @@ public class Stats : MonoBehaviour
     void OnReceivedData(string data)
     {
         KillCount.text = Parser.DataToKills(data).ToString();
+        DeathCount.text = Parser.DataToDeaths(data).ToString();
         lvl1Time.text = Parser.DataToLVL1(data).ToString();
         lvl2Time.text = Parser.DataToLVL2(data).ToString();
         lvl3Time.text = Parser.DataToLVL3(data).ToString();

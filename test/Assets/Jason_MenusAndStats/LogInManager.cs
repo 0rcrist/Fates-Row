@@ -93,7 +93,7 @@ public class LogInManager : MonoBehaviour
     }
     IEnumerator RegisterUser()
     {
-        IEnumerator e = DCF.RegisterUser(playerUsername, playerPassword, "[KILLS]0/[LVL1]0/[LVL2]0/[LVL3]0/"); // << Send request to register a new user, providing submitted username and password. It also provides an initial value for the data string on the account, which is "Hello World".
+        IEnumerator e = DCF.RegisterUser(playerUsername, playerPassword, "[KILLS]0/[DEATHS]0"); // << Send request to register a new user, providing submitted username and password. It also provides an initial value for the data string on the account, which is "Hello World".
         while (e.MoveNext())
         {
             yield return e.Current;

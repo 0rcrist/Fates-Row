@@ -26,5 +26,6 @@ public class UserInfo : MonoBehaviour
     public void LogOut()
     {
         AccountManager.instance.LogOut();
+        Destroy(AccountManager.instance);
     }
 }
