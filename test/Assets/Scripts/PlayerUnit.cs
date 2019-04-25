@@ -11,9 +11,6 @@ public class PlayerUnit : NetworkBehaviour
     public Joystick joy;
     public Animator ani;
 
-    
-
-    
 
     // Update is called once per frame
     void Update()
@@ -38,9 +35,11 @@ public class PlayerUnit : NetworkBehaviour
             horizontalMove = 0f;
 
         }
-         
+
         Debug.Log("speed is " + ani.GetFloat("Speed"));
-        }
+
+    }
+
 
     void FixedUpdate()
     {
@@ -48,8 +47,10 @@ public class PlayerUnit : NetworkBehaviour
         jump = false;
     }
 
-    public void isJumping() {
+    public void isJumping()
+    {
         jump = true;
     }
+
 
 }

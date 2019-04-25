@@ -39,6 +39,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 35}
+  - component: {fileID: 1980283173220486731}
   - component: {fileID: 66}
   - component: {fileID: 5435954011732324287}
   - component: {fileID: 61}
@@ -74,6 +75,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1980283173220486731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 27}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1340756afbeb827449a37839a4e19bb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 5
+  maxHealth: 5
+  healthSprites: []
+  healthImage: {fileID: 0}
+  healthText: {fileID: 0}
+  can: {fileID: 0}
 --- !u!114 &66
 MonoBehaviour:
   m_ObjectHideFlags: 0
