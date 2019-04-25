@@ -11,6 +11,8 @@ public class campfire : MonoBehaviour
         Debug.Log("plz");
         if (Colider.gameObject.tag == "Player")
         {
+            GameObject.Find("UI Overlay").SendMessage("FinishTimer"); //Jason
+
             Debug.Log("collision detected");
             Application.LoadLevel(level);
         }

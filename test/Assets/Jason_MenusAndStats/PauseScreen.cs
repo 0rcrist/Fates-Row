@@ -39,6 +39,7 @@ public class PauseScreen : MonoBehaviour
     }
     public void ExitToHub()
     {
+        DontDestroyOnLoad(this);
         SceneManager.LoadScene("HUB");
     }
 
