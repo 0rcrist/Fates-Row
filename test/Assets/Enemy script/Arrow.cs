@@ -33,26 +33,13 @@ public class Arrow : MonoBehaviour
     {
         isGasArrow = true;
     }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(isGasArrow)
-        {
-            GameObject gas = Instantiate(gasParticle, transform.position, Quaternion.identity) as GameObject;
-            Destroy(gas, 2f);
-        }
-        stickx = transform.position.x;
-        sticky = transform.position.y;
-        stick = true;
-        DeathCounter = 250;
-        Destroy(GetComponent<BoxCollider2D>());
-    }
     // Start is called before the first frame update
     void Start()
     {
         myRigidBody = GetComponent<Rigidbody2D>();
 
-        playerX = FindObjectOfType<Player>().transform.position.x;
-        playerY = FindObjectOfType<Player>().transform.position.y;
+        playerX = GameObject.FindGameObjectWithTag("Player").transform.position.x;
+        playerY = GameObject.FindGameObjectWithTag("Player").transform.position.y;
         arrowX = transform.position.x;
         arrowY = transform.position.y;
 
@@ -82,7 +69,20 @@ public class Arrow : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
+    public void HitWall()
+    {
+        if (isGasArrow)
+        {
+            GameObject gas = Instantiate(gasParticle, transform.position, Quaternion.identity) as GameObject;
+            Destroy(gas, 2f);
+        }
+        stickx = transform.position.x;
+        sticky = transform.position.y;
+        stick = true;
+        DeathCounter = 250;
+        //Destroy(GetComponentInChildren<BoxCollider2D>());
+        Destroy(GetComponent<BoxCollider2D>());
+    }
     private bool isPlayerToRight(float px, float ax)
     {
         if(px > ax)

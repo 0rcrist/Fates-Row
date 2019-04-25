@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Jester : MonoBehaviour
 {
+    [SerializeField] int Health = 5;
     [Header("Bottle Tuning *bottle speed is on bottle prefab*")]
     [Tooltip("offset from center of parabola, higher number higher throw")]
     [SerializeField, Range(-20, 20)] float xoffsetRangeMax;
@@ -17,7 +18,7 @@ public class Jester : MonoBehaviour
     [SerializeField] float throwSpeed = 2f;
     [SerializeField] GameObject theBottle;
 
-    Player thePlayer;
+    //Player thePlayer;
     Animator myAnimator;
     Rigidbody2D myRigidBody;
 
@@ -26,10 +27,12 @@ public class Jester : MonoBehaviour
     bool isThrowing = false;
     int isdirright = 1;
 
+    GameObject[] Players;
+    bool getplayersonce = true;
     // Start is called before the first frame update
     void Start()
     {
-        thePlayer = FindObjectOfType<Player>();
+        //thePlayer = FindObjectOfType<Player>();
         myAnimator = GetComponent<Animator>();
         myRigidBody = GetComponent<Rigidbody2D>();
     }
@@ -37,22 +40,41 @@ public class Jester : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        DoesHeSeePlayer();
-        if (seePlayer)
+        if (getplayersonce)
         {
-            myRigidBody.velocity = new Vector2(0f,0f);
-            myAnimator.SetBool("Throw", true);
-            myAnimator.SetBool("Walk", false);
-            Attack();
+            getplayers();
         }
         else
         {
-            myAnimator.SetBool("Throw", false);
-            myAnimator.SetBool("Walk", true);
-            Roam();
+            DoesHeSeePlayer();
+            if (seePlayer)
+            {
+                myRigidBody.velocity = new Vector2(0f, 0f);
+                myAnimator.SetBool("Throw", true);
+                myAnimator.SetBool("Walk", false);
+                Attack();
+            }
+            else
+            {
+                myAnimator.SetBool("Throw", false);
+                myAnimator.SetBool("Walk", true);
+                Roam();
+            }
         }
     }
+    private void getplayers()
+    {
+        //int counter = 0;
+        Players = GameObject.FindGameObjectsWithTag("Player");
+        if (Players.Length == 0)
+        {
 
+        }
+        else
+        {
+            getplayersonce = false;
+        }
+    }
     private void Roam()
     {
         if (isdirright == 1)
@@ -95,7 +117,7 @@ public class Jester : MonoBehaviour
     }
     private bool IsPlayerInFront()
     {
-        float EnemyPlayerXDifference = transform.position.x - thePlayer.transform.position.x;
+        float EnemyPlayerXDifference = transform.position.x - Players[0].transform.position.x;
         if (EnemyPlayerXDifference < 0)//player is in front
         {
             return true;
@@ -124,10 +146,18 @@ public class Jester : MonoBehaviour
     }
     private void DoesHeSeePlayer()
     {
-        float EnemyPlayerXDifference = transform.position.x - thePlayer.transform.position.x;
+        float EnemyPlayerXDifference = transform.position.x - Players[0].transform.position.x;
         if (Mathf.Abs(EnemyPlayerXDifference) < enemySeePlayerRange)
         {
             seePlayer = true;
+        }
+    }
+    public void EnemyDamaged()
+    {
+        Health = Health - 1;
+        if (Health <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 }

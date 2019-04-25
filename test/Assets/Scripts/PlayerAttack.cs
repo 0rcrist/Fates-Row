@@ -18,7 +18,9 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKey(KeyCode.Space)) {
+            performAttack();
+        }
     }
     public void performAttack() {
         if (timeBtwAttacks <= 0)
@@ -26,12 +28,18 @@ public class PlayerAttack : MonoBehaviour
             timeBtwAttacks = startAttacks;
             Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemy);
             foreach (Collider2D enemy in enemiesToDamage) {
-               //enemy.GetComponent<>
+                enemy.GetComponent<EnemyHealth>().LowerHealth(2);
             }
+            timeBtwAttacks = startAttacks;
         }
         else
         {
             timeBtwAttacks -= Time.fixedDeltaTime;
         }
+    }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attackPos.position, attackRange);
     }
 }

@@ -47,9 +47,15 @@ public class PlayerUnit : NetworkBehaviour
         jump = false;
     }
 
-    public void isJumping()
+
+    public void OnLanding()
     {
+        ani.SetBool("jump", false);
+    }
+    public void isJumping() {
+
         jump = true;
+        ani.SetBool("jump", true);
     }
 
 
