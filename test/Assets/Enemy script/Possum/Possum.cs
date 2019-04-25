@@ -17,12 +17,15 @@ public class Possum : MonoBehaviour
     bool SeePlayer = false;
 
     Rigidbody2D myRigidbody;
+    Animator myAnimator;
     //PlayerUnit thePlayer;
     PolygonCollider2D feetCollider;
     CircleCollider2D frontCollider;
     CapsuleCollider2D wallswitchCollider;
     GameObject[] Players;
     bool getplayersonce = true;
+    bool Frozen = false;
+    bool turnRed = true;
 
 
     int framestilljumpagain = 0;//to fix double jump bug
@@ -40,6 +43,7 @@ public class Possum : MonoBehaviour
     void Start()
     {        
         myRigidbody = GetComponent<Rigidbody2D>();
+        myAnimator = GetComponent<Animator>();
         //thePlayer = FindObjectOfType<PlayerUnit>();
         feetCollider = GetComponent<PolygonCollider2D>();
         frontCollider = GetComponent<CircleCollider2D>();
@@ -49,29 +53,41 @@ public class Possum : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (getplayersonce)
+        if (Frozen)
         {
-            getplayers();
+            if (feetCollider.IsTouchingLayers(LayerMask.GetMask("Default")))
+            {
+                Frozen = false;
+                turnRed = true;
+            }
+            //StartCoroutine(UnFreeze());
         }
         else
         {
-            Flip();
-            DoesHeSeePlayer();
-            if (SeePlayer == true)
+            if (getplayersonce)
             {
-                Chase();
+                getplayers();
             }
             else
             {
-                Move();
-            }
-
-            if (framestilljumpagain > 0)
-            {
-                framestilljumpagain++;
-                if (framestilljumpagain == 3)
+                Flip();
+                DoesHeSeePlayer();
+                if (SeePlayer == true)
                 {
-                    framestilljumpagain = 0;
+                    Chase();
+                }
+                else
+                {
+                    Move();
+                }
+
+                if (framestilljumpagain > 0)
+                {
+                    framestilljumpagain++;
+                    if (framestilljumpagain == 3)
+                    {
+                        framestilljumpagain = 0;
+                    }
                 }
             }
         }
@@ -224,4 +240,26 @@ public class Possum : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    public void PossumFreeze()
+    {
+        float xvel = 5f;
+        float yvel = 8f;
+        if (IsPlayerInFront())
+        {
+            xvel = -xvel;
+        }
+        myRigidbody.velocity = new Vector2(xvel, yvel);
+        if(turnRed)
+        {
+            myAnimator.SetTrigger("Damaged");
+            turnRed = false;
+        }
+        Frozen = true;
+    }
+    IEnumerator UnFreeze()
+    {
+        yield return new WaitForSeconds(.5f);
+        Frozen = false;
+    }
+    
 }

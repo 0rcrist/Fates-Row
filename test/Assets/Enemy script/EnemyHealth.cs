@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public int Health = 0;
+    [SerializeField] int Health; 
+    Rigidbody2D myrigidbody;
     // Start is called before the first frame update
     void Start()
     {
-        Health = 5;   
+        myrigidbody = GetComponent<Rigidbody2D>();
     }
     // Update is called once per frame
     void Update()
@@ -19,9 +20,23 @@ public class EnemyHealth : MonoBehaviour
     public void LowerHealth(int h)
     {
         Health = Health - h;
+        DealWithHitBack();
         if (Health <= 0)
         {
             Destroy(gameObject);
+        }
+    }
+    private void DealWithHitBack()
+    {
+       string enemyname = GetComponent<Animator>().name;
+        Debug.Log(enemyname);
+        switch(enemyname)
+        {
+            case "Enemy Possum": BroadcastMessage("PossumFreeze", 0);
+                break;
+            case "Enemy Frog": BroadcastMessage("FrogFreeze", 0);
+                break;
+
         }
     }
 }

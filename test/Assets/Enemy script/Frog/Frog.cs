@@ -49,6 +49,9 @@ public class Frog : MonoBehaviour
     GameObject[] Players;
     bool getplayersonce = true;
 
+    bool Frozen = false;
+    bool turnRed = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -61,21 +64,33 @@ public class Frog : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (getplayersonce)
+        if (Frozen)
         {
-            getplayers();
+            if (feetCollider.IsTouchingLayers(LayerMask.GetMask("Default")))
+            {
+                Frozen = false;
+                turnRed = true;
+            }
+            //StartCoroutine(UnFreeze());
         }
         else
         {
-            DoesHeSeePlayer();
-            TouchingGroundStopX();//this has to go before hop or else one second glitch when he hops will jsut touch ground instantly after
-            if (SeePlayer)
+            if (getplayersonce)
             {
-                Chase();
+                getplayers();
             }
             else
             {
-                Hop();
+                DoesHeSeePlayer();
+                TouchingGroundStopX();//this has to go before hop or else one second glitch when he hops will jsut touch ground instantly after
+                if (SeePlayer)
+                {
+                    Chase();
+                }
+                else
+                {
+                    Hop();
+                }
             }
         }
     }
@@ -455,5 +470,21 @@ public class Frog : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+    public void FrogFreeze()
+    {
+        float xvel = 5f;
+        float yvel = 6f;
+        if (IsPlayerInFront())
+        {
+            xvel = -xvel;
+        }
+        myRigidbody.velocity = new Vector2(xvel, yvel);
+        if (turnRed)
+        {
+            myAnimator.SetTrigger("Damaged");
+            turnRed = false;
+        }
+        Frozen = true;
     }
 }
