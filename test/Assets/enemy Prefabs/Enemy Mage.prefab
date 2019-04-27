@@ -301,18 +301,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.011092186, y: -0.02704382}
+  m_Offset: {x: 0.09467757, y: -0.30888462}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.15625, y: 2.03125}
+    oldSize: {x: 2.4666667, y: 4.3333335}
     newSize: {x: 0.36, y: 0.28}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7887478, y: 1.1774731}
+  m_Size: {x: 0.95591855, y: 1.7411547}
   m_EdgeRadius: 0
 --- !u!50 &6302618955716879258
 Rigidbody2D:
@@ -349,7 +349,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 5
   isMage: 1
-  thefireball: {fileID: 7212961054137152886, guid: 7ce088a241713b04fa15514e8b2c9ff2,
+  thefireball: {fileID: 7212961054137152886, guid: 0f15424541d21a344bff46f321414f44,
     type: 3}
   fireBallMoveSpeed: 10
   fireBallShootSpeed: 5
@@ -373,6 +373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7426d0b3ff861b47a5be3febde41186, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Health: 50
 --- !u!1001 &3596387359003445603
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -447,13 +448,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2214956761055595279, guid: f4c893e18f6b04e46ada11360c30940f,
         type: 3}
-      propertyPath: m_Size.x
-      value: 0.6189029
+      propertyPath: m_Offset.y
+      value: -0.09846878
       objectReference: {fileID: 0}
     - target: {fileID: 2214956761055595279, guid: f4c893e18f6b04e46ada11360c30940f,
         type: 3}
-      propertyPath: m_Offset.y
-      value: -0.09846878
+      propertyPath: m_Size.x
+      value: 0.6189029
       objectReference: {fileID: 0}
     - target: {fileID: 2214956761055595279, guid: f4c893e18f6b04e46ada11360c30940f,
         type: 3}

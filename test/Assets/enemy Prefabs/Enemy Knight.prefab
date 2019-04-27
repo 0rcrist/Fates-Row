@@ -231,7 +231,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    oldSize: {x: 2.6666667, y: 2.6666667}
     newSize: {x: 0.36, y: 0.28}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -278,7 +278,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    oldSize: {x: 2.6666667, y: 2.6666667}
     newSize: {x: 0.36, y: 0.28}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -286,10 +286,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.18700695, y: -0.47630662}
-      - {x: -0.12143803, y: -0.4766311}
-      - {x: -0.1366911, y: -0.5968385}
-      - {x: 0.19489384, y: -0.60096574}
+    - - {x: 0.7719617, y: -0.9772351}
+      - {x: -0.24678564, y: -0.96364474}
+      - {x: -0.22025633, y: -1.1116817}
+      - {x: 0.8634138, y: -1.1714678}
 --- !u!114 &9101398599699003884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -302,6 +302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7426d0b3ff861b47a5be3febde41186, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Health: 100
 --- !u!1 &8899243799185576354
 GameObject:
   m_ObjectHideFlags: 0
@@ -441,23 +442,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2214956761055595279, guid: f4c893e18f6b04e46ada11360c30940f,
         type: 3}
-      propertyPath: m_Offset.y
-      value: -0.007067442
-      objectReference: {fileID: 0}
-    - target: {fileID: 2214956761055595279, guid: f4c893e18f6b04e46ada11360c30940f,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 1.1272187
-      objectReference: {fileID: 0}
-    - target: {fileID: 2214956761055595279, guid: f4c893e18f6b04e46ada11360c30940f,
-        type: 3}
       propertyPath: m_Offset.x
       value: -0.014148414
       objectReference: {fileID: 0}
     - target: {fileID: 2214956761055595279, guid: f4c893e18f6b04e46ada11360c30940f,
         type: 3}
+      propertyPath: m_Offset.y
+      value: -0.007067442
+      objectReference: {fileID: 0}
+    - target: {fileID: 2214956761055595279, guid: f4c893e18f6b04e46ada11360c30940f,
+        type: 3}
       propertyPath: m_Size.x
       value: 0.74532855
+      objectReference: {fileID: 0}
+    - target: {fileID: 2214956761055595279, guid: f4c893e18f6b04e46ada11360c30940f,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.1272187
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4c893e18f6b04e46ada11360c30940f, type: 3}

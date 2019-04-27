@@ -37,6 +37,8 @@ public class Bird : MonoBehaviour
     bool canCharge = true;
     bool inRecoveryPhase = false;
     float originalXposition;
+    bool Frozen = false;
+    bool turnRed = true;
 
     GameObject[] Players;
     bool getplayersonce = true;
@@ -53,22 +55,29 @@ public class Bird : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (getplayersonce)
+        if (Frozen)
         {
-            getplayers();
+            
         }
         else
         {
-            DoesHeSeePlayer();
-            if (SeePlayer)
+            if (getplayersonce)
             {
-                Flip();
-                Chase();
+                getplayers();
             }
             else
             {
-                IsInRadius();
-                Roam();
+                DoesHeSeePlayer();
+                if (SeePlayer)
+                {
+                    Flip();
+                    Chase();
+                }
+                else
+                {
+                    IsInRadius();
+                    Roam();
+                }
             }
         }
     }
@@ -345,6 +354,29 @@ public class Bird : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+    public void BirdFreeze()
+    {
+        float xvel = 10f;
+        float yvel = 4f;
+        if (IsPlayerInFront())
+        {
+            xvel = -xvel;
+        }
+        myRigidbody.velocity = new Vector2(xvel, yvel);
+        if (turnRed)
+        {
+            myAnimator.SetTrigger("Damaged");
+            turnRed = false;
+        }
+        Frozen = true;
+        StartCoroutine(UnFreeze());
+    }
+    IEnumerator UnFreeze()
+    {
+        yield return new WaitForSeconds(.5f);
+        Frozen = false;
+        turnRed = true;
     }
 }
 

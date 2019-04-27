@@ -115,6 +115,7 @@ public class Possum : MonoBehaviour
     }
     private void DoesHeSeePlayer()
     {
+        //do for player[1] whichever one is thats the index 0 or 1, then just make that a variable
         float EnemyPlayerXDifference = transform.position.x - Players[0].transform.position.x;
         if(Mathf.Abs(EnemyPlayerXDifference) < enemySeePlayerRange)
         {

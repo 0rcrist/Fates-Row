@@ -16,6 +16,9 @@ public class Skeleton : MonoBehaviour
     int isdirright = 1;
     int framestilljumpagain = 0;//to fix double jump bug
     float initialposition;
+    bool Frozen = false;
+    bool turnRed = true;
+    bool goingright = true;
 
     Animator myAnimator;
     Rigidbody2D myRigidBody;
@@ -35,14 +38,26 @@ public class Skeleton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckIfEnemyIsWithinRange();
-        Roam();
-        if (framestilljumpagain > 0)
+        if (Frozen)
         {
-            framestilljumpagain++;
-            if (framestilljumpagain == 5)
+            if (myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Default")))
             {
-                framestilljumpagain = 0;
+                Frozen = false;
+                turnRed = true;
+            }
+            //StartCoroutine(UnFreeze());
+        }
+        else
+        {
+            CheckIfEnemyIsWithinRange();
+            Roam();
+            if (framestilljumpagain > 0)
+            {
+                framestilljumpagain++;
+                if (framestilljumpagain == 5)
+                {
+                    framestilljumpagain = 0;
+                }
             }
         }
     }
@@ -59,7 +74,14 @@ public class Skeleton : MonoBehaviour
     {
         if(transform.position.x > initialposition + roamRange || transform.position.x < initialposition - roamRange)
         {
-            ChildChangeisdirrightSkeleton();
+            if(transform.position.x < initialposition - roamRange && isdirright == 1 || transform.position.x > initialposition + roamRange && isdirright == -1)
+            {
+
+            }
+            else
+            {
+                ChildChangeisdirrightSkeleton();
+            }
         }
     }
     private void Roam()
@@ -77,28 +99,22 @@ public class Skeleton : MonoBehaviour
     }
     public void JumpSkeleton()
     {
-        Debug.Log("????");
         if (!myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Default")))
         {
-            Debug.Log("feet");
             return;
         }
         if (framestilljumpagain != 0)
         {
-            Debug.Log("frames");
             return;
         }
         if (!IsPlayerInFront() && myRigidBody.velocity.x > 0)//rat is in front and velocity positive
         {
-            Debug.Log("direction");
             return;
         }
         if (IsPlayerInFront() && myRigidBody.velocity.x < 0)//rat is in back and velocity negatives
         {
-            Debug.Log("direction2");
             return;
         }
-        Debug.Log("jumped");
         Vector2 jumpVector = new Vector2(0f, jumpHeight);
         myRigidBody.velocity += jumpVector;
         framestilljumpagain++;
@@ -123,4 +139,21 @@ public class Skeleton : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    public void SkeletonFreeze()
+    {
+        float xvel = 5f;
+        float yvel = 8f;
+        if (IsPlayerInFront())
+        {
+            xvel = -xvel;
+        }
+        myRigidBody.velocity = new Vector2(xvel, yvel);
+        if (turnRed)
+        {
+            myAnimator.SetTrigger("Damaged");
+            turnRed = false;
+        }
+        Frozen = true;
+    }
+
 }

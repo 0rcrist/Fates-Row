@@ -23,9 +23,15 @@ public class EnemyHealth : MonoBehaviour
         DealWithHitBack();
         if (Health <= 0)
         {
-            Destroy(gameObject);
+            if(tag == "LavaBeast")
+            {
+                GetComponent<LavaBeast>().LavaBeastDeath();
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
             FindObjectOfType<PlayerUnit>().levelKillCounter++; //Jason
-
         }
     }
     private void DealWithHitBack()
@@ -38,7 +44,18 @@ public class EnemyHealth : MonoBehaviour
                 break;
             case "Enemy Frog": BroadcastMessage("FrogFreeze", 0);
                 break;
-
+            case "Enemy Skeleton": BroadcastMessage("SkeletonFreeze", 0);
+                break;
+            case "Enemy Bird": BroadcastMessage("BirdFreeze", 0);
+                break;
+            case "Enemy Mage": BroadcastMessage("MageFreeze", 0);
+                break;
+            case "Enemy Archer": BroadcastMessage("ArcherFreeze", 0);
+                break;
+            case "Enemy Jester": BroadcastMessage("JesterFreeze", 0);
+                break;
+            case "Enemy Knight": BroadcastMessage("KnightFreeze", 0);
+                break;
         }
     }
 }

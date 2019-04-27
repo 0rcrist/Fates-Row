@@ -58,7 +58,19 @@ public class ArcherVision : MonoBehaviour
             getplayersonce = false;
         }
     }
-        private void UpdateArcher()
+    public bool IsPlayerInFrontArcher()
+    {
+        float EnemyPlayerXDifference = transform.position.x - Players[0].transform.position.x;
+        if (EnemyPlayerXDifference < 0)//player is in front
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    private void UpdateArcher()
     {
        if(trigger == true)
         {

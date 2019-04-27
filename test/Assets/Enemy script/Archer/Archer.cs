@@ -30,25 +30,43 @@ public class Archer : MonoBehaviour
     int isdirright = 1;
 
     Rigidbody2D myRigidBody;
+    PolygonCollider2D feetCollider;
+    Animator myAnimator;
+    bool Frozen = false;
+    bool turnRed = true;
     // Start is called before the first frame update
     void Start()
     {
         myRigidBody = GetComponent<Rigidbody2D>();
+        myAnimator = GetComponent<Animator>();
+        feetCollider = GetComponent<PolygonCollider2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (canSeePlayer)
+        if (Frozen)
         {
-            myRigidBody.velocity = new Vector2(0f, 0f);
-            GetComponent<Animator>().SetBool("Walk", false);
-            Attack();
+            if (feetCollider.IsTouchingLayers(LayerMask.GetMask("Default")))
+            {
+                Frozen = false;
+                turnRed = true;
+            }
+            //StartCoroutine(UnFreeze());
         }
         else
         {
-            GetComponent<Animator>().SetBool("Walk", true);
-            Roam();
+            if (canSeePlayer)
+            {
+                myRigidBody.velocity = new Vector2(0f, 0f);
+                GetComponent<Animator>().SetBool("Walk", false);
+                Attack();
+            }
+            else
+            {
+                GetComponent<Animator>().SetBool("Walk", true);
+                Roam();
+            }
         }
 
 
@@ -142,5 +160,25 @@ public class Archer : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+    public void MageFreeze()
+    {
+        myAnimator.SetTrigger("Damaged");
+    }
+    public void ArcherFreeze()
+    {
+        float xvel = 5f;
+        float yvel = 10f;
+        if (GetComponentInChildren<ArcherVision>().IsPlayerInFrontArcher())
+        {
+            xvel = -xvel;
+        }
+        myRigidBody.velocity = new Vector2(xvel, yvel);
+        if (turnRed)
+        {
+            myAnimator.SetTrigger("Damaged");
+            turnRed = false;
+        }
+        Frozen = true;
     }
 }

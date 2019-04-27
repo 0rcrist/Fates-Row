@@ -51,11 +51,11 @@ public class LavaBeast : MonoBehaviour
     //burst attack
     bool burstattackAgain = true;
     float burstfiredelay = 2f;
-
+    bool BossDead = false;
     Animator myAnimator;
     //Player thePlayer;
     Rigidbody2D myRigidBody;
-
+    bool BossFreezed = false;
     GameObject[] Players;
     bool getplayersonce = true;
     //laser beam like from boshy tekken boss
@@ -79,56 +79,63 @@ public class LavaBeast : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (getplayersonce)
+        if (BossDead)
         {
-            getplayers();
+
         }
         else
         {
-            FacePlayer();
-            DealWithPhases();
-            //CheckIfEnemyIsWithinRange();
-            //Roam();
-            if (burstattackphase)
+            if (getplayersonce)
             {
-                if (burstattackAgain)
-                {
-                    burstattackAgain = false;
-                    BurstAttack();
-                }
+                getplayers();
             }
-            if (lavagroundphase)
+            else
             {
-                if (attackAgain)
+                FacePlayer();
+                DealWithPhases();
+                //CheckIfEnemyIsWithinRange();
+                //Roam();
+                if (burstattackphase)
                 {
-                    attackAgain = false;
-                    LavaGroundAttack();
+                    if (burstattackAgain)
+                    {
+                        burstattackAgain = false;
+                        BurstAttack();
+                    }
                 }
-            }
-            if (cosinephase)
-            {
-                if (cosineattackagain)
+                if (lavagroundphase)
                 {
-                    cosineattackagain = false;
-                    StartCoroutine(Cosineattack());
+                    if (attackAgain)
+                    {
+                        attackAgain = false;
+                        LavaGroundAttack();
+                    }
                 }
-            }
-            if (flowattackphase)
-            {
-                if (flowattackagain)
+                if (cosinephase)
                 {
-                    flowattackagain = false;
-                    StartCoroutine(FlowAttack());
+                    if (cosineattackagain)
+                    {
+                        cosineattackagain = false;
+                        StartCoroutine(Cosineattack());
+                    }
                 }
-            }
-            if (laserbeamphase)
-            {
-                if (laserattackagain == true)
+                if (flowattackphase)
                 {
-                    laserattackagain = false;
-                    StartCoroutine(LaserBeamAttack());
+                    if (flowattackagain)
+                    {
+                        flowattackagain = false;
+                        StartCoroutine(FlowAttack());
+                    }
                 }
+                if (laserbeamphase)
+                {
+                    if (laserattackagain == true)
+                    {
+                        laserattackagain = false;
+                        StartCoroutine(LaserBeamAttack());
+                    }
 
+                }
             }
         }
     }
@@ -152,37 +159,55 @@ public class LavaBeast : MonoBehaviour
         bool laserbeamphase = false;
         bool cosinephase = false;*/
 
-        if (switchphasecounter % 1000 == 0)
+        if (switchphasecounter % 700 == 0)//1000
         {
-            if(phasecounter == 1)
+            if(!BossFreezed)
             {
-                lavagroundphase = false;
-                burstattackphase = true;
-            }
-            if (phasecounter == 2)
-            {
-                burstattackphase = false;
-                flowattackphase = true;
-            }
-            if (phasecounter == 3)
-            {
-                flowattackphase = false;
-                laserbeamphase = true;
-            }
-            if (phasecounter == 4)
-            {
-                laserbeamphase = false;
-                lavagroundphase = true;
-            }
-            phasecounter++;
-            if(phasecounter > 4)
-            {
-                phasecounter = 1;
+                StartCoroutine(BossFrozen());
+                switchphasecounter++;
+                BossFreezed = true;
             }
         }
-        switchphasecounter++;
+        if(!BossFreezed)
+        {
+            switchphasecounter++;
+        }
     }
-
+    IEnumerator BossFrozen()
+    {
+        lavagroundphase = false;
+        burstattackphase = false;
+        flowattackphase = false;
+        laserbeamphase = false;
+        myAnimator.SetTrigger("hit_1");
+        yield return new WaitForSeconds(4f);
+        BossFreezed = false;
+        if (phasecounter == 1)
+        {
+            lavagroundphase = false;
+            burstattackphase = true;
+        }
+        if (phasecounter == 2)
+        {
+            burstattackphase = false;
+            flowattackphase = true;
+        }
+        if (phasecounter == 3)
+        {
+            flowattackphase = false;
+            laserbeamphase = true;
+        }
+        if (phasecounter == 4)
+        {
+            laserbeamphase = false;
+            lavagroundphase = true;
+        }
+        phasecounter++;
+        if (phasecounter > 4)
+        {
+            phasecounter = 1;
+        }
+    }
     private void BurstAttack()
     {
         StartCoroutine(BurstSpawn());
@@ -288,7 +313,8 @@ public class LavaBeast : MonoBehaviour
     }
     IEnumerator LaserBeamAttack()
     {
-        laseroffset = Mathf.Abs(-laserradius * Mathf.Cos(((Mathf.PI * laserbeamangle) / 180) - Mathf.PI / 2)) + 2;//-cos(x-pi/2) + 2
+        myAnimator.SetTrigger("skill_3");
+        laseroffset = Mathf.Abs(-laserradius * Mathf.Cos(((Mathf.PI * laserbeamangle) / 180) - Mathf.PI / 2)) + 4;//-cos(x-pi/2) + 2
         FireBall ballupper = Instantiate(nogravityBall, new Vector2(transform.position.x-2f, transform.position.y+3), Quaternion.identity) as FireBall;
         ballupper.setVelocity(-17f, 0);
         ballupper.setoffest(laseroffset);
@@ -424,12 +450,13 @@ public class LavaBeast : MonoBehaviour
             myRigidBody.velocity = new Vector2(-moveSpeed, myRigidBody.velocity.y);
         }
     }
-    public void EnemyDamaged()
+    public void LavaBeastDeath()
     {
-        Health = Health - 1;
-        if (Health <= 0)
-        {
-            Destroy(gameObject);
-        }
+        BossDead = true;
+        lavagroundphase = false;
+        burstattackphase = false;
+        flowattackphase = false;
+        laserbeamphase = false;
+        GetComponentInChildren<EnemyToPlayerCollider>().GetComponent<BoxCollider2D>().enabled = false;
     }
 }

@@ -196,6 +196,7 @@ GameObject:
   - component: {fileID: 6302618955716879258}
   - component: {fileID: 1485412761}
   - component: {fileID: 5891933706688959385}
+  - component: {fileID: 812413299484086590}
   m_Layer: 12
   m_Name: Enemy Archer
   m_TagString: Untagged
@@ -305,7 +306,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    oldSize: {x: 2.6666667, y: 2.6666667}
     newSize: {x: 0.36, y: 0.28}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -373,6 +374,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7426d0b3ff861b47a5be3febde41186, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Health: 100
+--- !u!60 &812413299484086590
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5198782434646475063}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.6666667, y: 2.6666667}
+    newSize: {x: 0.36, y: 0.28}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.12241101, y: -0.9765688}
+      - {x: -0.114711165, y: -1.1343038}
+      - {x: 0.787943, y: -1.1478796}
+      - {x: 0.7377554, y: -0.9912412}
 --- !u!1001 &8589719428760573112
 PrefabInstance:
   m_ObjectHideFlags: 0
