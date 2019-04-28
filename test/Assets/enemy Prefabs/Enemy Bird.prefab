@@ -15,8 +15,6 @@ GameObject:
   - component: {fileID: 2831860889196647431}
   - component: {fileID: 5385923094589451106}
   - component: {fileID: 3096470264621151416}
-  - component: {fileID: 7238402845795160028}
-  - component: {fileID: 5345233961571512902}
   m_Layer: 12
   m_Name: Enemy Bird
   m_TagString: Untagged
@@ -102,7 +100,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
-  m_WarningMessage: 
+  m_WarningMessage:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
@@ -163,10 +161,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6b27028241987b148a5c5e140ba53c25, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   Health: 5
-  enemySeePlayerRange: 30
+  enemySeePlayerRange: 10
   roamSpeed: 2
   roamRadius: 4
   birdFollows: 0
@@ -188,8 +186,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f7426d0b3ff861b47a5be3febde41186, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   Health: 30
 --- !u!114 &7238402845795160028
 MonoBehaviour:
@@ -201,8 +199,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_SceneId:
     m_Value: 0
   m_AssetId:
@@ -234,8 +232,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_TransformSyncMode: 2
   m_SendInterval: 0.1
   m_SyncRotationAxis: 3

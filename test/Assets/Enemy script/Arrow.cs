@@ -18,9 +18,8 @@ public class Arrow : MonoBehaviour
     float arrowX;
     float arrowY;
     float t;
-    GameObject Player;
 
-    float DeathCounter = 0;
+    int DeathCounter = 0;
 
     Rigidbody2D myRigidBody;
 
@@ -38,13 +37,9 @@ public class Arrow : MonoBehaviour
     void Start()
     {
         myRigidBody = GetComponent<Rigidbody2D>();
-        Player = transform.parent.GetComponentInChildren<ArcherVision>().GetPlayer();
-       // Player = GetComponent<ArcherVision>().GetPlayer();
-        //Player = transform.parent.GetComponent<ArcherVision>().GetPlayer();
-        //playerX = GameObject.FindGameObjectWithTag("Player").transform.position.x;
-       // playerY = GameObject.FindGameObjectWithTag("Player").transform.position.y;
-        playerX = Player.transform.position.x;
-        playerY = Player.transform.position.y;
+
+        playerX = GameObject.FindGameObjectWithTag("Player").transform.position.x;
+        playerY = GameObject.FindGameObjectWithTag("Player").transform.position.y;
         arrowX = transform.position.x;
         arrowY = transform.position.y;
 
@@ -68,8 +63,8 @@ public class Arrow : MonoBehaviour
     {
         Rotatez();
         Stick();
-        DeathCounter+= 1* Time.deltaTime;
-        if (DeathCounter > 100)
+        DeathCounter++;
+        if (DeathCounter > 300)
         {
             Destroy(gameObject);
         }
