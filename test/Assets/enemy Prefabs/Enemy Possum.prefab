@@ -42,8 +42,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ab2e84fb7cf774f4da2a08eeb4e067a8, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!61 &946025129
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -86,6 +86,8 @@ GameObject:
   - component: {fileID: 4901871218490486409}
   - component: {fileID: 4901871218490486411}
   - component: {fileID: 3432200620773423791}
+  - component: {fileID: 3622800251568975223}
+  - component: {fileID: 7642105027168168200}
   m_Layer: 12
   m_Name: Enemy Possum
   m_TagString: Untagged
@@ -173,7 +175,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
-  m_WarningMessage:
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
@@ -213,14 +215,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 81c1ff9038736c2418220d6c6cbed0e3, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   Health: 101
   moveSpeed: 3
   acceleratorSpeed: 0.1
   jumpHeight: 10
   isAccelerator: 0
-  enemySeePlayerRange: 5
+  enemySeePlayerRange: 10
 --- !u!50 &4901871218490486409
 Rigidbody2D:
   serializedVersion: 4
@@ -281,8 +283,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f7426d0b3ff861b47a5be3febde41186, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   Health: 136
 --- !u!114 &3622800251568975223
 MonoBehaviour:
@@ -294,8 +296,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_SceneId:
     m_Value: 0
   m_AssetId:
@@ -327,8 +329,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_TransformSyncMode: 2
   m_SendInterval: 0.1
   m_SyncRotationAxis: 3
@@ -397,8 +399,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe7129ee059c0f243a3520b0cbd5c22f, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2248619548700738770
 PrefabInstance:
   m_ObjectHideFlags: 0

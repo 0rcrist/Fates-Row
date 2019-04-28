@@ -29,7 +29,7 @@ public class Possum : MonoBehaviour
     int playerseenindex = 0;
 
 
-    int framestilljumpagain = 0;//to fix double jump bug
+    float framestilljumpagain = 0;//to fix double jump bug
 
     public void ChildChangeisdirrightPossum()
     {
@@ -84,7 +84,7 @@ public class Possum : MonoBehaviour
 
                 if (framestilljumpagain > 0)
                 {
-                    framestilljumpagain++;
+                    framestilljumpagain+= 1 * Time.deltaTime;
                     if (framestilljumpagain == 3)
                     {
                         framestilljumpagain = 0;
@@ -98,13 +98,13 @@ public class Possum : MonoBehaviour
     {
         //int counter = 0;
         Players = GameObject.FindGameObjectsWithTag("Player");
-        /*if(Players.Length < 2)
+        if(Players.Length < 2)
          {
 
-         }*/
-        if (Players.Length == 0)
+         }
+        /*if (Players.Length == 0)
         {
-        }
+        }*/
         else
         {
             getplayersonce = false;
@@ -158,25 +158,32 @@ public class Possum : MonoBehaviour
         }
         Vector2 jumpVector = new Vector2(0f, jumpHeight);
         myRigidbody.velocity += jumpVector;
-        framestilljumpagain++;
+        framestilljumpagain += 1 * Time.deltaTime;
     }
 
     private void Flip()
     {
         if(SeePlayer)//always facing player
         {
-            if(IsPlayerInFront())
+            if (Mathf.Abs(transform.position.x - Players[playerseenindex].transform.position.x) < 2)
             {
-                if(transform.localScale.x > 0)
-                {
-                    transform.localScale = new Vector2(-1 * transform.localScale.x, transform.localScale.y);
-                }
+
             }
             else
             {
-                if (transform.localScale.x < 0)
+                if (IsPlayerInFront())
                 {
-                    transform.localScale = new Vector2(-1 * transform.localScale.x, transform.localScale.y);
+                    if (transform.localScale.x > 0)
+                    {
+                        transform.localScale = new Vector2(-1 * transform.localScale.x, transform.localScale.y);
+                    }
+                }
+                else
+                {
+                    if (transform.localScale.x < 0)
+                    {
+                        transform.localScale = new Vector2(-1 * transform.localScale.x, transform.localScale.y);
+                    }
                 }
             }
         }

@@ -29,7 +29,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Enemy sandbox.unity
     guid: bbeb8b0083985cc4f8c2194c8b5ecaff
-  - enabled: 1
-    path: Assets/Scenes/World 1/level 1-4.unity
-    guid: d364e9beb4fb67c4d8c760df8f1ecb88
   m_configObjects: {}

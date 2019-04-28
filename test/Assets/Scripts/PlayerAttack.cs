@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class PlayerAttack : MonoBehaviour
+
+public class PlayerAttack : NetworkBehaviour
 {
     [SerializeField]
     private float timeBtwAttacks;
@@ -11,6 +13,9 @@ public class PlayerAttack : MonoBehaviour
     public Transform attackPos;
     public float attackRange;
 
+    [SyncVar]
+    private bool isAttacking = false;
+
     public LayerMask whatIsEnemy;
 
     public int damage;
@@ -18,18 +23,30 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Space)) {
-            performAttack();
+        if (hasAuthority == true)
+        {
+            if (Input.GetKey(KeyCode.Space))
+            {
+                performAttack();
+            }
         }
+        else
+        {
+            if (isAttacking == true)
+            {
+                attack();
+                isAttacking = false;
+            }
+        }
+
     }
-    public void performAttack() {
+    public void performAttack()
+    {
         if (timeBtwAttacks <= 0)
         {
             timeBtwAttacks = startAttacks;
-            Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemy);
-            foreach (Collider2D enemy in enemiesToDamage) {
-                enemy.GetComponent<EnemyHealth>().LowerHealth(2);
-            }
+            isAttacking = true;
+            attack();
             timeBtwAttacks = startAttacks;
         }
         else
@@ -42,4 +59,15 @@ public class PlayerAttack : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackPos.position, attackRange);
     }
+
+    private void attack()
+    {
+        Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemy);
+        foreach (Collider2D enemy in enemiesToDamage)
+        {
+            enemy.GetComponent<EnemyHealth>().LowerHealth(damage);
+
+        }
+    }
+
 }

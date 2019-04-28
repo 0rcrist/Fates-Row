@@ -20,7 +20,7 @@ public class FireBall : MonoBehaviour
 
     //general stuff
     float moveSpeed = 10f;
-    int DeathCounter = 0;
+    float DeathCounter = 0;
     float velX;
     float velY;
     float playerX;
@@ -33,7 +33,7 @@ public class FireBall : MonoBehaviour
     float actualMagnitude;
     float delaytime = 1f;
     bool invokeOnce = true;
-
+    GameObject Player;
     //circle stuff
     float radius;
     bool thetalower = true;
@@ -216,7 +216,7 @@ public class FireBall : MonoBehaviour
                     }
                 }
             }
-
+           
         }
         else if(immobilecosine)
         {
@@ -236,7 +236,7 @@ public class FireBall : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
+    
     private void CurvyCosine()
     {
         velX = radius * Mathf.Cos((Mathf.PI * theta) / 180);
@@ -245,7 +245,7 @@ public class FireBall : MonoBehaviour
 
         if (thetalower)
         {
-            theta--;
+            theta -= 1 * Time.deltaTime;
             if (theta < originaltheta - 45)
             {
                 thetalower = false;
@@ -253,7 +253,7 @@ public class FireBall : MonoBehaviour
         }
         else
         {
-            theta++;
+            theta += 1 * Time.deltaTime;
             if (theta > originaltheta + 60)
             {
                 thetalower = true;
@@ -265,10 +265,10 @@ public class FireBall : MonoBehaviour
         velX = radius * Mathf.Cos((Mathf.PI * theta) / 180);
         velY = radius * Mathf.Sin((Mathf.PI * theta) / 180);
         myRigidBody.velocity = new Vector2(velX, velY);
-
+     
         if (thetalower)
         {
-            theta--;
+            theta -= 1 * Time.deltaTime;
             if (theta < originaltheta - 45)
             {
                 thetalower = false;
@@ -277,7 +277,7 @@ public class FireBall : MonoBehaviour
         }
         else
         {
-            theta++;
+            theta+= 1 * Time.deltaTime;
             if (theta > originaltheta + 60)
             {
                 thetalower = true;
