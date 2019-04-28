@@ -30,7 +30,7 @@ public class Health : MonoBehaviour
     if (currentHealth > maxHealth)
         currentHealth = maxHealth;
 
-    healthImage.sprite = healthSprites[currentHealth];
+   // healthImage.sprite = healthSprites[currentHealth];
     }
 
     public void damagePlayer(int damageAmount)
