@@ -20,33 +20,16 @@ public class PlayerAttack : NetworkBehaviour
 
     public int damage;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (hasAuthority == true)
-        {
-            if (Input.GetKey(KeyCode.Space))
-            {
-                performAttack();
-            }
-        }
-        else
-        {
-            if (isAttacking == true)
-            {
-                attack();
-                isAttacking = false;
-            }
-        }
 
-    }
-    public void performAttack()
-    {
-        if (timeBtwAttacks <= 0)
+    public void performAttack() {
+        Debug.Log("Attacking");
+            if (timeBtwAttacks <= 0)
         {
             timeBtwAttacks = startAttacks;
-            isAttacking = true;
-            attack();
+            Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemy);
+            foreach (Collider2D enemy in enemiesToDamage) {
+                enemy.GetComponent<EnemyHealth>().LowerHealth(damage);
+            }
             timeBtwAttacks = startAttacks;
         }
         else

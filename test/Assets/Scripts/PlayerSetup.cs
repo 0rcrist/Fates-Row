@@ -13,6 +13,11 @@ public class PlayerSetup : NetworkBehaviour
     private GameObject Can;
     private Camera Cam;
 
+    [SerializeField]
+    private GameObject Attack;
+    [SerializeField]
+    private GameObject Jump;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +34,8 @@ public class PlayerSetup : NetworkBehaviour
             DontDestroyOnLoad(Can);
             GetComponent<PlayerUnit>().joy = Can.GetComponentInChildren<FixedJoystick>();
             Can.GetComponentInChildren<Button>().onClick.AddListener(GetComponent<PlayerUnit>().isJumping);
+            Attack = Can.transform.Find("AttackButton").gameObject;
+            Attack.GetComponent<Button>().onClick.AddListener(GetComponent<PlayerAttack>().performAttack);
             NewScene();
         }
 }

@@ -49,7 +49,7 @@ public class PlayerUnit : NetworkBehaviour
 
         }
          
-        Debug.Log("speed is " + ani.GetFloat("Speed"));
+        //Debug.Log("speed is " + ani.GetFloat("Speed"));
         }
 
     void FixedUpdate()
@@ -57,14 +57,14 @@ public class PlayerUnit : NetworkBehaviour
         controller.Move(horizontalMove * Time.fixedDeltaTime, false, jump);
         jump = false;
     }
-    public void OnLanding()
+    public void OnLand()
     {
         ani.SetBool("jump", false);
     }
     public void isJumping() {
-
-        jump = true;
         ani.SetBool("jump", true);
+        jump = true;
+        
     }
     
    
