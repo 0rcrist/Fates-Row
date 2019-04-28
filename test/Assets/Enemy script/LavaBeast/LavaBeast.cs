@@ -163,7 +163,7 @@ public class LavaBeast : MonoBehaviour
         bool laserbeamphase = false;
         bool cosinephase = false;*/
 
-        if (switchphasecounter % 700 == 0)//1000
+        if (switchphasecounter % 300 == 0)//1000
         {
             if(!BossFreezed)
             {
