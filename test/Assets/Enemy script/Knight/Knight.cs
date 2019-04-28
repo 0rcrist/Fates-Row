@@ -21,6 +21,9 @@ public class Knight : MonoBehaviour
     //Player thePlayer;
     GameObject[] Players;
     bool getplayersonce = true;
+    bool Frozen = false;
+    bool turnRed = true;
+    int randomPlayer = 0;
 
     //run up to player stops and swings, repeat
     // Start is called before the first frame update
@@ -35,45 +38,65 @@ public class Knight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (getplayersonce)
+        if (Frozen)
         {
-            getplayers();
+            if (myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Default")))
+            {
+                Frozen = false;
+                turnRed = true;
+            }
+            //StartCoroutine(UnFreeze());
         }
         else
         {
-            if (canSeePlayer)
+            if (getplayersonce)
             {
-                IsHeAttacking();
-                if (isAttacking)
+                getplayers();
+            }
+            else
+            {
+                if (canSeePlayer)
                 {
-                    if (!inAttackCoRoutine)
+                    IsHeAttacking();
+                    if (isAttacking)
                     {
-                        StartCoroutine(Attack());
+                        if (!inAttackCoRoutine)
+                        {
+                            StartCoroutine(Attack());
+                        }
+                    }
+                    else
+                    {
+                        Chase();
                     }
                 }
                 else
                 {
-                    Chase();
+                    Roam();
                 }
-            }
-            else
-            {
-                Roam();
-            }
-            if (framestilljumpagain > 0)
-            {
-                framestilljumpagain++;
-                if (framestilljumpagain == 5)
+                if (framestilljumpagain > 0)
                 {
-                    framestilljumpagain = 0;
+                    framestilljumpagain++;
+                    if (framestilljumpagain == 5)
+                    {
+                        framestilljumpagain = 0;
+                    }
                 }
             }
-        }   
+        }
     }
     private void getplayers()
     {
         //int counter = 0;
         Players = GameObject.FindGameObjectsWithTag("Player");
+        /*if(Players.Length < 2)
+        {
+
+        }
+        else
+        {
+            getplayersonce = false;
+        }*/
         if (Players.Length == 0)
         {
 
@@ -200,5 +223,21 @@ public class Knight : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+    public void KnightFreeze()
+    {
+        float xvel = 5f;
+        float yvel = 8f;
+        if (IsPlayerInFront())
+        {
+            xvel = -xvel;
+        }
+        myRigidBody.velocity = new Vector2(xvel, yvel);
+        if (turnRed)
+        {
+            myAnimator.SetTrigger("Damaged");
+            turnRed = false;
+        }
+        Frozen = true;
     }
 }

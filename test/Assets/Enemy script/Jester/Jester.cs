@@ -21,11 +21,14 @@ public class Jester : MonoBehaviour
     //Player thePlayer;
     Animator myAnimator;
     Rigidbody2D myRigidBody;
+    PolygonCollider2D feetCollider;
 
     float xoffset = 0f;
     bool seePlayer = false;
     bool isThrowing = false;
     int isdirright = 1;
+    bool Frozen = false;
+    bool turnRed = true;
 
     GameObject[] Players;
     bool getplayersonce = true;
@@ -35,30 +38,43 @@ public class Jester : MonoBehaviour
         //thePlayer = FindObjectOfType<Player>();
         myAnimator = GetComponent<Animator>();
         myRigidBody = GetComponent<Rigidbody2D>();
+        feetCollider = GetComponent<PolygonCollider2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (getplayersonce)
+        if (Frozen)
         {
-            getplayers();
+            if (feetCollider.IsTouchingLayers(LayerMask.GetMask("Default")))
+            {
+                Frozen = false;
+                turnRed = true;
+            }
+            //StartCoroutine(UnFreeze());
         }
         else
         {
-            DoesHeSeePlayer();
-            if (seePlayer)
+            if (getplayersonce)
             {
-                myRigidBody.velocity = new Vector2(0f, 0f);
-                myAnimator.SetBool("Throw", true);
-                myAnimator.SetBool("Walk", false);
-                Attack();
+                getplayers();
             }
             else
             {
-                myAnimator.SetBool("Throw", false);
-                myAnimator.SetBool("Walk", true);
-                Roam();
+                DoesHeSeePlayer();
+                if (seePlayer)
+                {
+                    myRigidBody.velocity = new Vector2(0f, 0f);
+                    myAnimator.SetBool("Throw", true);
+                    myAnimator.SetBool("Walk", false);
+                    Attack();
+                }
+                else
+                {
+                    myAnimator.SetBool("Throw", false);
+                    myAnimator.SetBool("Walk", true);
+                    Roam();
+                }
             }
         }
     }
@@ -159,5 +175,21 @@ public class Jester : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+    public void JesterFreeze()
+    {
+        float xvel = 3f;
+        float yvel = 10f;
+        if (IsPlayerInFront())
+        {
+            xvel = -xvel;
+        }
+        myRigidBody.velocity = new Vector2(xvel, yvel);
+        if (turnRed)
+        {
+            myAnimator.SetTrigger("Damaged");
+            turnRed = false;
+        }
+        Frozen = true;
     }
 }

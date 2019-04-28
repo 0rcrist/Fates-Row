@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 5348996082655188139}
   m_Layer: 12
   m_Name: lava_beast
-  m_TagString: Untagged
+  m_TagString: LavaBeast
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -155,6 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7426d0b3ff861b47a5be3febde41186, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Health: 500
 --- !u!1 &443268813199299334
 GameObject:
   m_ObjectHideFlags: 0
@@ -3086,13 +3087,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2214956761055595279, guid: f4c893e18f6b04e46ada11360c30940f,
         type: 3}
-      propertyPath: m_Size.x
-      value: 141.41476
+      propertyPath: m_Offset.y
+      value: -20.921783
       objectReference: {fileID: 0}
     - target: {fileID: 2214956761055595279, guid: f4c893e18f6b04e46ada11360c30940f,
         type: 3}
-      propertyPath: m_Offset.y
-      value: -20.921783
+      propertyPath: m_Size.x
+      value: 141.41476
       objectReference: {fileID: 0}
     - target: {fileID: 2214956761055595279, guid: f4c893e18f6b04e46ada11360c30940f,
         type: 3}

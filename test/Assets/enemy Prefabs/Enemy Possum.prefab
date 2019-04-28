@@ -190,18 +190,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.08157027, y: -0.08876848}
+  m_Offset: {x: -0.08157027, y: -0.21166933}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.125, y: 0.875}
+    oldSize: {x: 1.8, y: 1.4}
     newSize: {x: 0.36, y: 0.28}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9034717, y: 0.5249548}
+  m_Size: {x: 0.9034717, y: 0.7707565}
   m_EdgeRadius: 0
 --- !u!114 &4901871218490486414
 MonoBehaviour:
@@ -215,7 +215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81c1ff9038736c2418220d6c6cbed0e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 5
+  Health: 101
   moveSpeed: 3
   acceleratorSpeed: 0.1
   jumpHeight: 10
@@ -259,7 +259,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.125, y: 0.875}
+    oldSize: {x: 1.8, y: 1.4}
     newSize: {x: 0.36, y: 0.28}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -267,10 +267,10 @@ PolygonCollider2D:
   m_AutoTiling: 1
   m_Points:
     m_Paths:
-    - - {x: -0.4326644, y: -0.2998526}
-      - {x: -0.43534422, y: -0.36403918}
-      - {x: 0.29593801, y: -0.36085486}
-      - {x: 0.2948631, y: -0.30223775}
+    - - {x: -0.58436394, y: -0.3379894}
+      - {x: -0.57880974, y: -0.6076011}
+      - {x: 0.36803317, y: -0.5983625}
+      - {x: 0.37944072, y: -0.3400125}
 --- !u!114 &3432200620773423791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283,7 +283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7426d0b3ff861b47a5be3febde41186, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 5
+  Health: 136
 --- !u!1 &4901871218817857014
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,6 +351,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4901871218490486412}
     m_Modifications:
+    - target: {fileID: 3018277265858434779, guid: f4c893e18f6b04e46ada11360c30940f,
+        type: 3}
+      propertyPath: m_Name
+      value: EnemyToPlayerCollider
+      objectReference: {fileID: 0}
     - target: {fileID: 2173392467053215764, guid: f4c893e18f6b04e46ada11360c30940f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -406,20 +411,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3018277265858434779, guid: f4c893e18f6b04e46ada11360c30940f,
-        type: 3}
-      propertyPath: m_Name
-      value: EnemyToPlayerCollider
-      objectReference: {fileID: 0}
-    - target: {fileID: 3018277265858434779, guid: f4c893e18f6b04e46ada11360c30940f,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2214956761055595279, guid: f4c893e18f6b04e46ada11360c30940f,
         type: 3}
-      propertyPath: m_Offset.x
-      value: 0
+      propertyPath: m_Offset.y
+      value: -0.077869415
       objectReference: {fileID: 0}
     - target: {fileID: 2214956761055595279, guid: f4c893e18f6b04e46ada11360c30940f,
         type: 3}
@@ -428,18 +423,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2214956761055595279, guid: f4c893e18f6b04e46ada11360c30940f,
         type: 3}
-      propertyPath: m_Offset.y
-      value: -0.077869415
-      objectReference: {fileID: 0}
-    - target: {fileID: 2214956761055595279, guid: f4c893e18f6b04e46ada11360c30940f,
-        type: 3}
       propertyPath: m_Size.y
       value: 0.40819263
-      objectReference: {fileID: 0}
-    - target: {fileID: 2214956761055595279, guid: f4c893e18f6b04e46ada11360c30940f,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4c893e18f6b04e46ada11360c30940f, type: 3}

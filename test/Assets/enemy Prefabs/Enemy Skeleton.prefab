@@ -45,8 +45,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.6176281, y: -0.44318032}
-  m_Size: {x: 0.1148963, y: 0.55369616}
+  m_Offset: {x: -0.6176281, y: -0.63015056}
+  m_Size: {x: 0.1148963, y: 0.9276366}
   m_Direction: 0
 --- !u!114 &4421893647642331158
 MonoBehaviour:
@@ -184,7 +184,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.375, y: 1.625}
+    oldSize: {x: 2.2, y: 2.6}
     newSize: {x: 0.36, y: 0.28}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -231,7 +231,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.375, y: 1.625}
+    oldSize: {x: 2.2, y: 2.6}
     newSize: {x: 0.36, y: 0.28}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -241,8 +241,8 @@ PolygonCollider2D:
     m_Paths:
     - - {x: 0.24699855, y: -0.7481375}
       - {x: -0.15353262, y: -0.74111986}
-      - {x: -0.1420896, y: -0.80063725}
-      - {x: 0.240188, y: -0.80746174}
+      - {x: -0.15314245, y: -1.075781}
+      - {x: 0.2971139, y: -1.0898298}
 --- !u!114 &3334865247540893365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,7 +257,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 5
   moveSpeed: 2
-  jumpHeight: 8
+  jumpHeight: 12.99
   roamRange: 10
   enemySeePlayerRange: 5
   enemyswitchonwall: 0
@@ -273,6 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7426d0b3ff861b47a5be3febde41186, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Health: 50
 --- !u!1 &8899243799185576354
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,7 +319,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.7714599, y: -0.03774929}
+  m_Offset: {x: -0.7714599, y: -0.361758}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -329,7 +330,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5783657, y: 0.11918068}
+  m_Size: {x: 0.5783657, y: 0.7671981}
   m_EdgeRadius: 0
 --- !u!114 &2232364029756844729
 MonoBehaviour:
@@ -417,13 +418,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2214956761055595279, guid: f4c893e18f6b04e46ada11360c30940f,
         type: 3}
-      propertyPath: m_Size.x
-      value: 0.41111112
+      propertyPath: m_Offset.y
+      value: -0.022628784
       objectReference: {fileID: 0}
     - target: {fileID: 2214956761055595279, guid: f4c893e18f6b04e46ada11360c30940f,
         type: 3}
-      propertyPath: m_Offset.y
-      value: -0.022628784
+      propertyPath: m_Size.x
+      value: 0.41111112
       objectReference: {fileID: 0}
     - target: {fileID: 2214956761055595279, guid: f4c893e18f6b04e46ada11360c30940f,
         type: 3}
