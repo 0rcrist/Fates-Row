@@ -213,7 +213,7 @@ MonoBehaviour:
   Health: 5
   moveSpeed: 3
   jumpHeight: 10
-  enemySeePlayerRange: 10
+  enemySeePlayerRange: 20
 --- !u!61 &6187368519370262541
 BoxCollider2D:
   m_ObjectHideFlags: 0

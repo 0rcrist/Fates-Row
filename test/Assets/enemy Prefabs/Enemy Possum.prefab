@@ -220,7 +220,7 @@ MonoBehaviour:
   acceleratorSpeed: 0.1
   jumpHeight: 10
   isAccelerator: 0
-  enemySeePlayerRange: 5
+  enemySeePlayerRange: 10
 --- !u!50 &4901871218490486409
 Rigidbody2D:
   serializedVersion: 4

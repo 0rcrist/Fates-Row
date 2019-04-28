@@ -259,7 +259,7 @@ MonoBehaviour:
   moveSpeed: 2
   jumpHeight: 12.99
   roamRange: 10
-  enemySeePlayerRange: 5
+  enemySeePlayerRange: 20
   enemyswitchonwall: 0
 --- !u!114 &5690747319456194990
 MonoBehaviour:

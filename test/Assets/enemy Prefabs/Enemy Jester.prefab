@@ -169,7 +169,7 @@ MonoBehaviour:
   xoffsetRangeMax: 10
   xoffsetRangeMin: 0
   a: -0.1
-  enemySeePlayerRange: 10
+  enemySeePlayerRange: 50
   moveSpeed: 2
   throwSpeed: 0.5
   theBottle: {fileID: 7915323461256211011, guid: 1b6203efd3efce245867b3d6ed58ec06,

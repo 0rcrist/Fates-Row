@@ -39,10 +39,10 @@ public class Frog : MonoBehaviour
     bool SeePlayer = false;
     int isdirright = 1;
     bool canHop = true;
-    int isJumpingToPlayer = 0;
+    float isJumpingToPlayer = 0;
     bool isInAir = false;
     float pastPlayerPosition;
-    int setChasePredictorFrameCount = 0;
+    float setChasePredictorFrameCount = 0;
     float randomHopDelayNumber = 10f;
     float chaseSpeed = 1f;
 
@@ -99,14 +99,14 @@ public class Frog : MonoBehaviour
     {
         //int counter = 0;
         Players = GameObject.FindGameObjectsWithTag("Player");
-        /*if(Players.Length < 2)
+        if(Players.Length < 1)
          {
 
-         }*/
-        if (Players.Length == 0)
+         }
+        /*if (Players.Length == 0)
         {
 
-        }
+        }*/
         else
         {
             getplayersonce = false;
@@ -132,7 +132,7 @@ public class Frog : MonoBehaviour
     {
         if (isJumpingToPlayer >= 1)
         {
-            isJumpingToPlayer++;
+            isJumpingToPlayer+= 1 * Time.deltaTime;
             if (randomHopDelay)
             {
                 if (isJumpingToPlayer > randomHopDelayNumber)
@@ -157,7 +157,7 @@ public class Frog : MonoBehaviour
             {
                 SetChaseSpeedPredictor();
             }
-            setChasePredictorFrameCount++;
+            setChasePredictorFrameCount+= 1 * Time.deltaTime;
             if (setChasePredictorFrameCount > continuousPredictorDifficulty)
             {
                 setChasePredictorFrameCount = 0;

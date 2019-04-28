@@ -54,14 +54,14 @@ public class ArcherVision : MonoBehaviour
     {
         //int counter = 0;
         Players = GameObject.FindGameObjectsWithTag("Player");
-        /*if(Players.Length < 2)
+        if(Players.Length < 2)
          {
 
-         }*/
-        if (Players.Length == 0)
+         }
+       /* if (Players.Length == 0)
         {
 
-        }
+        }*/
         else
         {
             getplayersonce = false;
@@ -94,7 +94,7 @@ public class ArcherVision : MonoBehaviour
             else if (Mathf.Abs(EnemyPlayer2XDifference) < transform.parent.GetComponent<Archer>().GetVisionRange())
             {
                 SeePlayer = true;
-                playerseenindex = 0;
+                playerseenindex = 1;
             }
         }
         else
@@ -129,7 +129,10 @@ public class ArcherVision : MonoBehaviour
             }
         }
     }
-
+    public GameObject GetPlayer()
+    {
+        return Players[playerseenindex];
+    }
     private void UpdatePosition()
     {
         Vector2[] pointsHolder;

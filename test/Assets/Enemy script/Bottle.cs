@@ -17,19 +17,23 @@ public class Bottle : MonoBehaviour
     float playerX;
     float playerY;
     float rotateAngle = 0f;
-    int DeathCounter = 0;
+    float DeathCounter = 0;
     bool playerInFront = false;
+    GameObject Player;
 
     //pass parameters through jester maybe
 
     // Start is called before the first frame update
     void Start()
     {
+        Player = transform.parent.GetComponent<Jester>().GetPlayer();
         myRigidBody = GetComponent<Rigidbody2D>();
         //thePlayer = FindObjectOfType<Player>();
         IsPlayerInFront();
-        playerX = GameObject.FindGameObjectWithTag("Player").transform.position.x;
-        playerY = GameObject.FindGameObjectWithTag("Player").transform.position.y;
+        //playerX = GameObject.FindGameObjectWithTag("Player").transform.position.x;
+        // playerY = GameObject.FindGameObjectWithTag("Player").transform.position.y;
+        playerX = Player.transform.position.x;
+        playerY = Player.transform.position.y;
         bottleX = transform.position.x;
         bottleY = transform.position.y;
         h = bottleY;
@@ -53,7 +57,7 @@ public class Bottle : MonoBehaviour
     {
         Move();
         Rotate();
-        DeathCounter++;
+        DeathCounter+= 1 * Time.deltaTime;
         if (DeathCounter > 200)
         {
             Destroy(gameObject);
@@ -62,7 +66,7 @@ public class Bottle : MonoBehaviour
 
     private void Rotate()
     {
-        rotateAngle += 10;
+        rotateAngle += 10 * Time.deltaTime;
         transform.eulerAngles = new Vector3(0f, 0f, rotateAngle);
     }
 
@@ -82,7 +86,7 @@ public class Bottle : MonoBehaviour
     }
      private bool IsPlayerInFront()
     {
-        float EnemyPlayerXDifference = transform.position.x - GameObject.FindGameObjectWithTag("Player").transform.position.x;
+        float EnemyPlayerXDifference = transform.position.x - Player.transform.position.x;
         if (EnemyPlayerXDifference < 0)//player is in front
         {
             playerInFront = true;
