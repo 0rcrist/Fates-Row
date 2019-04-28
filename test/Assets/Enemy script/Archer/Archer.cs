@@ -128,6 +128,7 @@ public class Archer : MonoBehaviour
         yield return new WaitForSeconds(chargeUpTime);
         GetComponent<Animator>().SetBool("Shoot", false);
         Arrow arrow = Instantiate(theArrow, transform.position, Quaternion.identity) as Arrow;
+        arrow.transform.parent = transform;
         if (gasArrow == true)
         {
             //change color
@@ -143,6 +144,7 @@ public class Archer : MonoBehaviour
     {
         yield return new WaitForSeconds(FireBallChargeUpTime);
         FireBall fireball = Instantiate(thefireball, transform.position, Quaternion.identity) as FireBall;
+        fireball.transform.parent = transform;
         fireball.setMoveSpeed(fireBallMoveSpeed);
         fireball.setDesiredRadius(desiredRadius);
        

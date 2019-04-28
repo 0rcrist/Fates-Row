@@ -19,7 +19,7 @@ public class FireBall : MonoBehaviour
 
     //general stuff
     float moveSpeed = 10f;
-    int DeathCounter = 0;
+    float DeathCounter = 0;
     float velX;
     float velY;
     float playerX;
@@ -32,7 +32,7 @@ public class FireBall : MonoBehaviour
     float actualMagnitude;
     float delaytime = 1f;
     bool invokeOnce = true;
-
+    GameObject Player;
     //circle stuff
     float radius;
     bool thetalower = true;
@@ -46,9 +46,12 @@ public class FireBall : MonoBehaviour
     void Start()
     {
         myRigidBody = GetComponent<Rigidbody2D>();
-
-        playerX = GameObject.FindGameObjectWithTag("Player").transform.position.x;
-        playerY = GameObject.FindGameObjectWithTag("Player").transform.position.y;
+        Player = transform.parent.GetComponentInChildren<ArcherVision>().GetPlayer();
+       // Player = transform.parent.GetComponent<ArcherVision>().GetPlayer();
+        //playerX = GameObject.FindGameObjectWithTag("Player").transform.position.x;
+        //playerY = GameObject.FindGameObjectWithTag("Player").transform.position.y;
+        playerX = Player.transform.position.x;
+        playerY = Player.transform.position.y;
         BallX = transform.position.x;
         BallY = transform.position.y;
 
@@ -203,7 +206,7 @@ public class FireBall : MonoBehaviour
                         transform.position = new Vector2(transform.position.x, transform.position.y - .2f);
                     }
                 }
-                DeathCounter++;
+                DeathCounter+= 1 * Time.deltaTime;
             }
            
         }
@@ -219,7 +222,7 @@ public class FireBall : MonoBehaviour
 
         }
 
-        DeathCounter++;
+        DeathCounter += 1 * Time.deltaTime;
         if (DeathCounter > 400)
         {
             Destroy(gameObject);
@@ -234,7 +237,7 @@ public class FireBall : MonoBehaviour
 
         if (thetalower)
         {
-            theta--;
+            theta -= 1 * Time.deltaTime;
             if (theta < originaltheta - 45)
             {
                 thetalower = false;
@@ -242,7 +245,7 @@ public class FireBall : MonoBehaviour
         }
         else
         {
-            theta++;
+            theta += 1 * Time.deltaTime;
             if (theta > originaltheta + 60)
             {
                 thetalower = true;
@@ -257,7 +260,7 @@ public class FireBall : MonoBehaviour
      
         if (thetalower)
         {
-            theta--;
+            theta -= 1 * Time.deltaTime;
             if (theta < originaltheta - 45)
             {
                 thetalower = false;
@@ -266,7 +269,7 @@ public class FireBall : MonoBehaviour
         }
         else
         {
-            theta++;
+            theta+= 1 * Time.deltaTime;
             if (theta > originaltheta + 60)
             {
                 thetalower = true;
