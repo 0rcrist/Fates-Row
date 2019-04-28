@@ -68,8 +68,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 40585dfec80aa4a4891ca922a926e57f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!1 &8549141831328388071
 GameObject:
   m_ObjectHideFlags: 0
@@ -83,8 +83,6 @@ GameObject:
   - component: {fileID: 8549141831328388072}
   - component: {fileID: 5217022223354914628}
   - component: {fileID: 8436515384320681654}
-  - component: {fileID: 4064296963621344442}
-  - component: {fileID: 4094065739264286817}
   m_Layer: 14
   m_Name: Arrow
   m_TagString: Untagged
@@ -165,8 +163,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 54e3cec5b76a3184b85d4d0517cbee4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   moveSpeed: 20
   gasParticle: {fileID: 1596562046861022, guid: 67366ba8152650f4cbf34ec42a5b0b51,
     type: 3}
@@ -227,8 +225,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_SceneId:
     m_Value: 0
   m_AssetId:
@@ -248,7 +246,7 @@ MonoBehaviour:
     i13: 0
     i14: 0
     i15: 0
-  m_ServerOnly: 1
+  m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
 --- !u!114 &4094065739264286817
 MonoBehaviour:
@@ -260,8 +258,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_TransformSyncMode: 2
   m_SendInterval: 0.1
   m_SyncRotationAxis: 3

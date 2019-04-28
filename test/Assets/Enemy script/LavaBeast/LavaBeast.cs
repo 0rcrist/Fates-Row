@@ -143,14 +143,14 @@ public class LavaBeast : MonoBehaviour
     {
         //int counter = 0;
         Players = GameObject.FindGameObjectsWithTag("Player");
-        if(Players.Length < 2)
+        /*if(Players.Length < 2)
          {
 
-         }
-        /*if (Players.Length == 0)
+         }*/
+        if (Players.Length == 0)
         {
 
-        }*/
+        }
         else
         {
             getplayersonce = false;
@@ -163,7 +163,7 @@ public class LavaBeast : MonoBehaviour
         bool laserbeamphase = false;
         bool cosinephase = false;*/
 
-        if (switchphasecounter % 700 == 0)//1000
+        if (switchphasecounter % 300 == 0)//1000
         {
             if(!BossFreezed)
             {

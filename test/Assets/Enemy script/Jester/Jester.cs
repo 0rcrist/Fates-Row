@@ -83,14 +83,14 @@ public class Jester : MonoBehaviour
     {
         //int counter = 0;
         Players = GameObject.FindGameObjectsWithTag("Player");
-        if(Players.Length < 2)
+        /*if(Players.Length < 2)
          {
 
-         }
-       /* if (Players.Length == 0)
+         }*/
+        if (Players.Length == 0)
         {
 
-        }*/
+        }
         else
         {
             getplayersonce = false;
@@ -218,9 +218,5 @@ public class Jester : MonoBehaviour
             turnRed = false;
         }
         Frozen = true;
-    }
-    public GameObject GetPlayer()
-    {
-        return Players[playerseenindex];
     }
 }

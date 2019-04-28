@@ -58,8 +58,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 61c6d9699d30b2b4b85d602904c1a8da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!1 &5796810811694125912
 GameObject:
   m_ObjectHideFlags: 0
@@ -76,8 +76,6 @@ GameObject:
   - component: {fileID: 723849010940941507}
   - component: {fileID: 3334865247540893365}
   - component: {fileID: 5690747319456194990}
-  - component: {fileID: 5100863160056237653}
-  - component: {fileID: 8799297445336588226}
   m_Layer: 12
   m_Name: Enemy Skeleton
   m_TagString: Untagged
@@ -165,7 +163,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
-  m_WarningMessage: 
+  m_WarningMessage:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
@@ -255,13 +253,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 106af8818a9614744bea0a76dff22dc0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   Health: 5
   moveSpeed: 2
   jumpHeight: 12.99
   roamRange: 10
-  enemySeePlayerRange: 20
+  enemySeePlayerRange: 5
   enemyswitchonwall: 0
 --- !u!114 &5690747319456194990
 MonoBehaviour:
@@ -273,8 +271,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f7426d0b3ff861b47a5be3febde41186, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   Health: 50
 --- !u!114 &5100863160056237653
 MonoBehaviour:
@@ -286,8 +284,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_SceneId:
     m_Value: 0
   m_AssetId:
@@ -307,7 +305,7 @@ MonoBehaviour:
     i13: 0
     i14: 0
     i15: 0
-  m_ServerOnly: 1
+  m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
 --- !u!114 &8799297445336588226
 MonoBehaviour:
@@ -319,8 +317,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_TransformSyncMode: 2
   m_SendInterval: 0.1
   m_SyncRotationAxis: 3
@@ -399,8 +397,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5a18c5eeb6107a448949dd71d27bea67, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!1001 &9153049510592739279
 PrefabInstance:
   m_ObjectHideFlags: 0

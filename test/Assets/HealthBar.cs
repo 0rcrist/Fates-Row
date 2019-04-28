@@ -25,13 +25,12 @@ public class HealthBar : MonoBehaviour
         }
         else
         {
-
+            maxhealthone = Players[0].GetComponent<Health>().GetMaxHealth();
+            currenthealthone = Players[0].GetComponent<Health>().GetCurrentHealth();
+            maxhealthtwo = Players[1].GetComponent<Health>().GetMaxHealth();
+            currenthealthtwo = Players[1].GetComponent<Health>().GetCurrentHealth();
+            GetComponent<Text>().text = "P1 HP" + currenthealthone + "/" + maxhealthone + "P2 HP" + currenthealthtwo + "/" + maxhealthtwo;
         }
-        maxhealthone = Players[0].GetComponent<Health>().GetMaxHealth();
-        currenthealthone = Players[0].GetComponent<Health>().GetCurrentHealth();
-        maxhealthtwo = Players[1].GetComponent<Health>().GetMaxHealth();
-        currenthealthtwo = Players[1].GetComponent<Health>().GetCurrentHealth();
-        GetComponent<Text>().text = "P1 HP" + currenthealthone + "/" + maxhealthone + "P2 HP" + currenthealthtwo + "/" + maxhealthtwo; 
     }
     private void getplayers()
     {

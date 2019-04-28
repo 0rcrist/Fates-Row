@@ -47,8 +47,5 @@ public class PlayerSetup : NetworkBehaviour
         Cam = GameObject.Find("MainCamera").GetComponent<Camera>();
         Cam.enabled = false;
     }
-    public GameObject GetCanvas()
-    {
-        return Can;
-    }
+
 }
