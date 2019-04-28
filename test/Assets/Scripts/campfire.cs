@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using UnityEngine.SceneManagement;
 public class campfire : MonoBehaviour
 {
 	public string level;
@@ -14,7 +14,8 @@ public class campfire : MonoBehaviour
             GameObject.Find("UI Overlay").SendMessage("FinishTimer"); //Jason
 
             Debug.Log("collision detected");
-            Application.LoadLevel(level);
+            // Application.LoadLevel(level);
+            SceneManager.LoadScene(level);
         }
 	}
 }

@@ -162,6 +162,8 @@ MonoBehaviour:
   runSpeed: 60
   joy: {fileID: 0}
   ani: {fileID: 9013088401409871161}
+  levelKillCounter: 0
+  levelDeathCounter: 0
 --- !u!58 &38
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -325,8 +327,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1753928349
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

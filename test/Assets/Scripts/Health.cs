@@ -54,6 +54,7 @@ public class Health : MonoBehaviour
 
     void Die()
     {//restarts the level
-    Application.LoadLevel(Application.loadedLevel);
+     //Application.LoadLevel(Application.loadedLevel);
+        Debug.Log("player died");
     }
 }
