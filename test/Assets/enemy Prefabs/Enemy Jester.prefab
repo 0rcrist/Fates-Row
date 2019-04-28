@@ -16,8 +16,6 @@ GameObject:
   - component: {fileID: 7393426431821023364}
   - component: {fileID: 4657564966639675560}
   - component: {fileID: 572612668}
-  - component: {fileID: 492593618551091147}
-  - component: {fileID: 4861775721690405569}
   m_Layer: 12
   m_Name: Enemy Jester
   m_TagString: Untagged
@@ -171,7 +169,7 @@ MonoBehaviour:
   xoffsetRangeMax: 10
   xoffsetRangeMin: 0
   a: -0.1
-  enemySeePlayerRange: 50
+  enemySeePlayerRange: 10
   moveSpeed: 2
   throwSpeed: 0.5
   theBottle: {fileID: 7915323461256211011, guid: 1b6203efd3efce245867b3d6ed58ec06,
@@ -218,61 +216,6 @@ PolygonCollider2D:
       - {x: -0.4343295, y: -0.983052}
       - {x: 0.49474669, y: -0.9644284}
       - {x: 0.5042, y: -0.8146417}
---- !u!114 &492593618551091147
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2729330897791820379}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 0
-    i1: 0
-    i2: 0
-    i3: 0
-    i4: 0
-    i5: 0
-    i6: 0
-    i7: 0
-    i8: 0
-    i9: 0
-    i10: 0
-    i11: 0
-    i12: 0
-    i13: 0
-    i14: 0
-    i15: 0
-  m_ServerOnly: 1
-  m_LocalPlayerAuthority: 0
---- !u!114 &4861775721690405569
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2729330897791820379}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TransformSyncMode: 2
-  m_SendInterval: 0.1
-  m_SyncRotationAxis: 3
-  m_RotationSyncCompression: 0
-  m_SyncSpin: 0
-  m_MovementTheshold: 0.001
-  m_VelocityThreshold: 0.0001
-  m_SnapThreshold: 5
-  m_InterpolateRotation: 1
-  m_InterpolateMovement: 1
 --- !u!1 &3848786198532351097
 GameObject:
   m_ObjectHideFlags: 0
