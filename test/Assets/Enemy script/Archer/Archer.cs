@@ -6,6 +6,7 @@ using UnityEngine;
 public class Archer : MonoBehaviour
 {
     [SerializeField] int Health = 5;
+    [SerializeField] int VisionRange = 30;
     [SerializeField] bool isMage = false;
     [SerializeField] FireBall thefireball;
     [SerializeField] float fireBallMoveSpeed = 10f;
@@ -64,8 +65,8 @@ public class Archer : MonoBehaviour
             }
             else
             {
-                GetComponent<Animator>().SetBool("Walk", true);
-                Roam();
+                //GetComponent<Animator>().SetBool("Walk", true);
+                //Roam();
             }
         }
 
@@ -180,5 +181,9 @@ public class Archer : MonoBehaviour
             turnRed = false;
         }
         Frozen = true;
+    }
+    public int GetVisionRange()
+    {
+        return VisionRange;
     }
 }

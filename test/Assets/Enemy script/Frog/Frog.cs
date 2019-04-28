@@ -48,6 +48,7 @@ public class Frog : MonoBehaviour
 
     GameObject[] Players;
     bool getplayersonce = true;
+    int playerseenindex = 0;
 
     bool Frozen = false;
     bool turnRed = true;
@@ -98,6 +99,10 @@ public class Frog : MonoBehaviour
     {
         //int counter = 0;
         Players = GameObject.FindGameObjectsWithTag("Player");
+        /*if(Players.Length < 2)
+         {
+
+         }*/
         if (Players.Length == 0)
         {
 
@@ -201,13 +206,13 @@ public class Frog : MonoBehaviour
                 SetHopVelocity();
             }    
         }
-        pastPlayerPosition = Players[0].transform.position.x;
+        pastPlayerPosition = Players[playerseenindex].transform.position.x;
         isJumpingToPlayer = 1;
         randomHopDelayNumber = 10 * Random.Range(RangeMin, RangeMax);//1f,10f defaults
     }
     private void SetChaseSpeedRandom()
     {
-        float PlayerFrogXDiff = transform.position.x - Players[0].transform.position.x;
+        float PlayerFrogXDiff = transform.position.x - Players[playerseenindex].transform.position.x;
         float randomOffSet = Random.Range(0f, RandomNearRange);
         if (PlayerFrogXDiff == Mathf.Epsilon)
         {
@@ -244,20 +249,20 @@ public class Frog : MonoBehaviour
     }
     private void SetHopVelocityRandom()
     {
-        float PlayerFrogXDiff = transform.position.x - Players[0].transform.position.x;
+        float PlayerFrogXDiff = transform.position.x - Players[playerseenindex].transform.position.x;
         if (Mathf.Abs(PlayerFrogXDiff) < 2)//if really close just set speed
         {
             myRigidbody.velocity += new Vector2(0f, 6 * Mathf.Sqrt(4f));
         }
         else
         {
-            myRigidbody.velocity += new Vector2(0f, 6 * Mathf.Sqrt(Mathf.Abs(transform.position.x - Players[0].transform.position.x)));
+            myRigidbody.velocity += new Vector2(0f, 6 * Mathf.Sqrt(Mathf.Abs(transform.position.x - Players[playerseenindex].transform.position.x)));
         }
     }
     private void SetChaseSpeedPredictor()
     {
-        float playerVelocity = Players[0].GetComponent<Rigidbody2D>().velocity.x;
-        float PlayerFrogXDiff = transform.position.x - Players[0].transform.position.x;
+        float playerVelocity = Players[playerseenindex].GetComponent<Rigidbody2D>().velocity.x;
+        float PlayerFrogXDiff = transform.position.x - Players[playerseenindex].transform.position.x;
         if (PlayerFrogXDiff == Mathf.Epsilon)
         {
             chaseSpeed = 1f;
@@ -322,32 +327,32 @@ public class Frog : MonoBehaviour
     }
     private void SetHopVelocityPredictor()
     {
-        float playerVelocity = Players[0].GetComponent<Rigidbody2D>().velocity.x;
-        float PlayerFrogXDiff = (transform.position.x - Players[0].transform.position.x);
+        float playerVelocity = Players[playerseenindex].GetComponent<Rigidbody2D>().velocity.x;
+        float PlayerFrogXDiff = (transform.position.x - Players[playerseenindex].transform.position.x);
         if (Mathf.Abs(PlayerFrogXDiff) < 2)//if really close just set speed
         {
             myRigidbody.velocity += new Vector2(0f, 6 * Mathf.Sqrt(4f));
         }
         else
         {
-            myRigidbody.velocity += new Vector2(0f, 6 * Mathf.Sqrt(Mathf.Abs(transform.position.x - Players[0].transform.position.x)));
+            myRigidbody.velocity += new Vector2(0f, 6 * Mathf.Sqrt(Mathf.Abs(transform.position.x - Players[playerseenindex].transform.position.x)));
         }
     }
     private void SetHopVelocity()
     {
-        float PlayerFrogXDiff = transform.position.x - Players[0].transform.position.x;
+        float PlayerFrogXDiff = transform.position.x - Players[playerseenindex].transform.position.x;
         if (Mathf.Abs(PlayerFrogXDiff) < 2)//if really close just set speed
         {
             myRigidbody.velocity += new Vector2(0f, 6 * Mathf.Sqrt(4f));
         }
         else
         {
-            myRigidbody.velocity += new Vector2(0f, 6 * Mathf.Sqrt(Mathf.Abs(transform.position.x - Players[0].transform.position.x)));
+            myRigidbody.velocity += new Vector2(0f, 6 * Mathf.Sqrt(Mathf.Abs(transform.position.x - Players[playerseenindex].transform.position.x)));
         }
     }
     private void SetChaseSpeed()
     {
-        float PlayerFrogXDiff = transform.position.x - Players[0].transform.position.x;
+        float PlayerFrogXDiff = transform.position.x - Players[playerseenindex].transform.position.x;
         if (PlayerFrogXDiff == Mathf.Epsilon)
         {
             chaseSpeed = 1f;
@@ -385,9 +390,16 @@ public class Frog : MonoBehaviour
     private void DoesHeSeePlayer()
     {
         float EnemyPlayerXDifference = transform.position.x - Players[0].transform.position.x;
+        float EnemyPlayer2XDifference = transform.position.x - Players[1].transform.position.x;
         if (Mathf.Abs(EnemyPlayerXDifference) < enemySeePlayerRange)
         {
             SeePlayer = true;
+            playerseenindex = 0;
+        }
+        else if (Mathf.Abs(EnemyPlayer2XDifference) < enemySeePlayerRange)
+        {
+            SeePlayer = true;
+            playerseenindex = 1;
         }
     }
 
@@ -441,7 +453,7 @@ public class Frog : MonoBehaviour
     }
     private bool IsPlayerInFront()
     {
-        float EnemyPlayerXDifference = transform.position.x - Players[0].transform.position.x;
+        float EnemyPlayerXDifference = transform.position.x - Players[playerseenindex].transform.position.x;
         if (EnemyPlayerXDifference < 0)//player is in front
         {
             return true;

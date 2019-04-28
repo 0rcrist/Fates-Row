@@ -32,6 +32,7 @@ public class Jester : MonoBehaviour
 
     GameObject[] Players;
     bool getplayersonce = true;
+    int playerseenindex;
     // Start is called before the first frame update
     void Start()
     {
@@ -82,6 +83,10 @@ public class Jester : MonoBehaviour
     {
         //int counter = 0;
         Players = GameObject.FindGameObjectsWithTag("Player");
+        /*if(Players.Length < 2)
+         {
+
+         }*/
         if (Players.Length == 0)
         {
 
@@ -133,7 +138,7 @@ public class Jester : MonoBehaviour
     }
     private bool IsPlayerInFront()
     {
-        float EnemyPlayerXDifference = transform.position.x - Players[0].transform.position.x;
+        float EnemyPlayerXDifference = transform.position.x - Players[playerseenindex].transform.position.x;
         if (EnemyPlayerXDifference < 0)//player is in front
         {
             return true;
@@ -163,9 +168,31 @@ public class Jester : MonoBehaviour
     private void DoesHeSeePlayer()
     {
         float EnemyPlayerXDifference = transform.position.x - Players[0].transform.position.x;
-        if (Mathf.Abs(EnemyPlayerXDifference) < enemySeePlayerRange)
+        float EnemyPlayer2XDifference = transform.position.x - Players[1].transform.position.x;
+        if (!seePlayer)
         {
-            seePlayer = true;
+            if (Mathf.Abs(EnemyPlayerXDifference) < enemySeePlayerRange)
+            {
+                seePlayer = true;
+                playerseenindex = 0;
+            }
+            else if (Mathf.Abs(EnemyPlayer2XDifference) < enemySeePlayerRange)
+            {
+                seePlayer = true;
+                playerseenindex = 0;
+            }
+        }
+        else
+        {
+            float EnemyPlayerXDifferenceafter = transform.position.x - Players[playerseenindex].transform.position.x;
+            if (Mathf.Abs(EnemyPlayerXDifferenceafter) < enemySeePlayerRange)
+            {
+
+            }
+            else
+            {
+                seePlayer = false;
+            }
         }
     }
     public void EnemyDamaged()
