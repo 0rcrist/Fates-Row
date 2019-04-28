@@ -26,6 +26,7 @@ public class Possum : MonoBehaviour
     bool getplayersonce = true;
     bool Frozen = false;
     bool turnRed = true;
+    int playerseenindex = 0;
 
 
     int framestilljumpagain = 0;//to fix double jump bug
@@ -97,9 +98,12 @@ public class Possum : MonoBehaviour
     {
         //int counter = 0;
         Players = GameObject.FindGameObjectsWithTag("Player");
-        if(Players.Length == 0)
+        /*if(Players.Length < 2)
+         {
+
+         }*/
+        if (Players.Length == 0)
         {
-            Debug.Log("empty");
         }
         else
         {
@@ -117,9 +121,16 @@ public class Possum : MonoBehaviour
     {
         //do for player[1] whichever one is thats the index 0 or 1, then just make that a variable
         float EnemyPlayerXDifference = transform.position.x - Players[0].transform.position.x;
-        if(Mathf.Abs(EnemyPlayerXDifference) < enemySeePlayerRange)
+        float EnemyPlayer2XDifference = transform.position.x - Players[1].transform.position.x;
+        if (Mathf.Abs(EnemyPlayerXDifference) < enemySeePlayerRange)
         {
             SeePlayer = true;
+            playerseenindex = 0;
+        }
+        else if(Mathf.Abs(EnemyPlayer2XDifference) < enemySeePlayerRange)
+        {
+            SeePlayer = true;
+            playerseenindex = 1;
         }
     }
 
@@ -178,7 +189,7 @@ public class Possum : MonoBehaviour
 
     private bool IsPlayerInFront()
     {
-        float EnemyPlayerXDifference = transform.position.x - Players[0].transform.position.x;
+        float EnemyPlayerXDifference = transform.position.x - Players[playerseenindex].transform.position.x;
         if (EnemyPlayerXDifference < 0)//player is in front
         {
             return true;

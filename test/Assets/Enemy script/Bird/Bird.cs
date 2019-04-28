@@ -42,6 +42,7 @@ public class Bird : MonoBehaviour
 
     GameObject[] Players;
     bool getplayersonce = true;
+    int playerseenindex = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -85,6 +86,10 @@ public class Bird : MonoBehaviour
     {
         //int counter = 0;
         Players = GameObject.FindGameObjectsWithTag("Player");
+        /*if(Players.Length < 2)
+         {
+
+         }*/
         if (Players.Length == 0)
         {
 
@@ -97,15 +102,22 @@ public class Bird : MonoBehaviour
     private void DoesHeSeePlayer()
     {
         float EnemyPlayerXDifference = transform.position.x - Players[0].transform.position.x;
+        float EnemyPlayer2XDifference = transform.position.x - Players[1].transform.position.x;
         if (Mathf.Abs(EnemyPlayerXDifference) < enemySeePlayerRange)
         {
             SeePlayer = true;
+            playerseenindex = 0;
+        }
+        else if (Mathf.Abs(EnemyPlayer2XDifference) < enemySeePlayerRange)
+        {
+            SeePlayer = true;
+            playerseenindex = 1;
         }
     }
     private bool PlayerInRange()
     {
-        float EnemyPlayerXDifference = transform.position.x - Players[0].transform.position.x;
-        float EnemyPlayerYDifference = transform.position.y - Players[0].transform.position.y;
+        float EnemyPlayerXDifference = transform.position.x - Players[playerseenindex].transform.position.x;
+        float EnemyPlayerYDifference = transform.position.y - Players[playerseenindex].transform.position.y;
         if (Mathf.Abs(EnemyPlayerXDifference) < enemySeePlayerRange)
         {
             return true;
@@ -140,8 +152,8 @@ public class Bird : MonoBehaviour
 
     private void Chase()
     {
-        float birdToPlayerYDiff = transform.position.y - Players[0].transform.position.y;
-        float birdToPlayerXDiff = transform.position.x - Players[0].transform.position.x;
+        float birdToPlayerYDiff = transform.position.y - Players[playerseenindex].transform.position.y;
+        float birdToPlayerXDiff = transform.position.x - Players[playerseenindex].transform.position.x;
         if(birdFollows)
         {
             myRigidbody.velocity = new Vector2(-birdToPlayerXDiff, -birdToPlayerYDiff);
@@ -169,8 +181,8 @@ public class Bird : MonoBehaviour
 
     private void HandleRecoveryPhase()
     {
-        float EnemyPlayerXDifference = transform.position.x - Players[0].transform.position.x;
-        float EnemyPlayerYDifference = transform.position.y - Players[0].transform.position.y;
+        float EnemyPlayerXDifference = transform.position.x - Players[playerseenindex].transform.position.x;
+        float EnemyPlayerYDifference = transform.position.y - Players[playerseenindex].transform.position.y;
         float velX = 0f;
         float velY = 0f;
         bool x = false;
@@ -246,8 +258,8 @@ public class Bird : MonoBehaviour
     IEnumerator IsStriking()
     {
         canCharge = false;
-        float playerX = Players[0].transform.position.x;
-        float playerY = Players[0].transform.position.y;
+        float playerX = Players[playerseenindex].transform.position.x;
+        float playerY = Players[playerseenindex].transform.position.y;
         float birdX = transform.position.x;
         float birdY = transform.position.y;
         float xtime;
@@ -313,7 +325,7 @@ public class Bird : MonoBehaviour
     }
     private bool IsUnderPlayer()
     {
-       if(transform.position.y > Players[0].transform.position.y)
+       if(transform.position.y > Players[playerseenindex].transform.position.y)
         {
             return false;
         }
@@ -337,7 +349,7 @@ public class Bird : MonoBehaviour
     }
     private bool IsPlayerInFront()
     {
-        float EnemyPlayerXDifference = transform.position.x - Players[0].transform.position.x;
+        float EnemyPlayerXDifference = transform.position.x - Players[playerseenindex].transform.position.x;
         if (EnemyPlayerXDifference < 0)//player is in front
         {
             return true;
