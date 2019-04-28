@@ -29,7 +29,6 @@ public class PlayerSetup : NetworkBehaviour
             DontDestroyOnLoad(Can);
             GetComponent<PlayerUnit>().joy = Can.GetComponentInChildren<FixedJoystick>();
             Can.GetComponentInChildren<Button>().onClick.AddListener(GetComponent<PlayerUnit>().isJumping);
-            Can.GetComponentInChildren<healthBar>().Text = "Health!";
             NewScene();
         }
 }
