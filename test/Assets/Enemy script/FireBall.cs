@@ -11,6 +11,7 @@ public class FireBall : MonoBehaviour
     [SerializeField] bool givenvelocity = false;
     [SerializeField] bool givenvelocitynogravity = false;
     [SerializeField] bool immobilecosine = false;
+    [SerializeField] bool fromBoss = false;
     Rigidbody2D myRigidBody;
 
     //types of ball paths
@@ -46,12 +47,20 @@ public class FireBall : MonoBehaviour
     void Start()
     {
         myRigidBody = GetComponent<Rigidbody2D>();
-        Player = transform.parent.GetComponentInChildren<ArcherVision>().GetPlayer();
+        if(fromBoss)
+        {
+            playerX = 0;
+            playerY = 0;
+        }
+        else
+        {
+            Player = transform.parent.GetComponentInChildren<ArcherVision>().GetPlayer();
+            playerX = Player.transform.position.x;
+            playerY = Player.transform.position.y;
+        }
        // Player = transform.parent.GetComponent<ArcherVision>().GetPlayer();
         //playerX = GameObject.FindGameObjectWithTag("Player").transform.position.x;
         //playerY = GameObject.FindGameObjectWithTag("Player").transform.position.y;
-        playerX = Player.transform.position.x;
-        playerY = Player.transform.position.y;
         BallX = transform.position.x;
         BallY = transform.position.y;
 
@@ -206,7 +215,6 @@ public class FireBall : MonoBehaviour
                         transform.position = new Vector2(transform.position.x, transform.position.y - .2f);
                     }
                 }
-                DeathCounter+= 1 * Time.deltaTime;
             }
            
         }
@@ -223,7 +231,7 @@ public class FireBall : MonoBehaviour
         }
 
         DeathCounter += 1 * Time.deltaTime;
-        if (DeathCounter > 400)
+        if (DeathCounter > 3)
         {
             Destroy(gameObject);
         }

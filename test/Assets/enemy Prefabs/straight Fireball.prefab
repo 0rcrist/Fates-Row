@@ -103,6 +103,7 @@ MonoBehaviour:
   givenvelocity: 0
   givenvelocitynogravity: 0
   immobilecosine: 0
+  fromBoss: 0
 --- !u!61 &8549141831328388073
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -181,7 +182,7 @@ MonoBehaviour:
     i13: 0
     i14: 0
     i15: 0
-  m_ServerOnly: 1
+  m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
 --- !u!114 &7181116335669400078
 MonoBehaviour:

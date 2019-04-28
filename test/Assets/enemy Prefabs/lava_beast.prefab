@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 4826531538653395997}
   - component: {fileID: 2257424890538890996}
   - component: {fileID: 5348996082655188139}
-  - component: {fileID: 2577484620487785193}
-  - component: {fileID: 4295050887749889879}
+  - component: {fileID: 7172296949380162725}
+  - component: {fileID: 3357907929975255491}
   m_Layer: 12
   m_Name: lava_beast
   m_TagString: LavaBeast
@@ -158,7 +158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 500
---- !u!114 &2577484620487785193
+--- !u!114 &7172296949380162725
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -189,9 +189,9 @@ MonoBehaviour:
     i13: 0
     i14: 0
     i15: 0
-  m_ServerOnly: 1
+  m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
---- !u!114 &4295050887749889879
+--- !u!114 &3357907929975255491
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
