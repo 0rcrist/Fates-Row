@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DatabaseControl;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class AccountManager : MonoBehaviour
 {
@@ -37,6 +38,7 @@ public class AccountManager : MonoBehaviour
 
     public string loggedInSceneName = "SampleScene";
     public string loggedOutSceneName = "Login";
+    public delegate void OnDataReceivedCallBack(string data);
 
     public void LogOut()
     {
@@ -66,22 +68,27 @@ public class AccountManager : MonoBehaviour
     }
     public void SendData(string data)
     {
+       
         if (isLoggedIn)
         {
             StartCoroutine(SendNeededData(data));
         }
 
     }
-    public void LoggedIn_LoadDataButtonPressed()
-    {
+    //public void LoggedIn_LoadDataButtonPressed(OnDataReceivedCallBack OnDataReceived)
+   // {
+//
+   //     GetData(OnDataReceived);
+   // }
 
+    public void GetData(OnDataReceivedCallBack OnDataReceived)
+    {
         if (isLoggedIn)
         {
-            StartCoroutine(GetData());
+            StartCoroutine(SendGetDataRequest(OnDataReceived));
         }
     }
-
-    IEnumerator GetData()
+     IEnumerator SendGetDataRequest(OnDataReceivedCallBack OnDataReceived)
     {
         string data = "Error";
 
@@ -104,8 +111,8 @@ public class AccountManager : MonoBehaviour
             string DataRecieved = response;
             data = DataRecieved;
         }
-
-        LoggedInData = data;
+        if(OnDataReceived != null)
+            OnDataReceived.Invoke(data);
     }
     IEnumerator SendNeededData(string dataNeeded)
     {

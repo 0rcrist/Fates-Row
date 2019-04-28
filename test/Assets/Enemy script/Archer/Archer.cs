@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Archer : MonoBehaviour
 {
+    [SerializeField] int Health = 5;
+    [SerializeField] int VisionRange = 30;
     [SerializeField] bool isMage = false;
     [SerializeField] FireBall thefireball;
     [SerializeField] float fireBallMoveSpeed = 10f;
@@ -29,25 +31,43 @@ public class Archer : MonoBehaviour
     int isdirright = 1;
 
     Rigidbody2D myRigidBody;
+    PolygonCollider2D feetCollider;
+    Animator myAnimator;
+    bool Frozen = false;
+    bool turnRed = true;
     // Start is called before the first frame update
     void Start()
     {
         myRigidBody = GetComponent<Rigidbody2D>();
+        myAnimator = GetComponent<Animator>();
+        feetCollider = GetComponent<PolygonCollider2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (canSeePlayer)
+        if (Frozen)
         {
-            myRigidBody.velocity = new Vector2(0f, 0f);
-            GetComponent<Animator>().SetBool("Walk", false);
-            Attack();
+            if (feetCollider.IsTouchingLayers(LayerMask.GetMask("Default")))
+            {
+                Frozen = false;
+                turnRed = true;
+            }
+            //StartCoroutine(UnFreeze());
         }
         else
         {
-            GetComponent<Animator>().SetBool("Walk", true);
-            Roam();
+            if (canSeePlayer)
+            {
+                myRigidBody.velocity = new Vector2(0f, 0f);
+                GetComponent<Animator>().SetBool("Walk", false);
+                Attack();
+            }
+            else
+            {
+                //GetComponent<Animator>().SetBool("Walk", true);
+                //Roam();
+            }
         }
 
 
@@ -93,7 +113,7 @@ public class Archer : MonoBehaviour
 
     private void Flip()
     {
-        if (FindObjectOfType<Player>().transform.position.x - transform.position.x > 0)//to your right
+        if (GameObject.FindGameObjectWithTag("Player").transform.position.x - transform.position.x > 0)//to your right
         {
             GetComponent<SpriteRenderer>().flipX = true;
             return;
@@ -108,6 +128,7 @@ public class Archer : MonoBehaviour
         yield return new WaitForSeconds(chargeUpTime);
         GetComponent<Animator>().SetBool("Shoot", false);
         Arrow arrow = Instantiate(theArrow, transform.position, Quaternion.identity) as Arrow;
+        arrow.transform.parent = transform;
         if (gasArrow == true)
         {
             //change color
@@ -123,6 +144,7 @@ public class Archer : MonoBehaviour
     {
         yield return new WaitForSeconds(FireBallChargeUpTime);
         FireBall fireball = Instantiate(thefireball, transform.position, Quaternion.identity) as FireBall;
+        fireball.transform.parent = transform;
         fireball.setMoveSpeed(fireBallMoveSpeed);
         fireball.setDesiredRadius(desiredRadius);
        
@@ -133,5 +155,37 @@ public class Archer : MonoBehaviour
     public void SeesPlayer(bool x)
     {
         canSeePlayer = x;
+    }
+    public void EnemyDamaged()
+    {
+        Health = Health - 1;
+        if (Health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+    public void MageFreeze()
+    {
+        myAnimator.SetTrigger("Damaged");
+    }
+    public void ArcherFreeze()
+    {
+        float xvel = 5f;
+        float yvel = 10f;
+        if (GetComponentInChildren<ArcherVision>().IsPlayerInFrontArcher())
+        {
+            xvel = -xvel;
+        }
+        myRigidBody.velocity = new Vector2(xvel, yvel);
+        if (turnRed)
+        {
+            myAnimator.SetTrigger("Damaged");
+            turnRed = false;
+        }
+        Frozen = true;
+    }
+    public int GetVisionRange()
+    {
+        return VisionRange;
     }
 }

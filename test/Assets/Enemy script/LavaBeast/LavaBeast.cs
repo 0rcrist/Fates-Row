@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LavaBeast : MonoBehaviour
 {
+    [SerializeField] int Health = 50;
     [SerializeField] float moveSpeed = 2f;
     [SerializeField] float roamRange = 10f;
     [SerializeField] flameground theGroundFire;
@@ -18,7 +19,7 @@ public class LavaBeast : MonoBehaviour
     float initialposition;
     //deal with phases
     int phasecounter = 1;
-    bool lavagroundphase = true;
+    bool lavagroundphase = true;//true
     bool burstattackphase = false;
     bool laserbeamphase = false;
     bool flowattackphase = false;
@@ -30,6 +31,7 @@ public class LavaBeast : MonoBehaviour
 
     //flow attack
     bool flowattackagain = true;
+    bool flowone = true;
 
     //laserbeam attack
     bool laserattackagain = true;
@@ -49,11 +51,13 @@ public class LavaBeast : MonoBehaviour
     //burst attack
     bool burstattackAgain = true;
     float burstfiredelay = 2f;
-
+    bool BossDead = false;
     Animator myAnimator;
-    Player thePlayer;
+    //Player thePlayer;
     Rigidbody2D myRigidBody;
-
+    bool BossFreezed = false;
+    GameObject[] Players;
+    bool getplayersonce = true;
     //laser beam like from boshy tekken boss
     //lava shoots out around him circular 
     //has bomb lava that he throws and breaks into more
@@ -68,61 +72,90 @@ public class LavaBeast : MonoBehaviour
     {
         initialposition = transform.position.x;
         myRigidBody = GetComponent<Rigidbody2D>();
-        thePlayer = FindObjectOfType<Player>();
+       // thePlayer = FindObjectOfType<Player>();
         myAnimator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        FacePlayer();
-        DealWithPhases();
-        //CheckIfEnemyIsWithinRange();
-        //Roam();
-        if(burstattackphase)
+        if (BossDead)
         {
-            if (burstattackAgain)
-            {
-                burstattackAgain = false;
-                BurstAttack();
-            }
-        }
-        if(lavagroundphase)
-        {
-            if (attackAgain)
-            {
-                attackAgain = false;
-                LavaGroundAttack();
-            }
-        }
-        if(cosinephase)
-        {
-            if(cosineattackagain)
-            {
-                cosineattackagain = false;
-                StartCoroutine(Cosineattack());
-            }
-        }
-        if(flowattackphase)
-        {
-            if(flowattackagain)
-            {
-                flowattackagain = false;
-                StartCoroutine(FlowAttack());
-            }
-        }
-        if(laserbeamphase)
-        {
-            if (laserattackagain == true)
-            {
-                laserattackagain = false;
-                StartCoroutine(LaserBeamAttack());
-            }
 
         }
-        
+        else
+        {
+            if (getplayersonce)
+            {
+                getplayers();
+            }
+            else
+            {
+                FacePlayer();
+                DealWithPhases();
+                //CheckIfEnemyIsWithinRange();
+                //Roam();
+                if (burstattackphase)
+                {
+                    if (burstattackAgain)
+                    {
+                        burstattackAgain = false;
+                        BurstAttack();
+                    }
+                }
+                if (lavagroundphase)
+                {
+                    if (attackAgain)
+                    {
+                        attackAgain = false;
+                        LavaGroundAttack();
+                    }
+                }
+                if (cosinephase)
+                {
+                    if (cosineattackagain)
+                    {
+                        cosineattackagain = false;
+                        StartCoroutine(Cosineattack());
+                    }
+                }
+                if (flowattackphase)
+                {
+                    if (flowattackagain)
+                    {
+                        flowattackagain = false;
+                        StartCoroutine(FlowAttack());
+                    }
+                }
+                if (laserbeamphase)
+                {
+                    if (laserattackagain == true)
+                    {
+                        laserattackagain = false;
+                        StartCoroutine(LaserBeamAttack());
+                    }
+
+                }
+            }
+        }
     }
+    private void getplayers()
+    {
+        //int counter = 0;
+        Players = GameObject.FindGameObjectsWithTag("Player");
+        if(Players.Length < 2)
+         {
 
+         }
+        /*if (Players.Length == 0)
+        {
+
+        }*/
+        else
+        {
+            getplayersonce = false;
+        }
+    }
     private void DealWithPhases()
     {
         /*bool lavagroundphase = true;
@@ -130,37 +163,55 @@ public class LavaBeast : MonoBehaviour
         bool laserbeamphase = false;
         bool cosinephase = false;*/
 
-        if (switchphasecounter % 1000 == 0)
+        if (switchphasecounter % 700 == 0)//1000
         {
-            if(phasecounter == 1)
+            if(!BossFreezed)
             {
-                lavagroundphase = false;
-                burstattackphase = true;
-            }
-            if (phasecounter == 2)
-            {
-                burstattackphase = false;
-                flowattackphase = true;
-            }
-            if (phasecounter == 3)
-            {
-                flowattackphase = false;
-                laserbeamphase = true;
-            }
-            if (phasecounter == 4)
-            {
-                laserbeamphase = false;
-                lavagroundphase = true;
-            }
-            phasecounter++;
-            if(phasecounter > 4)
-            {
-                phasecounter = 1;
+                StartCoroutine(BossFrozen());
+                switchphasecounter++;
+                BossFreezed = true;
             }
         }
-        switchphasecounter++;
+        if(!BossFreezed)
+        {
+            switchphasecounter++;
+        }
     }
-
+    IEnumerator BossFrozen()
+    {
+        lavagroundphase = false;
+        burstattackphase = false;
+        flowattackphase = false;
+        laserbeamphase = false;
+        myAnimator.SetTrigger("hit_1");
+        yield return new WaitForSeconds(4f);
+        BossFreezed = false;
+        if (phasecounter == 1)
+        {
+            lavagroundphase = false;
+            burstattackphase = true;
+        }
+        if (phasecounter == 2)
+        {
+            burstattackphase = false;
+            flowattackphase = true;
+        }
+        if (phasecounter == 3)
+        {
+            flowattackphase = false;
+            laserbeamphase = true;
+        }
+        if (phasecounter == 4)
+        {
+            laserbeamphase = false;
+            lavagroundphase = true;
+        }
+        phasecounter++;
+        if (phasecounter > 4)
+        {
+            phasecounter = 1;
+        }
+    }
     private void BurstAttack()
     {
         StartCoroutine(BurstSpawn());
@@ -184,42 +235,90 @@ public class LavaBeast : MonoBehaviour
         {
             left = false;
         }
-        for (int i = 0; i < 10; i++)
+        if (flowone)
         {
-            FireBall ball = Instantiate(velocitygivenBall, transform.position, Quaternion.identity) as FireBall;
-            float x;
-            if (left)
+            flowone = false;
+            int xoffset = Random.Range(2, 4);
+            int yoffset = Random.Range(2, 4);
+            for (int i = 0; i < 10; i++)
             {
-                x = -20 + 2 * i;
-            }
-            else
-            {
-                x = 20 - 2 * i;
-            }
-            float y = 20 - 2*i;
-            ball.setVelocity(x, y);
-            if(left)
-            {
-                if (x > 0 || y < 0)
+                FireBall ball = Instantiate(velocitygivenBall, transform.position, Quaternion.identity) as FireBall;
+                float x;
+                if (left)
                 {
-                    break;
+                    x = -20 + xoffset * i;//20
                 }
-            }
-            else
-            {
-                if (x < 0 || y < 0)
+                else
                 {
-                    break;
+                    x = 20 - xoffset * i;
                 }
+                float y = 20 - yoffset * i;//20,2
+                ball.setVelocity(x, y);
+                if (left)
+                {
+                    if (x > 0 || y < 0)
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    if (x < 0 || y < 0)
+                    {
+                        break;
+                    }
+                }
+                yield return new WaitForSeconds(.1f);
             }
-            yield return new WaitForSeconds(.1f);
+        }
+        else
+        {
+            flowone = true;
+            int xoffset = Random.Range(1, 3);
+            int yoffset = Random.Range(2, 4);
+            for (int i = 0; i < 10; i++)
+            {
+                FireBall ball = Instantiate(velocitygivenBall, transform.position, Quaternion.identity) as FireBall;
+                //float x = -3 - i;
+                //float y = 5 + 2 * i;
+                float x;
+                if (left)
+                {
+                    x = -20 + xoffset * i;
+                }
+                else
+                {
+                    x = 20 - xoffset * i;
+                }
+                //float y = Mathf.Log10(2*i + 1);
+                // Debug.Log(y);
+                float y = yoffset * i + 10;
+                 //float y = 20 - 2 * i;
+                ball.setVelocity(x, y);
+                if (left)
+                {
+                    if (x > 0 || y < 0)
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    if (x < 0 || y < 0)
+                    {
+                        break;
+                    }
+                }
+                yield return new WaitForSeconds(.1f);
+            }
         }
         yield return new WaitForSeconds(1f);
         flowattackagain = true;
     }
     IEnumerator LaserBeamAttack()
     {
-        laseroffset = Mathf.Abs(-laserradius * Mathf.Cos(((Mathf.PI * laserbeamangle) / 180) - Mathf.PI / 2)) + 2;//-cos(x-pi/2) + 2
+        myAnimator.SetTrigger("skill_3");
+        laseroffset = Mathf.Abs(-laserradius * Mathf.Cos(((Mathf.PI * laserbeamangle) / 180) - Mathf.PI / 2)) + 4;//-cos(x-pi/2) + 2
         FireBall ballupper = Instantiate(nogravityBall, new Vector2(transform.position.x-2f, transform.position.y+3), Quaternion.identity) as FireBall;
         ballupper.setVelocity(-17f, 0);
         ballupper.setoffest(laseroffset);
@@ -265,7 +364,7 @@ public class LavaBeast : MonoBehaviour
     }
     private void FacePlayer()
     {
-        if(thePlayer.transform.position.x < transform.position.x)
+        if(Players[0].transform.position.x < transform.position.x)
         {
             transform.localScale = new Vector2(-.02f, transform.localScale.y);
         }
@@ -354,5 +453,14 @@ public class LavaBeast : MonoBehaviour
             transform.localScale = new Vector2(-.02f, transform.localScale.y);
             myRigidBody.velocity = new Vector2(-moveSpeed, myRigidBody.velocity.y);
         }
+    }
+    public void LavaBeastDeath()
+    {
+        BossDead = true;
+        lavagroundphase = false;
+        burstattackphase = false;
+        flowattackphase = false;
+        laserbeamphase = false;
+        GetComponentInChildren<EnemyToPlayerCollider>().GetComponent<BoxCollider2D>().enabled = false;
     }
 }

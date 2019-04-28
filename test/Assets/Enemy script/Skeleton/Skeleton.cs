@@ -6,7 +6,7 @@ public class Skeleton : MonoBehaviour
 {
 
     //can roam a certain area back and forth and he can also jump when needed
-
+    [SerializeField] int Health = 5;
     [SerializeField] float moveSpeed = 2f;
     [SerializeField] float jumpHeight = 8f;
     [SerializeField] float roamRange = 10f;
@@ -14,20 +14,23 @@ public class Skeleton : MonoBehaviour
     [SerializeField] bool enemyswitchonwall = false;
 
     int isdirright = 1;
-    int framestilljumpagain = 0;//to fix double jump bug
+    float framestilljumpagain = 0;//to fix double jump bug
     float initialposition;
+    bool Frozen = false;
+    bool turnRed = true;
+    bool goingright = true;
 
     Animator myAnimator;
     Rigidbody2D myRigidBody;
     PolygonCollider2D myFeetCollider;
-    Player thePlayer;
+    //Player thePlayer;
 
     // Start is called before the first frame update
     void Start()
     {
         initialposition = transform.position.x;
         myRigidBody = GetComponent<Rigidbody2D>();
-        thePlayer = FindObjectOfType<Player>();
+       // thePlayer = FindObjectOfType<Player>();
         myAnimator = GetComponent<Animator>();
         myFeetCollider = GetComponent<PolygonCollider2D>();
     }
@@ -35,14 +38,26 @@ public class Skeleton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckIfEnemyIsWithinRange();
-        Roam();
-        if (framestilljumpagain > 0)
+        if (Frozen)
         {
-            framestilljumpagain++;
-            if (framestilljumpagain == 5)
+            if (myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Default")))
             {
-                framestilljumpagain = 0;
+                Frozen = false;
+                turnRed = true;
+            }
+            //StartCoroutine(UnFreeze());
+        }
+        else
+        {
+            CheckIfEnemyIsWithinRange();
+            Roam();
+            if (framestilljumpagain > 0)
+            {
+                framestilljumpagain+= 1 * Time.deltaTime;
+                if (framestilljumpagain == 5)
+                {
+                    framestilljumpagain = 0;
+                }
             }
         }
     }
@@ -59,7 +74,14 @@ public class Skeleton : MonoBehaviour
     {
         if(transform.position.x > initialposition + roamRange || transform.position.x < initialposition - roamRange)
         {
-            ChildChangeisdirrightSkeleton();
+            if(transform.position.x < initialposition - roamRange && isdirright == 1 || transform.position.x > initialposition + roamRange && isdirright == -1)
+            {
+
+            }
+            else
+            {
+                ChildChangeisdirrightSkeleton();
+            }
         }
     }
     private void Roam()
@@ -77,8 +99,7 @@ public class Skeleton : MonoBehaviour
     }
     public void JumpSkeleton()
     {
-
-        if (!myFeetCollider.IsTouchingLayers(LayerMask.GetMask("ForegroundTile")))
+        if (!myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Default")))
         {
             return;
         }
@@ -96,11 +117,11 @@ public class Skeleton : MonoBehaviour
         }
         Vector2 jumpVector = new Vector2(0f, jumpHeight);
         myRigidBody.velocity += jumpVector;
-        framestilljumpagain++;
+        framestilljumpagain+= 1*Time.deltaTime;
     }
     private bool IsPlayerInFront()
     {
-        float EnemyPlayerXDifference = transform.position.x - thePlayer.transform.position.x;
+        float EnemyPlayerXDifference = transform.position.x - GameObject.FindGameObjectWithTag("Player").transform.position.x;
         if (EnemyPlayerXDifference < 0)//player is in front
         {
             return true;
@@ -109,6 +130,30 @@ public class Skeleton : MonoBehaviour
         {
             return false;
         }
+    }
+    public void EnemyDamaged()
+    {
+        Health = Health - 1;
+        if (Health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+    public void SkeletonFreeze()
+    {
+        float xvel = 5f;
+        float yvel = 8f;
+        if (IsPlayerInFront())
+        {
+            xvel = -xvel;
+        }
+        myRigidBody.velocity = new Vector2(xvel, yvel);
+        if (turnRed)
+        {
+            myAnimator.SetTrigger("Damaged");
+            turnRed = false;
+        }
+        Frozen = true;
     }
 
 }

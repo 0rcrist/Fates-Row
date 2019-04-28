@@ -18,8 +18,9 @@ public class Arrow : MonoBehaviour
     float arrowX;
     float arrowY;
     float t;
+    GameObject Player;
 
-    int DeathCounter = 0;
+    float DeathCounter = 0;
 
     Rigidbody2D myRigidBody;
 
@@ -33,26 +34,17 @@ public class Arrow : MonoBehaviour
     {
         isGasArrow = true;
     }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(isGasArrow)
-        {
-            GameObject gas = Instantiate(gasParticle, transform.position, Quaternion.identity) as GameObject;
-            Destroy(gas, 2f);
-        }
-        stickx = transform.position.x;
-        sticky = transform.position.y;
-        stick = true;
-        DeathCounter = 250;
-        Destroy(GetComponent<BoxCollider2D>());
-    }
     // Start is called before the first frame update
     void Start()
     {
         myRigidBody = GetComponent<Rigidbody2D>();
-
-        playerX = FindObjectOfType<Player>().transform.position.x;
-        playerY = FindObjectOfType<Player>().transform.position.y;
+        Player = transform.parent.GetComponentInChildren<ArcherVision>().GetPlayer();
+       // Player = GetComponent<ArcherVision>().GetPlayer();
+        //Player = transform.parent.GetComponent<ArcherVision>().GetPlayer();
+        //playerX = GameObject.FindGameObjectWithTag("Player").transform.position.x;
+       // playerY = GameObject.FindGameObjectWithTag("Player").transform.position.y;
+        playerX = Player.transform.position.x;
+        playerY = Player.transform.position.y;
         arrowX = transform.position.x;
         arrowY = transform.position.y;
 
@@ -76,13 +68,26 @@ public class Arrow : MonoBehaviour
     {
         Rotatez();
         Stick();
-        DeathCounter++;
-        if (DeathCounter > 300)
+        DeathCounter+= 1* Time.deltaTime;
+        if (DeathCounter > 100)
         {
             Destroy(gameObject);
         }
     }
-
+    public void HitWall()
+    {
+        if (isGasArrow)
+        {
+            GameObject gas = Instantiate(gasParticle, transform.position, Quaternion.identity) as GameObject;
+            Destroy(gas, 2f);
+        }
+        stickx = transform.position.x;
+        sticky = transform.position.y;
+        stick = true;
+        DeathCounter = 250;
+        //Destroy(GetComponentInChildren<BoxCollider2D>());
+        Destroy(GetComponent<BoxCollider2D>());
+    }
     private bool isPlayerToRight(float px, float ax)
     {
         if(px > ax)

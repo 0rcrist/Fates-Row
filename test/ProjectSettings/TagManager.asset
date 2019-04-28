@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - LavaBeast
   layers:
   - Default
   - TransparentFX
@@ -22,7 +23,7 @@ TagManager:
   - 'Projectile '
   - EnemyCollisionBoxes
   - Fireball
-  - 
+  - EnemyToPlayerCollider
   - 
   - 
   - 
@@ -41,9 +42,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Player
-    uniqueID: 1753928349
-    locked: 0
   - name: Background
     uniqueID: 1278758755
     locked: 0
@@ -55,6 +53,9 @@ TagManager:
     locked: 0
   - name: ForegroundTile
     uniqueID: 208891293
+    locked: 0
+  - name: Player
+    uniqueID: 1753928349
     locked: 0
   - name: Enemies
     uniqueID: 364644323

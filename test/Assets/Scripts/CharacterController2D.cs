@@ -27,6 +27,7 @@ public class CharacterController2D : NetworkBehaviour
     [Space]
     public UnityEvent OnLandEvent;
 
+
     [System.Serializable]
     public class BoolEvent : UnityEvent<bool> { }
 

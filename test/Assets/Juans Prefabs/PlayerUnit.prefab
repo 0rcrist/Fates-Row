@@ -39,6 +39,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 35}
+  - component: {fileID: 1980283173220486731}
   - component: {fileID: 66}
   - component: {fileID: 5435954011732324287}
   - component: {fileID: 61}
@@ -71,9 +72,28 @@ Transform:
   - {fileID: 33}
   - {fileID: 30}
   - {fileID: 8430979333151356606}
+  - {fileID: 6191800263024773764}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1980283173220486731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 27}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1340756afbeb827449a37839a4e19bb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 5
+  maxHealth: 5
+  healthSprites: []
+  healthImage: {fileID: 0}
+  healthText: {fileID: 0}
+  can: {fileID: 0}
 --- !u!114 &66
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,6 +162,8 @@ MonoBehaviour:
   runSpeed: 60
   joy: {fileID: 0}
   ani: {fileID: 9013088401409871161}
+  levelKillCounter: 0
+  levelDeathCounter: 0
 --- !u!58 &38
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -305,8 +327,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1753928349
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -331,13 +353,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eb5db728f36d7f45b84063ebd3eceef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBtwAttacks: 0
-  attackPos: {fileID: 0}
-  attackRange: 0
+  timeBtwAttacks: 0.5
+  attackPos: {fileID: 6191800263024773764}
+  attackRange: 1
   whatIsEnemy:
     serializedVersion: 2
-    m_Bits: 0
-  damage: 0
+    m_Bits: 4096
+  damage: 5
 --- !u!1 &28
 GameObject:
   m_ObjectHideFlags: 0
@@ -613,8 +635,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1753928349
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 2dd2eb35843305243acc4e391bdfb750, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -646,3 +668,33 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &7115311132238179411
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6191800263024773764}
+  m_Layer: 0
+  m_Name: Rogue_Attack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6191800263024773764
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7115311132238179411}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.46, y: -0.37, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 35}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

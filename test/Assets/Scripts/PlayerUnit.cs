@@ -1,7 +1,8 @@
-﻿using UnityEngine.UI;
+using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.Networking;
-
+using UnityEngine.SceneManagement;
+using System.Collections;
 public class PlayerUnit : NetworkBehaviour
 {
     public CharacterController2D controller;
@@ -11,10 +12,19 @@ public class PlayerUnit : NetworkBehaviour
     public Joystick joy;
     public Animator ani;
 
+    public int levelKillCounter = 0; //Jason
+    public int levelDeathCounter = 0;//Jason
     
-
+    void Start() //Jason
+    {
+        StartCoroutine(SyncScore()); 
+    }
     
-
+    void onDestroy()
+    {
+        if(this != null)
+            SyncNow();
+    }
     // Update is called once per frame
     void Update()
     {
@@ -56,5 +66,43 @@ public class PlayerUnit : NetworkBehaviour
         jump = true;
         
     }
+    
+   
+    /* Jason's Database Functions */
 
+    IEnumerator SyncScore()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(2f);
+
+
+            SyncNow();
+        }
+    }
+    void SyncNow()
+    {
+        if (AccountManager.isLoggedIn)
+        {
+            AccountManager.instance.GetData(OnDataReceived);
+        }
+    }
+    
+    void OnDataReceived(string data)
+    {
+        if (levelKillCounter == 0 && levelDeathCounter == 0)
+            return;
+
+        int kills = Parser.DataToKills(data);
+        int deaths = Parser.DataToDeaths(data);
+
+        int totalKills = kills + levelKillCounter;
+        int totalDeaths = deaths + levelDeathCounter;
+
+        string newData = Parser.ValuesToData(totalKills, totalDeaths);
+        Debug.Log("Syncing" + newData);
+        levelKillCounter = 0;
+        levelDeathCounter = 0;
+        AccountManager.instance.SendData(newData);
+    }
 }

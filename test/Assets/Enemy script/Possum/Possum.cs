@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Possum : MonoBehaviour
 {
+    [SerializeField] int Health = 5;
     [SerializeField] int moveSpeed = 3;
     [SerializeField] float acceleratorSpeed = 0.1f;
     [SerializeField] float jumpHeight = 8f;
@@ -16,15 +17,19 @@ public class Possum : MonoBehaviour
     bool SeePlayer = false;
 
     Rigidbody2D myRigidbody;
+    Animator myAnimator;
     //PlayerUnit thePlayer;
     PolygonCollider2D feetCollider;
     CircleCollider2D frontCollider;
     CapsuleCollider2D wallswitchCollider;
     GameObject[] Players;
     bool getplayersonce = true;
+    bool Frozen = false;
+    bool turnRed = true;
+    int playerseenindex = 0;
 
 
-    int framestilljumpagain = 0;//to fix double jump bug
+    float framestilljumpagain = 0;//to fix double jump bug
 
     public void ChildChangeisdirrightPossum()
     {
@@ -39,6 +44,7 @@ public class Possum : MonoBehaviour
     void Start()
     {        
         myRigidbody = GetComponent<Rigidbody2D>();
+        myAnimator = GetComponent<Animator>();
         //thePlayer = FindObjectOfType<PlayerUnit>();
         feetCollider = GetComponent<PolygonCollider2D>();
         frontCollider = GetComponent<CircleCollider2D>();
@@ -48,29 +54,41 @@ public class Possum : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (getplayersonce)
+        if (Frozen)
         {
-            getplayers();
+            if (feetCollider.IsTouchingLayers(LayerMask.GetMask("Default")))
+            {
+                Frozen = false;
+                turnRed = true;
+            }
+            //StartCoroutine(UnFreeze());
         }
         else
         {
-            Flip();
-            DoesHeSeePlayer();
-            if (SeePlayer == true)
+            if (getplayersonce)
             {
-                Chase();
+                getplayers();
             }
             else
             {
-                Move();
-            }
-
-            if (framestilljumpagain > 0)
-            {
-                framestilljumpagain++;
-                if (framestilljumpagain == 3)
+                Flip();
+                DoesHeSeePlayer();
+                if (SeePlayer == true)
                 {
-                    framestilljumpagain = 0;
+                    Chase();
+                }
+                else
+                {
+                    Move();
+                }
+
+                if (framestilljumpagain > 0)
+                {
+                    framestilljumpagain+= 1 * Time.deltaTime;
+                    if (framestilljumpagain == 3)
+                    {
+                        framestilljumpagain = 0;
+                    }
                 }
             }
         }
@@ -80,10 +98,13 @@ public class Possum : MonoBehaviour
     {
         //int counter = 0;
         Players = GameObject.FindGameObjectsWithTag("Player");
-        if(Players.Length == 0)
+        if(Players.Length < 2)
+         {
+
+         }
+        /*if (Players.Length == 0)
         {
-            Debug.Log("empty");
-        }
+        }*/
         else
         {
             getplayersonce = false;
@@ -98,10 +119,18 @@ public class Possum : MonoBehaviour
     }
     private void DoesHeSeePlayer()
     {
+        //do for player[1] whichever one is thats the index 0 or 1, then just make that a variable
         float EnemyPlayerXDifference = transform.position.x - Players[0].transform.position.x;
-        if(Mathf.Abs(EnemyPlayerXDifference) < enemySeePlayerRange)
+        float EnemyPlayer2XDifference = transform.position.x - Players[1].transform.position.x;
+        if (Mathf.Abs(EnemyPlayerXDifference) < enemySeePlayerRange)
         {
             SeePlayer = true;
+            playerseenindex = 0;
+        }
+        else if(Mathf.Abs(EnemyPlayer2XDifference) < enemySeePlayerRange)
+        {
+            SeePlayer = true;
+            playerseenindex = 1;
         }
     }
 
@@ -129,25 +158,32 @@ public class Possum : MonoBehaviour
         }
         Vector2 jumpVector = new Vector2(0f, jumpHeight);
         myRigidbody.velocity += jumpVector;
-        framestilljumpagain++;
+        framestilljumpagain += 1 * Time.deltaTime;
     }
 
     private void Flip()
     {
         if(SeePlayer)//always facing player
         {
-            if(IsPlayerInFront())
+            if (Mathf.Abs(transform.position.x - Players[playerseenindex].transform.position.x) < 2)
             {
-                if(transform.localScale.x > 0)
-                {
-                    transform.localScale = new Vector2(-1 * transform.localScale.x, transform.localScale.y);
-                }
+
             }
             else
             {
-                if (transform.localScale.x < 0)
+                if (IsPlayerInFront())
                 {
-                    transform.localScale = new Vector2(-1 * transform.localScale.x, transform.localScale.y);
+                    if (transform.localScale.x > 0)
+                    {
+                        transform.localScale = new Vector2(-1 * transform.localScale.x, transform.localScale.y);
+                    }
+                }
+                else
+                {
+                    if (transform.localScale.x < 0)
+                    {
+                        transform.localScale = new Vector2(-1 * transform.localScale.x, transform.localScale.y);
+                    }
                 }
             }
         }
@@ -160,7 +196,7 @@ public class Possum : MonoBehaviour
 
     private bool IsPlayerInFront()
     {
-        float EnemyPlayerXDifference = transform.position.x - Players[0].transform.position.x;
+        float EnemyPlayerXDifference = transform.position.x - Players[playerseenindex].transform.position.x;
         if (EnemyPlayerXDifference < 0)//player is in front
         {
             return true;
@@ -214,4 +250,35 @@ public class Possum : MonoBehaviour
 
         return transform.localScale.x;
     }
+    public void EnemyDamaged()
+    {
+        Health = Health - 1;
+        if(Health <= 0)
+        {
+            FindObjectOfType<killcontainer>().addtocounter();
+            Destroy(gameObject);
+        }
+    }
+    public void PossumFreeze()
+    {
+        float xvel = 5f;
+        float yvel = 8f;
+        if (IsPlayerInFront())
+        {
+            xvel = -xvel;
+        }
+        myRigidbody.velocity = new Vector2(xvel, yvel);
+        if(turnRed)
+        {
+            myAnimator.SetTrigger("Damaged");
+            turnRed = false;
+        }
+        Frozen = true;
+    }
+    IEnumerator UnFreeze()
+    {
+        yield return new WaitForSeconds(.5f);
+        Frozen = false;
+    }
+    
 }

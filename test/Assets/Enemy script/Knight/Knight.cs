@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Knight : MonoBehaviour
 {
+    [SerializeField] int Health = 5;
     [SerializeField] float moveSpeed = 2f;
     [SerializeField] float jumpHeight = 8f;
     [SerializeField] float enemySeePlayerRange = 5f;
@@ -17,15 +18,19 @@ public class Knight : MonoBehaviour
     Animator myAnimator;
     Rigidbody2D myRigidBody;
     PolygonCollider2D myFeetCollider;
-    Player thePlayer;
-   
+    //Player thePlayer;
+    GameObject[] Players;
+    bool getplayersonce = true;
+    bool Frozen = false;
+    bool turnRed = true;
+    int randomPlayer = 0;
 
     //run up to player stops and swings, repeat
     // Start is called before the first frame update
     void Start()
     {
         myRigidBody = GetComponent<Rigidbody2D>();
-        thePlayer = FindObjectOfType<Player>();
+       // thePlayer = FindObjectOfType<Player>();
         myAnimator = GetComponent<Animator>();
         myFeetCollider = GetComponent<PolygonCollider2D>();
     }
@@ -33,35 +38,74 @@ public class Knight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(canSeePlayer)
+        if (Frozen)
         {
-            IsHeAttacking();
-            if(isAttacking)
+            if (myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Default")))
             {
-                if(!inAttackCoRoutine)
-                {
-                    StartCoroutine(Attack());
-                }
+                Frozen = false;
+                turnRed = true;
             }
-            else
-            {
-                Chase();
-            }
+            //StartCoroutine(UnFreeze());
         }
         else
         {
-            Roam();
-        }
-        if (framestilljumpagain > 0)
-        {
-            framestilljumpagain++;
-            if (framestilljumpagain == 5)
+            if (getplayersonce)
             {
-                framestilljumpagain = 0;
+                getplayers();
+            }
+            else
+            {
+                if (canSeePlayer)
+                {
+                    IsHeAttacking();
+                    if (isAttacking)
+                    {
+                        if (!inAttackCoRoutine)
+                        {
+                            StartCoroutine(Attack());
+                        }
+                    }
+                    else
+                    {
+                        Chase();
+                    }
+                }
+                else
+                {
+                    Roam();
+                }
+                if (framestilljumpagain > 0)
+                {
+                    framestilljumpagain++;
+                    if (framestilljumpagain == 5)
+                    {
+                        framestilljumpagain = 0;
+                    }
+                }
             }
         }
     }
+    private void getplayers()
+    {
+        //int counter = 0;
+        Players = GameObject.FindGameObjectsWithTag("Player");
+        /*if(Players.Length < 2)
+        {
 
+        }
+        else
+        {
+            getplayersonce = false;
+        }*/
+        if (Players.Length == 0)
+        {
+
+        }
+        else
+        {
+            getplayersonce = false;
+        }
+    }
     IEnumerator Attack()
     {
         inAttackCoRoutine = true;
@@ -72,10 +116,10 @@ public class Knight : MonoBehaviour
         isAttacking = false;
         inAttackCoRoutine = false;
     }
-
+    
     private void IsHeAttacking()
     {
-        if (Mathf.Abs(transform.position.x - thePlayer.transform.position.x) < 1f && Mathf.Abs(transform.position.y - thePlayer.transform.position.y) < 3f)
+        if (Mathf.Abs(transform.position.x - GetComponentInChildren<KnightVision>().KnightVisionPlayerX()) < 1f && Mathf.Abs(transform.position.y - GetComponentInChildren<KnightVision>().KnightVisionPlayerY()) < 3f)
         {
             isAttacking = true;
         }
@@ -91,11 +135,11 @@ public class Knight : MonoBehaviour
     {
         myAnimator.SetBool("Walk", true);
         Flip();
-        if (IsPlayerInFront())//player is in front
+        if (GetComponentInChildren<KnightVision>().IsPlayerInFrontKnightVision())//player is in front
         {
             myRigidBody.velocity = new Vector2(moveSpeed, myRigidBody.velocity.y);
         }
-        else if (!IsPlayerInFront())//player behind
+        else if (!GetComponentInChildren<KnightVision>().IsPlayerInFrontKnightVision())//player behind
         {
             myRigidBody.velocity = new Vector2(-moveSpeed, myRigidBody.velocity.y);
         }
@@ -105,7 +149,7 @@ public class Knight : MonoBehaviour
     {
         if(canSeePlayer)
         {
-            if(IsPlayerInFront())
+            if(GetComponentInChildren<KnightVision>().IsPlayerInFrontKnightVision())
             {
                 transform.localScale = new Vector2(-1f, 1f);
                 GetComponentInChildren<KnightVision>().transform.localScale = new Vector3(-1f, 1f);
@@ -120,7 +164,7 @@ public class Knight : MonoBehaviour
 
     private bool IsPlayerInFront()
     {
-        float EnemyPlayerXDifference = transform.position.x - thePlayer.transform.position.x;
+        float EnemyPlayerXDifference = transform.position.x - Players[0].transform.position.x;
         if (EnemyPlayerXDifference < 0)//player is in front
         {
             return true;
@@ -134,11 +178,11 @@ public class Knight : MonoBehaviour
     {
         if(x == false)
         {
-            if(Mathf.Abs(transform.position.x - thePlayer.transform.position.x) < enemySeePlayerRange)
+           /* if(Mathf.Abs(transform.position.x - Players[0].transform.position.x) < enemySeePlayerRange)
             {
                 //canSeePlayer = true;
                 return;
-            }
+            }*/
         }
         canSeePlayer = x;
     }
@@ -152,7 +196,7 @@ public class Knight : MonoBehaviour
         {
             return;
         }
-        if (!myFeetCollider.IsTouchingLayers(LayerMask.GetMask("ForegroundTile")))
+        if (!myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Default")))
         {
             return;
         }
@@ -160,16 +204,44 @@ public class Knight : MonoBehaviour
         {
             return;
         }
-        if (!IsPlayerInFront() && myRigidBody.velocity.x > 0)//rat is in front and velocity positive
+        if (!GetComponentInChildren<KnightVision>().IsPlayerInFrontKnightVision() && myRigidBody.velocity.x > 0)//rat is in front and velocity positive
         {
             return;
         }
-        if (IsPlayerInFront() && myRigidBody.velocity.x < 0)//rat is in back and velocity negatives
+        if (GetComponentInChildren<KnightVision>().IsPlayerInFrontKnightVision() && myRigidBody.velocity.x < 0)//rat is in back and velocity negatives
         {
             return;
         }
         Vector2 jumpVector = new Vector2(0f, jumpHeight);
         myRigidBody.velocity += jumpVector;
         framestilljumpagain++;
+    }
+    public void EnemyDamaged()
+    {
+        Health = Health - 1;
+        if (Health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+    public void KnightFreeze()
+    {
+        float xvel = 5f;
+        float yvel = 8f;
+        if (GetComponentInChildren<KnightVision>().IsPlayerInFrontKnightVision())
+        {
+            xvel = -xvel;
+        }
+        myRigidBody.velocity = new Vector2(xvel, yvel);
+        if (turnRed)
+        {
+            myAnimator.SetTrigger("Damaged");
+            turnRed = false;
+        }
+        Frozen = true;
+    }
+    public float GetVisionRange()
+    {
+        return enemySeePlayerRange;
     }
 }
