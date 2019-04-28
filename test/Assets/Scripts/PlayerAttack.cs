@@ -15,20 +15,15 @@ public class PlayerAttack : MonoBehaviour
 
     public int damage;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKey(KeyCode.Space)) {
-            performAttack();
-        }
-    }
+  
     public void performAttack() {
-        if (timeBtwAttacks <= 0)
+        Debug.Log("Attacking");
+            if (timeBtwAttacks <= 0)
         {
             timeBtwAttacks = startAttacks;
             Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemy);
             foreach (Collider2D enemy in enemiesToDamage) {
-                enemy.GetComponent<EnemyHealth>().LowerHealth(2);
+                enemy.GetComponent<EnemyHealth>().LowerHealth(damage);
             }
             timeBtwAttacks = startAttacks;
         }

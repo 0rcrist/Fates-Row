@@ -49,7 +49,7 @@ public class PlayerUnit : NetworkBehaviour
 
         }
          
-        Debug.Log("speed is " + ani.GetFloat("Speed"));
+        //Debug.Log("speed is " + ani.GetFloat("Speed"));
         }
 
     void FixedUpdate()
