@@ -14,7 +14,7 @@ public class PlayerAttack : NetworkBehaviour
     public float attackRange;
 
     [SyncVar]
-    private bool isAttacking = false;
+    private bool isAttacking = false;//hello
 
     public LayerMask whatIsEnemy;
 
