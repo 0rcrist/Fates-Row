@@ -14,7 +14,7 @@ public class Skeleton : MonoBehaviour
     [SerializeField] bool enemyswitchonwall = false;
 
     int isdirright = 1;
-    int framestilljumpagain = 0;//to fix double jump bug
+    float framestilljumpagain = 0;//to fix double jump bug
     float initialposition;
     bool Frozen = false;
     bool turnRed = true;
@@ -53,7 +53,7 @@ public class Skeleton : MonoBehaviour
             Roam();
             if (framestilljumpagain > 0)
             {
-                framestilljumpagain++;
+                framestilljumpagain+= 1 * Time.deltaTime;
                 if (framestilljumpagain == 5)
                 {
                     framestilljumpagain = 0;
@@ -117,7 +117,7 @@ public class Skeleton : MonoBehaviour
         }
         Vector2 jumpVector = new Vector2(0f, jumpHeight);
         myRigidBody.velocity += jumpVector;
-        framestilljumpagain++;
+        framestilljumpagain+= 1*Time.deltaTime;
     }
     private bool IsPlayerInFront()
     {

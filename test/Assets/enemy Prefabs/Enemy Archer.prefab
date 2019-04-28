@@ -349,6 +349,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 5
+  VisionRange: 30
   isMage: 0
   thefireball: {fileID: 7212961054137152886, guid: 0f15424541d21a344bff46f321414f44,
     type: 3}

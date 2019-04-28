@@ -37,6 +37,7 @@ public class Health : MonoBehaviour
     {   
         if(invinsible == false)
         {
+            GetComponentInChildren<Graphic>().GetComponent<Animator>().SetTrigger("Damaged");
             currentHealth = currentHealth - damageAmount;
             if (currentHealth <= 0)
                 Die();
@@ -56,5 +57,13 @@ public class Health : MonoBehaviour
     {//restarts the level
      //Application.LoadLevel(Application.loadedLevel);
         Debug.Log("player died");
+    }
+    public int GetMaxHealth()
+    {
+        return maxHealth;
+    }
+    public int GetCurrentHealth()
+    {
+        return currentHealth;
     }
 }
