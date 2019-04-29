@@ -14,7 +14,18 @@ public class EnemyHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Health <= 0)
+        {
+            if (tag == "LavaBeast")
+            {
+                GetComponent<LavaBeast>().LavaBeastDeath();
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+            FindObjectOfType<PlayerUnit>().levelKillCounter++; //Jason
+        }
     }
 
     public void LowerHealth(int h)
@@ -31,7 +42,7 @@ public class EnemyHealth : MonoBehaviour
             {
                 Destroy(gameObject);
             }
-            FindObjectOfType<PlayerUnit>().levelKillCounter++; //Jason
+           // FindObjectOfType<PlayerUnit>().levelKillCounter++; //Jason
         }
     }
     private void DealWithHitBack()

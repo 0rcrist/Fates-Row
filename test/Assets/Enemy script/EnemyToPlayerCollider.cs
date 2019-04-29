@@ -8,8 +8,9 @@ public class EnemyToPlayerCollider : MonoBehaviour
     static bool Damage = true;//make static if I want it to follow for all enemies
     private void OnTriggerEnter2D(Collider2D collision)//can only hit players probably dont have to check name
     {  
-            if (collision.name == "PlayerUnit(Clone)")
+            if (collision.tag == "Player")
             {
+                Debug.Log("DAMAGED");
                 collision.GetComponent<Health>().damagePlayer(1);
   
             }

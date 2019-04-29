@@ -24,7 +24,7 @@ public class LavaBeast : MonoBehaviour
     bool laserbeamphase = false;
     bool flowattackphase = false;
     bool cosinephase = false;
-    int switchphasecounter = 1;
+    float switchphasecounter = 1;
 
     //cosine attack
     bool cosineattackagain = true;
@@ -163,18 +163,18 @@ public class LavaBeast : MonoBehaviour
         bool laserbeamphase = false;
         bool cosinephase = false;*/
 
-        if (switchphasecounter % 300 == 0)//1000
+        if (switchphasecounter % 6 == 0)//1000
         {
             if(!BossFreezed)
             {
                 StartCoroutine(BossFrozen());
-                switchphasecounter++;
+                switchphasecounter+= 1 * Time.deltaTime;
                 BossFreezed = true;
             }
         }
         if(!BossFreezed)
         {
-            switchphasecounter++;
+            switchphasecounter += 1 * Time.deltaTime;
         }
     }
     IEnumerator BossFrozen()
@@ -456,6 +456,7 @@ public class LavaBeast : MonoBehaviour
     }
     public void LavaBeastDeath()
     {
+        myAnimator.SetTrigger("death");
         BossDead = true;
         lavagroundphase = false;
         burstattackphase = false;

@@ -11,12 +11,12 @@ public class Health : MonoBehaviour
     public Image healthImage;
     public Text healthText;
     public GameObject can;
-    bool invinsible = false;
+    bool invinsible;
     
     // Start is called before the first frame update
     void Start()
     {
- 
+        invinsible = false;
         currentHealth = maxHealth; 
     }
 
@@ -37,7 +37,8 @@ public class Health : MonoBehaviour
     {   
         if(invinsible == false)
         {
-            GetComponentInChildren<Graphic>().GetComponent<Animator>().SetTrigger("Damaged");
+            Debug.Log("LowerHealth");
+            //GetComponentInChildren<Graphic>().GetComponent<Animator>().SetTrigger("Damaged");
             currentHealth = currentHealth - damageAmount;
             if (currentHealth <= 0)
                 Die();
@@ -55,8 +56,8 @@ public class Health : MonoBehaviour
 
     void Die()
     {//restarts the level
-     //Application.LoadLevel(Application.loadedLevel);
-        Debug.Log("player died");
+     Application.LoadLevel(Application.loadedLevel);
+        //Debug.Log("player died");
     }
     public int GetMaxHealth()
     {
