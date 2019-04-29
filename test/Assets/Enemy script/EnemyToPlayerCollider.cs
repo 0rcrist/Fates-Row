@@ -10,7 +10,7 @@ public class EnemyToPlayerCollider : MonoBehaviour
     {  
             if (collision.tag == "Player")
             {
-                Debug.Log("DAMAGED");
+               
                 collision.GetComponent<Health>().damagePlayer(1);
   
             }

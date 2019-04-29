@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Health : MonoBehaviour
 {
@@ -56,7 +57,10 @@ public class Health : MonoBehaviour
 
     void Die()
     {//restarts the level
-     Application.LoadLevel(Application.loadedLevel);
+     //Application.LoadLevel(Application.loadedLevel);
+        transform.position = new Vector2(0f,7f);
+        currentHealth = maxHealth;
+        SceneManager.LoadScene(3);
         //Debug.Log("player died");
     }
     public int GetMaxHealth()
