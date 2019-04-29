@@ -11,6 +11,6 @@ public class SceneTransfer : MonoBehaviour
     public void transfer()
     {
         int i = 2;
-        SceneManager.LoadScene(6);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }   
 }
